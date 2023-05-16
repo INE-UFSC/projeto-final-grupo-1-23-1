@@ -2,6 +2,12 @@ import pygame
 import constantes
 import os
 
+<<<<<<< HEAD
+=======
+import mapa_1
+
+
+>>>>>>> 1ce573825571a487bd4e6ac6e73558327e86c157
 class Main:
     def __init__(self):
         #tela
@@ -103,10 +109,21 @@ class Main:
                     pygame.mixer.music.stop()
                     pygame.mixer.Sound(os.path.join(self.diretorio_audios, constantes.TECLA_START)).play()
                     self.abrir_mapa()
+<<<<<<< HEAD
 
     def abrir_mapa(self):
         from mapa import Mapa
         Mapa.desenhar_mapa()
+=======
+                    pygame.display.flip()
+
+    def abrir_mapa(self):
+        from mapa import Mapa
+        mapa  = Mapa(mapa_1.mapa)
+        mapa.carregar_mapa()
+        self.tela = mapa.tela
+
+>>>>>>> 1ce573825571a487bd4e6ac6e73558327e86c157
 
     def mostrar_tela_game_over(self):
         pass
@@ -114,6 +131,10 @@ class Main:
 g = Main()
 g.mostrar_tela_start()
 
+<<<<<<< HEAD
+=======
+
+>>>>>>> 1ce573825571a487bd4e6ac6e73558327e86c157
 while g.esta_rodando:
     g.novo_jogo()
     g.mostrar_tela_game_over()
