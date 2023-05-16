@@ -1,13 +1,11 @@
 import pygame
 import constantes
 import os
-
-<<<<<<< HEAD
-=======
+from mapa import Mapa
 import mapa_1
 
 
->>>>>>> 1ce573825571a487bd4e6ac6e73558327e86c157
+
 class Main:
     def __init__(self):
         #tela
@@ -104,26 +102,27 @@ class Main:
                     esperando = False
                     self.esta_rodando = False
 
-                if event.type == pygame.KEYUP: #key up pressiona e keydown aperta
+                if event.type == pygame.KEYDOWN: #key up pressiona e keydown aperta
                     esperando = False
                     pygame.mixer.music.stop()
                     pygame.mixer.Sound(os.path.join(self.diretorio_audios, constantes.TECLA_START)).play()
                     self.abrir_mapa()
-<<<<<<< HEAD
+
+
+    '''def abrir_mapa(self):
+        from mapa import Mapa
+        mapa_atual = Mapa()
+        mapa_atual.desenhar_mapa()
+        pygame.display.flip()'''
 
     def abrir_mapa(self):
-        from mapa import Mapa
-        Mapa.desenhar_mapa()
-=======
-                    pygame.display.flip()
 
-    def abrir_mapa(self):
-        from mapa import Mapa
-        mapa  = Mapa(mapa_1.mapa)
+        mapa = Mapa(mapa_1.mapa)
         mapa.carregar_mapa()
         self.tela = mapa.tela
+        pygame.display.update()
 
->>>>>>> 1ce573825571a487bd4e6ac6e73558327e86c157
+
 
     def mostrar_tela_game_over(self):
         pass
@@ -131,10 +130,6 @@ class Main:
 g = Main()
 g.mostrar_tela_start()
 
-<<<<<<< HEAD
-=======
-
->>>>>>> 1ce573825571a487bd4e6ac6e73558327e86c157
 while g.esta_rodando:
     g.novo_jogo()
-    g.mostrar_tela_game_over()
+    #g.mostrar_tela_game_over()

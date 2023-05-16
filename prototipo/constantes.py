@@ -1,5 +1,7 @@
-import math
+
 from math import pi
+
+
 #dimensoes
 LARGURA = 900
 ALTURA = 950
@@ -14,7 +16,7 @@ PRETO = (0, 0, 0)
 BRANCO = (255, 255, 255)
 AMARELO =  (244, 233, 51)
 AZUL = (0, 0, 255)
-PI = math.pi
+PI = pi
 
 
 PACMAN_START_LOGO = 'pacman-logo-1.png'

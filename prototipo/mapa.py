@@ -17,10 +17,10 @@ piscando = False
 
 
 class Mapa:
-    def __init__(self, numero_do_mapa: list):
+    def __init__(self, numero_do_mapa):
         self.mapa_atual = numero_do_mapa
-        self.moedas_comidas =  self.mapa_atual.count(0)
-        self.mapa_perido = False # Se tornará True quando todos as "moedas" forem comidas
+        #self.moedas_comidas =  self.mapa_atual.count(0)
+        self.mapa_perdido = False # Se tornará True quando todos as "moedas" forem comidas
         self.tela = pygame.display.set_mode((constantes.LARGURA, constantes.ALTURA))
 
 
@@ -34,7 +34,7 @@ class Mapa:
                      #aqui começa o desenho de cada item no mapa, o primerio é o 1, que é o espaço com a bolinha
                      # na funcao draw circle, o priemeiro parametro é a tela, o segundo a cor e depois as cordenadas
                      # j*num indica de será na coluna j e somamos mais meio tamanho para centralizar o ponto
-                     # quatro é o tamanho do ponto'''
+                     # quatro é o tamanho do ponto que é a sprinkle'''
                 if self.mapa_atual[i][j] == 1:
                     pygame.draw.circle(self.tela, 'white', (j * altura_do_bloco + (0.5 * altura_do_bloco), i * largura_do_bloco + (0.5 * largura_do_bloco)), 4)
                 if self.mapa_atual[i][j] == 2 and not piscando:
