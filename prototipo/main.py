@@ -18,6 +18,7 @@ class Main:
         self.fonte = pygame.font.match_font(constantes.FONTE)
         self.carregar_arquivos()
 
+
     def novo_jogo(self):
         #instancia todas as classes das sprites do jogo
         self.todas_as_sprites = pygame.sprite.Group()
@@ -25,12 +26,13 @@ class Main:
 
     def rodar(self):
         #estrutura repetiçao do jogo
-        self.jogando = True
+
         while self.jogando:
             self.relogio.tick(constantes.FPS)
             self.eventos()
             self.atualizar_sprites()
             self.desenhar_sprites()
+            self.iniciar_jogo()
 
     def eventos(self):
         #define os eventos do jogo
@@ -102,18 +104,13 @@ class Main:
                     esperando = False
                     self.esta_rodando = False
 
-                if event.type == pygame.KEYDOWN: #key up pressiona e keydown aperta
+                if event.type == pygame.KEYUP: #key up pressiona e keydown aperta
                     esperando = False
                     pygame.mixer.music.stop()
                     pygame.mixer.Sound(os.path.join(self.diretorio_audios, constantes.TECLA_START)).play()
-                    self.abrir_mapa()
 
 
-    '''def abrir_mapa(self):
-        from mapa import Mapa
-        mapa_atual = Mapa()
-        mapa_atual.desenhar_mapa()
-        pygame.display.flip()'''
+
 
     def abrir_mapa(self):
 
@@ -121,6 +118,18 @@ class Main:
         mapa.carregar_mapa()
         self.tela = mapa.tela
         pygame.display.update()
+
+
+    def iniciar_jogo(self):
+        self.abrir_mapa()
+        jogando = True
+        while jogando:
+            for event in pygame.event.get():
+                if event.type == pygame.QUIT:
+                    jogando = False
+                    break
+
+
 
 
 
