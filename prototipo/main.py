@@ -17,7 +17,7 @@ class Main:
         self.esta_rodando = True
         self.fonte = pygame.font.match_font(constantes.FONTE)
         self.carregar_arquivos()
-
+        self.jogando = True
 
     def novo_jogo(self):
         #instancia todas as classes das sprites do jogo
@@ -26,7 +26,7 @@ class Main:
 
     def rodar(self):
         #estrutura repetiçao do jogo
-
+        
         while self.jogando:
             self.relogio.tick(constantes.FPS)
             self.eventos()
@@ -122,12 +122,15 @@ class Main:
 
     def iniciar_jogo(self):
         self.abrir_mapa()
-        jogando = True
-        while jogando:
+
+        while self.jogando:
             for event in pygame.event.get():
                 if event.type == pygame.QUIT:
-                    jogando = False
+                    print('quittou')
+                    self.jogando = False
                     break
+        self.esta_rodando = False
+
 
 
 
