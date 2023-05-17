@@ -6,6 +6,7 @@ from math import pi
 LARGURA = 900
 ALTURA = 950
 
+
 TITULO_JOGO = 'PacMan'
 
 #FPS
