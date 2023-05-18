@@ -30,8 +30,7 @@ class Main:
             self.relogio.tick(constantes.FPS)
             self.atualizar_sprites()
             self.iniciar_jogo()
-            self.ghostman.move()
-            self.desenhar_sprites()
+            self.draw()
 
     def atualizar_sprites(self):
         self.todas_as_sprites.update()
@@ -41,9 +40,6 @@ class Main:
         self.diretorio_audios = os.path.join(os.getcwd(), 'audios')
         self.pacman_start_logo = os.path.join(diretorio_imagens, constantes.PACMAN_START_LOGO)
         self.pacman_start_logo = pygame.image.load(self.pacman_start_logo).convert()
-        self.ghostman.carrega_sprite()
-        for pacman in self.pacman:
-            pacman.carrega_sprite()
 
     def mostrar_texto(self, texto, tamanho_da_fonte, cor_do_texto, posicao_x, posicao_y):
         fonte = pygame.font.Font(self.fonte, tamanho_da_fonte)
@@ -99,20 +95,20 @@ class Main:
         self.tela = mapa.tela
         pygame.display.update()
 
-    def desenhar_sprites(self):
-        self.tela.fill(constantes.PRETO)  # Clear the screen
-        self.todas_as_sprites.draw(self.tela)
+    def draw(self):
+        self.ghostman.draw(self.tela)
+        for pacman in self.pacman:
+            pacman.draw(self.tela)
         pygame.display.flip()
 
     def iniciar_jogo(self):
         self.abrir_mapa()
-        self.todas_as_sprites.add(self.ghostman)
-        for pacman in self.pacman:
-            self.todas_as_sprites.add(pacman)
+        self.draw()
         while self.jogando:
             self.relogio.tick(constantes.FPS)
-            self.desenhar_sprites()
             self.eventos()
+            self.ghostman.move()  # Move the Ghostman
+            self.draw()
 
     def eventos(self):
         for event in pygame.event.get():
@@ -128,6 +124,8 @@ class Main:
                     self.ghostman.move_up()
                 elif event.key == pygame.K_DOWN:
                     self.ghostman.move_down()
+        
+        self.ghostman.move()  # Update the Ghostman's position
 
     def mostrar_tela_game_over(self):
         pass
