@@ -6,6 +6,7 @@ from math import pi
 LARGURA = 900
 ALTURA = 950
 
+
 TITULO_JOGO = 'PacMan'
 
 #FPS
@@ -46,6 +47,8 @@ PI = math.pi
 
 
 PACMAN_START_LOGO = 'pacman-logo-1.png'
+GHOSTMAN = 'ghostman.png'
+PACMAN = 'pacman.png'
 
 FONTE = 'arial'
 
