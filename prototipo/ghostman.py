@@ -1,48 +1,61 @@
 import pygame
 from pygame.locals import *
-import math
+from mapa import Mapa
 
 class Ghostman(pygame.sprite.Sprite):
     def __init__(self, x, y):
-        self.x = x
-        self.y = y
-        self.rect = pygame.Rect(x, y, 15, 15)
-        self.radius = 15
-        self.direction = "right"
+        super().__init__()
+        self.image = pygame.Surface((15, 15))
+        self.image.fill((5, 255, 0))
+        self.rect = self.image.get_rect()
+        self.rect.center = (x, y)
+        self.x = 0
+        self.y = 0
+        self.direction = None
         self.speed = 1
+        self.radius = 15
+        self.stopped = False
 
     def move(self):
-        if self.direction == "right":
-            self.rect.x += self.speed
-        elif self.direction == "left":
-            self.rect.x -= self.speed
-        elif self.direction == "up":
-            self.rect.y -= self.speed
+        if self.stopped:
+            return
+        if self.direction == "up":
+            if Mapa.mapa_atual[self.y - 1][self.x] != 3:
+                self.y -= self.speed
+            else:
+                self.stopped = True
         elif self.direction == "down":
-            self.rect.y += self.speed
+            if Mapa.mapa_atual[self.y + 1][self.x] != 3:
+                self.y += self.speed
+            else:
+                self.stopped = True
+        elif self.direction == "left":
+            if Mapa.mapa_atual[self.y][self.x - 1] != 3:
+                self.x -= self.speed
+            else:
+                self.stopped = True
+        elif self.direction == "right":
+            if Mapa.mapa_atual[self.y][self.x + 1] != 3:
+                self.x += self.speed
+            else:
+                self.stopped = True
 
-    def checar_colisao(self, obj):
-        distance = math.sqrt((self.rect.centerx - obj.rect.centerx) ** 2 + (self.rect.centery - obj.rect.centery) ** 2)
-        if distance < self.radius + obj.radius:
-            return True
-        return False
+    def check_collision(self):
+        if Mapa.mapa_atual[self.y][self.x] == 3:
+            self.stopped = True
 
     def draw(self, screen):
-        pygame.draw.circle(screen, (5, 255, 0), (self.x, self.y), self.radius)
+        pygame.draw.circle(screen, (5, 255, 0), self.rect.center, self.radius)
 
     def move_right(self):
         self.direction = "right"
-        self.rect.x += 1
 
     def move_left(self):
         self.direction = "left"
-        self.rect.x -= 1
 
     def move_up(self):
         self.direction = "up"
-        self.rect.y -= 1
 
     def move_down(self):
         self.direction = "down"
-        self.rect.y += 1
 

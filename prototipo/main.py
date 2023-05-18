@@ -23,14 +23,7 @@ class Main:
         self.jogando = True
 
     def novo_jogo(self):
-        self.rodar()
-
-    def rodar(self):
-        while self.jogando:
-            self.relogio.tick(constantes.FPS)
-            self.atualizar_sprites()
-            self.iniciar_jogo()
-            self.draw()
+        self.iniciar_jogo()
 
     def atualizar_sprites(self):
         self.todas_as_sprites.update()
@@ -86,16 +79,14 @@ class Main:
                     pygame.mixer.music.stop()
                     pygame.mixer.Sound(os.path.join(self.diretorio_audios, constantes.TECLA_START)).play()
 
-    def checar_colisao(self):
-        self.ghostman.colisao_ghostman()
-
     def abrir_mapa(self):
         mapa = Mapa(mapa_1.mapa)
         mapa.carregar_mapa()
-        self.tela = mapa.tela
-        pygame.display.update()
+        self.mapa_surface = mapa.tela.copy()  # Create a copy of the map surface
 
     def draw(self):
+        self.tela.fill(constantes.PRETO)  # Clear the screen
+        self.tela.blit(self.mapa_surface, (0, 0))  # Blit the map surface onto the screen
         self.ghostman.draw(self.tela)
         for pacman in self.pacman:
             pacman.draw(self.tela)
@@ -106,11 +97,11 @@ class Main:
         self.draw()
         while self.jogando:
             self.relogio.tick(constantes.FPS)
-            self.eventos()
-            self.ghostman.move()  # Move the Ghostman
+            self.ghostman.move()
+            self.ghostman.check_collision()
             self.draw()
 
-    def eventos(self):
+    def ghostman_movimentacao(self):
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 self.jogando = False
@@ -124,8 +115,8 @@ class Main:
                     self.ghostman.move_up()
                 elif event.key == pygame.K_DOWN:
                     self.ghostman.move_down()
-        
-        self.ghostman.move()  # Update the Ghostman's position
+
+        self.ghostman.move()
 
     def mostrar_tela_game_over(self):
         pass
