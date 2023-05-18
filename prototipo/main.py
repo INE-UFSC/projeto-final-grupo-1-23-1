@@ -82,11 +82,11 @@ class Main:
     def abrir_mapa(self):
         mapa = Mapa(mapa_1.mapa)
         mapa.carregar_mapa()
-        self.mapa_surface = mapa.tela.copy()  # Create a copy of the map surface
+        self.mapa_surface = mapa.tela.copy()
 
     def draw(self):
-        self.tela.fill(constantes.PRETO)  # Clear the screen
-        self.tela.blit(self.mapa_surface, (0, 0))  # Blit the map surface onto the screen
+        self.tela.fill(constantes.PRETO)
+        self.tela.blit(self.mapa_surface, (0, 0))
         self.ghostman.draw(self.tela)
         for pacman in self.pacman:
             pacman.draw(self.tela)
@@ -97,8 +97,7 @@ class Main:
         self.draw()
         while self.jogando:
             self.relogio.tick(constantes.FPS)
-            self.ghostman.move()
-            self.ghostman.check_collision()
+            self.ghostman_movimentacao()
             self.draw()
 
     def ghostman_movimentacao(self):

@@ -9,40 +9,23 @@ class Ghostman(pygame.sprite.Sprite):
         self.image.fill((5, 255, 0))
         self.rect = self.image.get_rect()
         self.rect.center = (x, y)
-        self.x = 0
-        self.y = 0
+        self.x = x
+        self.y = y
         self.direction = None
         self.speed = 1
         self.radius = 15
         self.stopped = False
 
     def move(self):
-        if self.stopped:
-            return
         if self.direction == "up":
-            if Mapa.mapa_atual[self.y - 1][self.x] != 3:
-                self.y -= self.speed
-            else:
-                self.stopped = True
+            self.y -= self.speed
         elif self.direction == "down":
-            if Mapa.mapa_atual[self.y + 1][self.x] != 3:
-                self.y += self.speed
-            else:
-                self.stopped = True
+            self.y += self.speed
         elif self.direction == "left":
-            if Mapa.mapa_atual[self.y][self.x - 1] != 3:
-                self.x -= self.speed
-            else:
-                self.stopped = True
+            self.x -= self.speed
         elif self.direction == "right":
-            if Mapa.mapa_atual[self.y][self.x + 1] != 3:
-                self.x += self.speed
-            else:
-                self.stopped = True
-
-    def check_collision(self):
-        if Mapa.mapa_atual[self.y][self.x] == 3:
-            self.stopped = True
+            self.x += self.speed
+        self.rect.center = (self.x, self.y)
 
     def draw(self, screen):
         pygame.draw.circle(screen, (5, 255, 0), self.rect.center, self.radius)
@@ -58,4 +41,3 @@ class Ghostman(pygame.sprite.Sprite):
 
     def move_down(self):
         self.direction = "down"
-
