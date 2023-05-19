@@ -7,7 +7,7 @@ class Pacman(pygame.sprite.Sprite):
         self.x = x
         self.y = y
         self.rect = pygame.Rect(x, y, 15, 15)
-        self.radius = 15
+        self.radius = 20
         self.direction = "right"
 
     def checar_colisao(self, obj):

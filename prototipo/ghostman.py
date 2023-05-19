@@ -8,12 +8,11 @@ class Ghostman(pygame.sprite.Sprite):
         self.image = pygame.Surface((15, 15))
         self.image.fill((5, 255, 0))
         self.rect = self.image.get_rect()
-        self.rect.center = (x, y)
         self.x = x
         self.y = y
         self.direction = None
         self.speed = 1
-        self.radius = 15
+        self.radius = 20
         self.stopped = False
 
     def move(self):
@@ -26,6 +25,7 @@ class Ghostman(pygame.sprite.Sprite):
         elif self.direction == "right":
             self.x += self.speed
         self.rect.center = (self.x, self.y)
+        
 
     def draw(self, screen):
         pygame.draw.circle(screen, (5, 255, 0), self.rect.center, self.radius)

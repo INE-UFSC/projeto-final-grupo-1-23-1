@@ -118,11 +118,14 @@ class Main:
         self.ghostman.move()
 
     def mostrar_tela_game_over(self):
-        pass
+        if Mapa.moedas_restantes <= 0:
+                self.mostrar_texto('GAME OVER', 64, constantes.AMARELO, constantes.LARGURA // 2,480)
+        else:
+            return
 
 g = Main()
 g.mostrar_tela_start()
 
 while g.esta_rodando:
     g.novo_jogo()
-    # g.mostrar_tela_game_over()
+    g.mostrar_tela_game_over()

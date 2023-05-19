@@ -10,7 +10,6 @@
 # 8 = Curva Direita baixo
 # 9 = portão dos fantasmas
 import constantes
-import mapa_1
 import pygame
 
 piscando = False
@@ -19,7 +18,7 @@ piscando = False
 class Mapa:
     def __init__(self, numero_do_mapa):
         self.mapa_atual = numero_do_mapa
-        #self.moedas_comidas =  self.mapa_atual.count(0)
+        self.moedas_restantes =  self.mapa_atual.count(1)
         self.mapa_perdido = False # Se tornará True quando todos as "moedas" forem comidas
         self.tela = pygame.display.set_mode((constantes.LARGURA, constantes.ALTURA))
 
@@ -63,43 +62,6 @@ class Mapa:
                 if self.mapa_atual[i][j] == 9:
                     pygame.draw.line(self.tela, 'white', (j * altura_do_bloco, i * largura_do_bloco + (0.5 * largura_do_bloco)),
                                      (j * altura_do_bloco + altura_do_bloco, i * largura_do_bloco + (0.5 * largura_do_bloco)), 3)
-
-    def draw_board():
-        num1 = ((HEIGHT - 50) // 32)
-        num2 = (WIDTH // 30)
-        for i in range(len(level)):
-            for j in range(len(level[i])):
-                if level[i][j] == 1:
-                    pygame.draw.circle(screen, 'white', (j * num2 + (0.5 * num2), i * num1 + (0.5 * num1)), 4)
-                if level[i][j] == 2 and not flicker:
-                    pygame.draw.circle(screen, 'white', (j * num2 + (0.5 * num2), i * num1 + (0.5 * num1)), 10)
-                if level[i][j] == 3:
-                    pygame.draw.line(screen, color, (j * num2 + (0.5 * num2), i * num1),
-                                     (j * num2 + (0.5 * num2), i * num1 + num1), 3)
-                if level[i][j] == 4:
-                    pygame.draw.line(screen, color, (j * num2, i * num1 + (0.5 * num1)),
-                                     (j * num2 + num2, i * num1 + (0.5 * num1)), 3)
-                if level[i][j] == 5:
-                    pygame.draw.arc(screen, color,
-                                    [(j * num2 - (num2 * 0.4)) - 2, (i * num1 + (0.5 * num1)), num2, num1],
-                                    0, PI / 2, 3)
-                if level[i][j] == 6:
-                    pygame.draw.arc(screen, color,
-                                    [(j * num2 + (num2 * 0.5)), (i * num1 + (0.5 * num1)), num2, num1], PI / 2, PI, 3)
-                if level[i][j] == 7:
-                    pygame.draw.arc(screen, color, [(j * num2 + (num2 * 0.5)), (i * num1 - (0.4 * num1)), num2, num1],
-                                    PI,
-                                    3 * PI / 2, 3)
-                if level[i][j] == 8:
-                    pygame.draw.arc(screen, color,
-                                    [(j * num2 - (num2 * 0.4)) - 2, (i * num1 - (0.4 * num1)), num2, num1], 3 * PI / 2,
-                                    2 * PI, 3)
-                if level[i][j] == 9:
-                    pygame.draw.line(screen, 'white', (j * num2, i * num1 + (0.5 * num1)),
-                                     (j * num2 + num2, i * num1 + (0.5 * num1)), 3)
-
-
-
 
     def carregar_mapa(self):
         self.desenhar_mapa()
