@@ -14,7 +14,6 @@ import pygame
 
 piscando = False
 
-
 class Mapa:
     def __init__(self, numero_do_mapa):
         self.mapa_atual = numero_do_mapa
@@ -22,11 +21,9 @@ class Mapa:
         self.mapa_perdido = False # Se tornará True quando todos as "moedas" forem comidas
         self.tela = pygame.display.set_mode((constantes.LARGURA, constantes.ALTURA))
 
-
     def desenhar_mapa(self):
         largura_do_bloco = ((constantes.LARGURA - 50) // 32)  # é a altura de cada peça
         altura_do_bloco = (constantes.ALTURA // 31)  # É a largura de cada peça do mapa
-
         for i in range(len(self.mapa_atual)):
             for j in range(len(self.mapa_atual[i])):
                 ''' if level[i][j] == 1:

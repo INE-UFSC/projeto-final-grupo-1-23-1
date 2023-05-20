@@ -17,8 +17,7 @@ class Main:
         self.relogio = pygame.time.Clock()
         self.esta_rodando = True
         self.fonte = pygame.font.match_font(constantes.FONTE)
-        self.ghostman = Ghostman(465, 405)
-        self.pacman = [Pacman(50, 405), Pacman(100, 405), Pacman(800, 405), Pacman(850, 405)]
+        #self.pacman = [Pacman(50, 405), Pacman(100, 405), Pacman(800, 405), Pacman(850, 405)]
         self.carregar_arquivos()
         self.jogando = True
 
@@ -87,18 +86,21 @@ class Main:
     def draw(self):
         self.tela.fill(constantes.PRETO)
         self.tela.blit(self.mapa_surface, (0, 0))
-        self.ghostman.draw(self.tela)
+        player.draw(self.tela)
+        '''
         for pacman in self.pacman:
             pacman.draw(self.tela)
+            '''
         pygame.display.flip()
 
     def iniciar_jogo(self):
         self.abrir_mapa()
-        self.draw()
         while self.jogando:
             self.relogio.tick(constantes.FPS)
             self.ghostman_movimentacao()
             self.draw()
+            player.colisao_tela()
+            player.colisao_mapa()
 
     def ghostman_movimentacao(self):
         for event in pygame.event.get():
@@ -107,15 +109,14 @@ class Main:
                 self.esta_rodando = False
             elif event.type == pygame.KEYDOWN:
                 if event.key == pygame.K_RIGHT:
-                    self.ghostman.move_right()
+                    player.move_right()
                 elif event.key == pygame.K_LEFT:
-                    self.ghostman.move_left()
+                    player.move_left()
                 elif event.key == pygame.K_UP:
-                    self.ghostman.move_up()
+                    player.move_up()
                 elif event.key == pygame.K_DOWN:
-                    self.ghostman.move_down()
-
-        self.ghostman.move()
+                    player.move_down()
+        player.move()
 
     def mostrar_tela_game_over(self):
         if Mapa.moedas_restantes <= 0:
@@ -123,6 +124,7 @@ class Main:
         else:
             return
 
+player = Ghostman()
 g = Main()
 g.mostrar_tela_start()
 
