@@ -1,10 +1,13 @@
 
 from math import pi
+from mapa_1 import mapa_original
 
 
+
+TAMANHO_DO_BLOCO = 27
 #dimensoes
-LARGURA = 900
-ALTURA = 950
+LARGURA = len(mapa_original[0]) * TAMANHO_DO_BLOCO
+ALTURA = len(mapa_original) * TAMANHO_DO_BLOCO
 
 
 TITULO_JOGO = 'PacMan'
@@ -30,8 +33,7 @@ TECLA_START = 'munch_1.wav'
 import math
 from math import pi
 #dimensoes
-LARGURA = 900
-ALTURA = 950
+
 
 TITULO_JOGO = 'PacMan'
 

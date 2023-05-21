@@ -17,7 +17,7 @@ class Main:
         self.relogio = pygame.time.Clock()
         self.esta_rodando = True
         self.fonte = pygame.font.match_font(constantes.FONTE)
-        #self.pacman = [Pacman(50, 405), Pacman(100, 405), Pacman(800, 405), Pacman(850, 405)]
+
         self.carregar_arquivos()
         self.jogando = True
 
@@ -79,7 +79,7 @@ class Main:
                     pygame.mixer.Sound(os.path.join(self.diretorio_audios, constantes.TECLA_START)).play()
 
     def abrir_mapa(self):
-        mapa = Mapa(mapa_1.mapa)
+        mapa = Mapa()
         mapa.carregar_mapa()
         self.mapa_surface = mapa.tela.copy()
 
@@ -99,8 +99,8 @@ class Main:
             self.relogio.tick(constantes.FPS)
             self.ghostman_movimentacao()
             self.draw()
-            player.colisao_tela()
-            player.colisao_mapa()
+            #player.colisao_tela()
+            #player.colisao_mapa()
 
     def ghostman_movimentacao(self):
         for event in pygame.event.get():
