@@ -14,6 +14,7 @@ class Mapa:
 
 
 
+
     def desenhar_mapa(self):
         self.tela.fill((0, 0, 0))  # Flushes the screen
         # Draws game elements
@@ -29,11 +30,11 @@ class Mapa:
                         nome_do_arquivo = "0" + nome_do_arquivo
                     # Seleciona a imagem desejada
                     nome_do_arquivo = "tile" + nome_do_arquivo + ".png"
-                    tileImage = pygame.image.load(mapaPath + nome_do_arquivo)
-                    tileImage = pygame.transform.scale(tileImage, (constantes.TAMANHO_DO_BLOCO, constantes.TAMANHO_DO_BLOCO))
+                    pixel_a_ser_desenhado = pygame.image.load(mapaPath + nome_do_arquivo)
+                    pixel_a_ser_desenhado = pygame.transform.scale(pixel_a_ser_desenhado, (constantes.TAMANHO_DO_BLOCO, constantes.TAMANHO_DO_BLOCO))
 
                     # coloca as imagens na tela
-                    self.tela.blit(tileImage, (j * constantes.TAMANHO_DO_BLOCO, i * constantes.TAMANHO_DO_BLOCO, constantes.TAMANHO_DO_BLOCO, constantes.TAMANHO_DO_BLOCO))
+                    self.tela.blit(pixel_a_ser_desenhado, (j * constantes.TAMANHO_DO_BLOCO, i * constantes.TAMANHO_DO_BLOCO, constantes.TAMANHO_DO_BLOCO, constantes.TAMANHO_DO_BLOCO))
 
 
                 elif self.mapa[i][j] == 2:  # Desenha os pontinhos
