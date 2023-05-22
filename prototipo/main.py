@@ -125,6 +125,7 @@ class Main:
             return
 
 player = Ghostman()
+
 g = Main()
 g.mostrar_tela_start()
 

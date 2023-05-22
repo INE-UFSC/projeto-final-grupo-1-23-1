@@ -50,6 +50,17 @@ class Ghostman():
     #bom tem q fazer de alguma forma a verificação das paradas criadas pelo mapa com o personagem, a lógica é tipo essa
     #o problema só esta que não consigo usar a matriz pra verificar
     def colisao_mapa(self,b):
+        #b = lista das paredes
         for c in b:
             if c.colliderect(self.rect):
-                self.speed = 0
+                if self.rect.right  >= c.left and self.rect.right <= c.left +5:
+                    self.x = c.left - 12
+                    #melhorar depois
+                if self.rect.left  <= c.right and self.rect.left>= c.right -5:
+                    self.x = c.right + 12
+                if self.rect.top <= c.bottom and self.rect.top >= c.bottom -5:
+                    self.y = c.bottom + 10
+                if self.rect.bottom >= c.top and self.rect.bottom <= c.top + 5:
+                    self.y = c.top - 12
+
+
