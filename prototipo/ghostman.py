@@ -5,10 +5,10 @@ from mapa import Mapa
 
 class Ghostman():
     def __init__(self):
-        self.rect = pygame.Rect(0, 0, 15, 15)
+        self.rect = pygame.Rect(0, 0, 18, 18)
         self.direction = None
-        self.x = 400
-        self.y = 390
+        self.x = 378
+        self.y = 478
         self.rect.center = (self.x, self.y)
         self.speed = 5
         
@@ -40,10 +40,10 @@ class Ghostman():
 
     #ele ta quicando na tela por causa do -1 ali
     def colisao_tela(self):
-        if self.rect.right >= constantes.LARGURA or self.rect.left <= 0:
-            self.speed *= -1
-        if self.rect.bottom >= 850 or self.rect.top <= 0:
-            self.speed *= -1
+        if self.x > constantes.LARGURA:
+            self.x = 0
+        elif self.x < 0:
+            self.x = constantes.LARGURA
 
     #nao ta funcionando, a lógica funciona com base na verificação 
     #(ve esse video https://www.youtube.com/watch?v=1_H7InPMjaY, pode ver a partir do 13:10 se quiser) 

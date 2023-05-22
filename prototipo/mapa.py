@@ -34,7 +34,7 @@ class Mapa:
                     # coloca as imagens na tela
                     #Lista contendo totos os muros azuis
                     rect = pygame.draw.rect(self.tela,constantes.AZUL, (j * constantes.TAMANHO_DO_BLOCO, i * constantes.TAMANHO_DO_BLOCO, constantes.TAMANHO_DO_BLOCO, constantes.TAMANHO_DO_BLOCO))
-                    print(rect.x)
+                    #print(rect.x)
                     self.lista_rect.append(rect)
 
 

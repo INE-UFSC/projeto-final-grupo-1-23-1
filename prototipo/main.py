@@ -87,10 +87,7 @@ class Main:
         self.tela.fill(constantes.PRETO)
         self.tela.blit(self.mapa_surface, (0, 0))
         player.draw(self.tela)
-        '''
-        for pacman in self.pacman:
-            pacman.draw(self.tela)
-            '''
+        pacman.draw(self.tela)
         pygame.display.flip()
 
     def iniciar_jogo(self):
@@ -99,7 +96,7 @@ class Main:
             self.relogio.tick(constantes.FPS)
             self.ghostman_movimentacao()
             self.draw()
-            #player.colisao_tela()
+            player.colisao_tela()
             player.colisao_mapa(b)
 
     def ghostman_movimentacao(self):
@@ -125,7 +122,7 @@ class Main:
             return
 
 player = Ghostman()
-
+pacman = Pacman()
 g = Main()
 g.mostrar_tela_start()
 

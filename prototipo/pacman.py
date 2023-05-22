@@ -1,21 +1,20 @@
 import pygame
 from pygame.locals import *
-import math
+import constantes
 
-class Pacman(pygame.sprite.Sprite):
-    def __init__(self, x, y):
-        self.x = x
-        self.y = y
-        self.rect = pygame.Rect(x, y, 15, 15)
-        self.radius = 20
-        self.direction = "right"
-
-    def checar_colisao(self, obj):
-        distance = math.sqrt((self.rect.centerx - obj.rect.centerx) ** 2 + (self.rect.centery - obj.rect.centery) ** 2)
-        if distance < self.radius + obj.radius:
-            return True
-        return False
+class Pacman():
+    def __init__(self):
+        self.direction = None
+        self.speed = 5
+        self.lista_pacman = []
     
     def draw(self, screen):
-        pygame.draw.circle(screen, (255, 255, 0), (self.x, self.y), self.radius)
+        pac1 = pygame.draw.rect(screen, (255, 255, 0), (10, 465, 18, 18))
+        pac2 = pygame.draw.rect(screen, (255, 255, 0), (50, 465, 18, 18))
+        pac3 = pygame.draw.rect(screen, (255, 255, 0), ((constantes.LARGURA - 30), 465, 18, 18))
+        pac4 = pygame.draw.rect(screen, (255, 255, 0), ((constantes.LARGURA - 70), 465, 18, 18))
+        self.lista_pacman.append(pac1, pac2, pac3, pac4)
 
+    def colisao_ghostman(self):
+        for i in range (len(self.lista_pacman)):
+            if i.colliderect(self.rect):
