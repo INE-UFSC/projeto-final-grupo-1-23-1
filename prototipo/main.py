@@ -3,7 +3,8 @@ import constantes
 import os
 from mapa import Mapa
 import mapa_1
-from pacman import Pacman
+from pacman_right import PacmanRight
+from pacman_left import PacmanLeft
 from ghostman import Ghostman
 from pygame.locals import *
 
@@ -87,7 +88,8 @@ class Main:
         self.tela.fill(constantes.PRETO)
         self.tela.blit(self.mapa_surface, (0, 0))
         player.draw(self.tela)
-        pacman.draw(self.tela)
+        pacman1.draw(self.tela)
+        pacman2.draw(self.tela)
         pygame.display.flip()
 
     def iniciar_jogo(self):
@@ -98,6 +100,10 @@ class Main:
             self.draw()
             player.colisao_tela()
             player.colisao_mapa(b)
+            pacman1.movimento_pacman()
+            pacman2.movimento_pacman()
+            pacman1.colisao_ghostman()
+            pacman2.colisao_ghostman()
 
     def ghostman_movimentacao(self):
         for event in pygame.event.get():
@@ -122,7 +128,8 @@ class Main:
             return
 
 player = Ghostman()
-pacman = Pacman()
+pacman1 = PacmanRight()
+pacman2 = PacmanLeft()
 g = Main()
 g.mostrar_tela_start()
 

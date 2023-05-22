@@ -13,7 +13,7 @@ class Ghostman():
         self.speed = 5
         
     def draw(self, screen):
-        pygame.draw.rect(screen, (5, 255, 0), self.rect)
+        ghost = pygame.draw.rect(screen, (5, 255, 0), self.rect)
 
     def move(self):
         if self.direction == "up":
