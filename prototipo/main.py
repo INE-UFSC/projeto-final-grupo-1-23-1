@@ -80,9 +80,9 @@ class Main:
 
     def abrir_mapa(self):
         mapa = Mapa()
-        mapa.carregar_mapa()
+        a = mapa.carregar_mapa()
         self.mapa_surface = mapa.tela.copy()
-
+        return a
     def draw(self):
         self.tela.fill(constantes.PRETO)
         self.tela.blit(self.mapa_surface, (0, 0))
@@ -94,13 +94,13 @@ class Main:
         pygame.display.flip()
 
     def iniciar_jogo(self):
-        self.abrir_mapa()
+        b =self.abrir_mapa()
         while self.jogando:
             self.relogio.tick(constantes.FPS)
             self.ghostman_movimentacao()
             self.draw()
             #player.colisao_tela()
-            #player.colisao_mapa()
+            player.colisao_mapa(b)
 
     def ghostman_movimentacao(self):
         for event in pygame.event.get():

@@ -5,12 +5,12 @@ from mapa import Mapa
 
 class Ghostman():
     def __init__(self):
-        self.rect = pygame.Rect(0, 0, 30, 30)
+        self.rect = pygame.Rect(0, 0, 15, 15)
         self.direction = None
-        self.x = 450
-        self.y = 405
+        self.x = 400
+        self.y = 390
         self.rect.center = (self.x, self.y)
-        self.speed = 20
+        self.speed = 5
         
     def draw(self, screen):
         pygame.draw.rect(screen, (5, 255, 0), self.rect)
@@ -49,8 +49,7 @@ class Ghostman():
     #(ve esse video https://www.youtube.com/watch?v=1_H7InPMjaY, pode ver a partir do 13:10 se quiser) 
     #bom tem q fazer de alguma forma a verificação das paradas criadas pelo mapa com o personagem, a lógica é tipo essa
     #o problema só esta que não consigo usar a matriz pra verificar
-    def colisao_mapa(self):
-        tolerancia = 5
-        if self.rect.colliderect(Mapa.mapa_atual[33][30]):
-            if (Mapa.mapa_atual[33][30] >= 3) and self.rect < tolerancia:
+    def colisao_mapa(self,b):
+        for c in b:
+            if c.colliderect(self.rect):
                 self.speed = 0

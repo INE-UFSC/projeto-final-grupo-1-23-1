@@ -11,9 +11,8 @@ class Mapa:
     def __init__(self):
         self.mapa = mapa_original
         self.tela = pygame.display.set_mode((constantes.LARGURA, constantes.ALTURA))
-
-
-
+        self.lista_rect = []
+        self.lista_circ = []
 
     def desenhar_mapa(self):
         self.tela.fill((0, 0, 0))  # Flushes the screen
@@ -32,19 +31,24 @@ class Mapa:
                     nome_do_arquivo = "tile" + nome_do_arquivo + ".png"
                     pixel_a_ser_desenhado = pygame.image.load(mapaPath + nome_do_arquivo)
                     pixel_a_ser_desenhado = pygame.transform.scale(pixel_a_ser_desenhado, (constantes.TAMANHO_DO_BLOCO, constantes.TAMANHO_DO_BLOCO))
-
                     # coloca as imagens na tela
-                    self.tela.blit(pixel_a_ser_desenhado, (j * constantes.TAMANHO_DO_BLOCO, i * constantes.TAMANHO_DO_BLOCO, constantes.TAMANHO_DO_BLOCO, constantes.TAMANHO_DO_BLOCO))
+                    #Lista contendo totos os muros azuis
+                    rect = pygame.draw.rect(self.tela,constantes.AZUL, (j * constantes.TAMANHO_DO_BLOCO, i * constantes.TAMANHO_DO_BLOCO, constantes.TAMANHO_DO_BLOCO, constantes.TAMANHO_DO_BLOCO))
+                    print(rect.x)
+                    self.lista_rect.append(rect)
 
 
                 elif self.mapa[i][j] == 2:  # Desenha os pontinhos
-                    pygame.draw.circle(self.tela, constantes.AMARELO, (j * constantes.TAMANHO_DO_BLOCO + constantes.TAMANHO_DO_BLOCO // 2, i * constantes.TAMANHO_DO_BLOCO + constantes.TAMANHO_DO_BLOCO // 2),
+                    c = pygame.draw.circle(self.tela, constantes.AMARELO, (j * constantes.TAMANHO_DO_BLOCO + constantes.TAMANHO_DO_BLOCO // 2, i * constantes.TAMANHO_DO_BLOCO + constantes.TAMANHO_DO_BLOCO // 2),
                                        constantes.TAMANHO_DO_BLOCO // 4)
-
+                    #ta por aqui a dica
+                    self.lista_circ.append(c)
                 elif self.mapa[i][j] == 6:  # Pontinho maior (poder dos pacman)
                     pygame.draw.circle(self.tela, constantes.AMARELO, (j * constantes.TAMANHO_DO_BLOCO + constantes.TAMANHO_DO_BLOCO // 2, i * constantes.TAMANHO_DO_BLOCO + constantes.TAMANHO_DO_BLOCO // 2),
                                        constantes.TAMANHO_DO_BLOCO // 2)
 
+        return self.lista_rect
     def carregar_mapa(self):
         self.desenhar_mapa()
+        return self.lista_rect
 
