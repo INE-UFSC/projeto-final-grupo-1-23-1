@@ -19,7 +19,8 @@ class PacmanLeft():
     def draw(self, screen):
         pac1 = pygame.draw.rect(screen, (255, 255, 0), self.pac)
         pac2 = pygame.draw.rect(screen, (255, 255, 0), self.pac)
-        self.lista_pacman.append(pac1, pac2)
+        self.lista_pacman.append(pac1)
+        self.lista_pacman.append(pac2)
 
     def colisao_ghostman(self, ghost):
         for pac in self.lista_pacman:
@@ -30,19 +31,19 @@ class PacmanLeft():
                 self.y = 465
                 self.movimento_pacman()
 
-    def esta_no_mapa(self, b):
-        for c in b:
-            if c.colliderect(self.pac):
-                if self.pac.right  >= c.left and self.pac.right <= c.left +5:
-                    self.x = c.left - 12
-                if self.pac.left  <= c.right and self.pac.left>= c.right -5:
-                    self.x = c.right + 12
-                if self.pac.top <= c.bottom and self.pac.top >= c.bottom -5:
+    def esta_no_mapa(self, c):
+        if c.colliderect(self.pac):
+            if self.pac.right  >= c.left and self.pac.right <= c.left +5:
+                self.x = c.left - 12
+            if self.pac.left  <= c.right and self.pac.left>= c.right -5:
+                self.x = c.right + 12
+            if self.pac.top <= c.bottom and self.pac.top >= c.bottom -5:
                     self.y = c.bottom + 10
-                if self.pac.bottom >= c.top and self.pac.bottom <= c.top + 5:
-                    self.y = c.top - 12
+            if self.pac.bottom >= c.top and self.pac.bottom <= c.top + 5:
+                self.y = c.top - 12
 
     def movimento_pacman(self):
+        new_x = new_y = 0
         directions = ["up", "down", "left", "right"]
         new_direction = random.choice(directions)
 
@@ -66,6 +67,18 @@ class PacmanLeft():
             self.y = new_y
 
         self.pac.center = (self.x, self.y)
-
-
+    #funcao igual ao esta_nomapa?arrumar depois
+    def colisao_mapa(self,b):
+        # b = lista das paredes
+        for c in b:
+            if c.colliderect(self.pac):
+                if self.pac.right >= c.left and self.pac.right <= c.left + 5:
+                    self.x = c.left - 12
+                    # melhorar depois
+                if self.pac.left <= c.right and self.pac.left >= c.right - 5:
+                    self.x = c.right + 12
+                if self.pac.top <= c.bottom and self.pac.top >= c.bottom - 5:
+                    self.y = c.bottom + 10
+                if self.pac.bottom >= c.top and self.pac.bottom <= c.top + 5:
+                    self.y = c.top - 12
                 

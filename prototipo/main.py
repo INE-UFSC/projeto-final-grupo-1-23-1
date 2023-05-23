@@ -93,17 +93,17 @@ class Main:
         pygame.display.flip()
 
     def iniciar_jogo(self):
-        b =self.abrir_mapa()
+        b = self.abrir_mapa()
         while self.jogando:
             self.relogio.tick(constantes.FPS)
             self.ghostman_movimentacao()
             self.draw()
             player.colisao_tela()
             player.colisao_mapa(b)
-            pacman1.movimento_pacman()
+            pacman1.movimento_pacman(b)#tentando implementar colisao
             pacman2.movimento_pacman()
-            pacman1.colisao_ghostman()
-            pacman2.colisao_ghostman()
+            pacman1.colisao_ghostman(player)
+            pacman2.colisao_ghostman(player)
 
     def ghostman_movimentacao(self):
         for event in pygame.event.get():
