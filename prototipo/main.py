@@ -88,8 +88,8 @@ class Main:
         self.tela.fill(constantes.PRETO)
         self.tela.blit(self.mapa_surface, (0, 0))
         player.draw(self.tela)
-        pacman1.draw(self.tela)
-        pacman2.draw(self.tela)
+        #pacman1.draw(self.tela)
+        #pacman2.draw(self.tela)
         pygame.display.flip()
 
     def iniciar_jogo(self):
@@ -100,10 +100,10 @@ class Main:
             self.draw()
             player.colisao_tela()
             player.colisao_mapa(b)
-            pacman1.movimento_pacman(b)#tentando implementar colisao
-            pacman2.movimento_pacman()
-            pacman1.colisao_ghostman(player)
-            pacman2.colisao_ghostman(player)
+            #pacman1.movimento_pacman(b)#tentando implementar colisao
+            #pacman2.movimento_pacman()
+            #pacman1.colisao_ghostman(player)
+            #pacman2.colisao_ghostman(player)
 
     def ghostman_movimentacao(self):
         for event in pygame.event.get():
@@ -122,14 +122,11 @@ class Main:
         player.move()
 
     def mostrar_tela_game_over(self):
-        if Mapa.moedas_restantes <= 0:
-                self.mostrar_texto('GAME OVER', 64, constantes.AMARELO, constantes.LARGURA // 2,480)
-        else:
-            return
+        pass
 
 player = Ghostman()
-pacman1 = PacmanRight()
-pacman2 = PacmanLeft()
+#pacman1 = PacmanRight()
+#pacman2 = PacmanLeft()
 g = Main()
 g.mostrar_tela_start()
 

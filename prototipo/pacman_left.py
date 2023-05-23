@@ -68,7 +68,7 @@ class PacmanLeft():
 
         self.pac.center = (self.x, self.y)
     #funcao igual ao esta_nomapa?arrumar depois
-    def colisao_mapa(self,b):
+    def colisao_mapa(self, b):
         # b = lista das paredes
         for c in b:
             if c.colliderect(self.pac):

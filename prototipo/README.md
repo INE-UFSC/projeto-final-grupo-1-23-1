@@ -1,3 +1,7 @@
-Nesse diretório, o grupo irá trabalhar em cima do primeiro protótipo do jogo.
+Dentro da pasta "protótipo", temos os arquivos necessários para que o MVP do jogo possa rodar.
+Para que esse seja executado, basta ter instaladas as bibliotecas pygame (https://www.pygame.org/news), e os (https://docs.python.org/3/library/os.html).
+Uma vez que as bibliotecas estão instaladas em seu interpretador python, resta somente rodar o arquivo main,
+que chamará todas as funções necessárias para o funcionamento do protótipo.
 
-A ideia do protótipo não é que ele seja uma versão demo do jogo completo, mas sim que o principal mecanismo do jogo esteja implementado com certo grau de sucesso. Exemplo: em um jogo do tipo plataforma 2D, basta mostrar um retângulo colidindo com objetos e saltando/destruindo com alguma comando do usuário. A interface gráfica (com sprites) é opcional nessa etapa.
+
+

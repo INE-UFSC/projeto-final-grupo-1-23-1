@@ -5,6 +5,7 @@ from ghostman import Ghostman
 import random
 from mapa import Mapa
 
+
 class PacmanRight():
     def __init__(self):
         self.pac = pygame.Rect(50, 465, 18, 18)
@@ -29,9 +30,10 @@ class PacmanRight():
                 self.vidas -= 1
                 self.x = 10
                 self.y = 465
-                self.movimento_pacman()
+                #self.movimento_pacman()
 
     def esta_no_mapa(self, c):
+
         if c.colliderect(self.pac):
             if self.pac.right  >= c.left and self.pac.right <= c.left +5:
                 self.x = c.left - 12
@@ -77,15 +79,14 @@ class PacmanRight():
             if c.colliderect(self.pac):
                 if self.pac.right >= c.left and self.pac.right <= c.left + 5:
                     self.x = c.left - 12
-                    return True
+
                     # melhorar depois
                 if self.pac.left <= c.right and self.pac.left >= c.right - 5:
                     self.x = c.right + 12
-                    return True
+
                 if self.pac.top <= c.bottom and self.pac.top >= c.bottom - 5:
-                    self.y = c.bottom + 10
-                    return True
+                    self.y = c.bottom + 12
+
                 if self.pac.bottom >= c.top and self.pac.bottom <= c.top + 5:
                     self.y = c.top - 12
-                    return True
-            return False
+
