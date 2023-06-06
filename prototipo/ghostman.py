@@ -38,6 +38,21 @@ class Ghostman():
     def move_down(self):
         self.direction = "down"
 
+    def ghostman_movimentacao(self):
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT:
+                self.jogando = False
+                self.esta_rodando = False
+            elif event.type == pygame.KEYDOWN:
+                if event.key == pygame.K_RIGHT:
+                    self.move_right()
+                elif event.key == pygame.K_LEFT:
+                    self.move_left()
+                elif event.key == pygame.K_UP:
+                    self.move_up()
+                elif event.key == pygame.K_DOWN:
+                    self.move_down()
+        self.move()
     #ele ta quicando na tela por causa do -1 ali
     def colisao_tela(self):
         if self.x > constantes.LARGURA:
@@ -62,5 +77,10 @@ class Ghostman():
                     self.y = c.bottom + 10
                 if self.rect.bottom >= c.top and self.rect.bottom <= c.top + 5:
                     self.y = c.top - 12
+
+    def colisao_bolinhas(self,bolinhas):
+        for bolinha in bolinhas:
+            if bolinha.colliderect(self.rect):
+                bolinhas.remove(bolinha)
 
 

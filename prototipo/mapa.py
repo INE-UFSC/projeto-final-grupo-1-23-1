@@ -1,6 +1,7 @@
 
 import constantes
 import pygame
+from bolinha import Bolinha
 from mapa_1 import mapa_original
 
 
@@ -8,11 +9,11 @@ mapaPath = "imagensMapa/"
 
 
 class Mapa:
-    def __init__(self):
+    def __init__(self,mapa_original):
         self.mapa = mapa_original
         self.tela = pygame.display.set_mode((constantes.LARGURA, constantes.ALTURA))
         self.lista_rect = []
-        self.lista_circ = []
+        self.bolinhas = []
 
     def desenhar_mapa(self):
         self.tela.fill((0, 0, 0))  # Flushes the screen
@@ -39,16 +40,18 @@ class Mapa:
 
 
                 elif self.mapa[i][j] == 2:  # Desenha os pontinhos
-                    c = pygame.draw.circle(self.tela, constantes.AMARELO, (j * constantes.TAMANHO_DO_BLOCO + constantes.TAMANHO_DO_BLOCO // 2, i * constantes.TAMANHO_DO_BLOCO + constantes.TAMANHO_DO_BLOCO // 2),
+                    bolinha = Bolinha(constantes.AMARELO, j * constantes.TAMANHO_DO_BLOCO + constantes.TAMANHO_DO_BLOCO // 2, i * constantes.TAMANHO_DO_BLOCO + constantes.TAMANHO_DO_BLOCO // 2,
                                        constantes.TAMANHO_DO_BLOCO // 4)
-                    #ta por aqui a dica
-                    self.lista_circ.append(c)
+                    bolinha = bolinha.desenhar(self.tela)
+                    self.bolinhas.append(bolinha)
                 elif self.mapa[i][j] == 6:  # Pontinho maior (poder dos pacman)
                     pygame.draw.circle(self.tela, constantes.AMARELO, (j * constantes.TAMANHO_DO_BLOCO + constantes.TAMANHO_DO_BLOCO // 2, i * constantes.TAMANHO_DO_BLOCO + constantes.TAMANHO_DO_BLOCO // 2),
                                        constantes.TAMANHO_DO_BLOCO // 2)
 
-        return self.lista_rect
+    def atualizar(self):
+        print('numero de bolinhas atuais:',len(self.bolinhas))
+
     def carregar_mapa(self):
         self.desenhar_mapa()
-        return self.lista_rect
+
 

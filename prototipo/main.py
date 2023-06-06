@@ -18,10 +18,11 @@ class Main:
         self.relogio = pygame.time.Clock()
         self.esta_rodando = True
         self.fonte = pygame.font.match_font(constantes.FONTE)
-
         self.carregar_arquivos()
         self.jogando = True
-
+        #entidades no mais
+        self.player = Ghostman()
+        self.mapa = Mapa(mapa_1.mapa_original)
     def novo_jogo(self):
         self.iniciar_jogo()
 
@@ -80,51 +81,36 @@ class Main:
                     pygame.mixer.Sound(os.path.join(self.diretorio_audios, constantes.TECLA_START)).play()
 
     def abrir_mapa(self):
-        mapa = Mapa()
-        a = mapa.carregar_mapa()
-        self.mapa_surface = mapa.tela.copy()
-        return a
+        self.mapa.carregar_mapa()
+        self.mapa_surface = self.mapa.tela.copy()
     def draw(self):
         self.tela.fill(constantes.PRETO)
         self.tela.blit(self.mapa_surface, (0, 0))
-        player.draw(self.tela)
+        self.player.draw(self.tela)
         #pacman1.draw(self.tela)
         #pacman2.draw(self.tela)
         pygame.display.flip()
 
     def iniciar_jogo(self):
-        b = self.abrir_mapa()
+        self.abrir_mapa()
         while self.jogando:
             self.relogio.tick(constantes.FPS)
-            self.ghostman_movimentacao()
+            self.player.ghostman_movimentacao()
             self.draw()
-            player.colisao_tela()
-            player.colisao_mapa(b)
+            self.player.colisao_tela()
+            self.player.colisao_mapa(self.mapa.lista_rect)
+            self.player.colisao_bolinhas(self.mapa.bolinhas)
+            self.mapa.atualizar()
             #pacman1.movimento_pacman(b)#tentando implementar colisao
             #pacman2.movimento_pacman()
             #pacman1.colisao_ghostman(player)
             #pacman2.colisao_ghostman(player)
 
-    def ghostman_movimentacao(self):
-        for event in pygame.event.get():
-            if event.type == pygame.QUIT:
-                self.jogando = False
-                self.esta_rodando = False
-            elif event.type == pygame.KEYDOWN:
-                if event.key == pygame.K_RIGHT:
-                    player.move_right()
-                elif event.key == pygame.K_LEFT:
-                    player.move_left()
-                elif event.key == pygame.K_UP:
-                    player.move_up()
-                elif event.key == pygame.K_DOWN:
-                    player.move_down()
-        player.move()
 
     def mostrar_tela_game_over(self):
         pass
 
-player = Ghostman()
+
 #pacman1 = PacmanRight()
 #pacman2 = PacmanLeft()
 g = Main()
