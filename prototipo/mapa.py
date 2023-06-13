@@ -3,6 +3,7 @@ import constantes
 import pygame
 from bolinha import Bolinha
 from mapa_1 import mapa_original
+from pygame.locals import *
 
 
 mapaPath = "imagensMapa/"
@@ -37,6 +38,11 @@ class Mapa:
                     rect = pygame.draw.rect(self.tela,constantes.AZUL, (j * constantes.TAMANHO_DO_BLOCO, i * constantes.TAMANHO_DO_BLOCO, constantes.TAMANHO_DO_BLOCO, constantes.TAMANHO_DO_BLOCO))
                     #print(rect.x)
                     self.lista_rect.append(rect)
+                    rect = pygame.draw.rect(self.tela, constantes.AZUL, (
+                    j * constantes.TAMANHO_DO_BLOCO, i * constantes.TAMANHO_DO_BLOCO, constantes.TAMANHO_DO_BLOCO,
+                    constantes.TAMANHO_DO_BLOCO))
+
+
 
 
                 elif self.mapa[i][j] == 2:  # Desenha os pontinhos
@@ -47,6 +53,7 @@ class Mapa:
                 elif self.mapa[i][j] == 6:  # Pontinho maior (poder dos pacman)
                     pygame.draw.circle(self.tela, constantes.AMARELO, (j * constantes.TAMANHO_DO_BLOCO + constantes.TAMANHO_DO_BLOCO // 2, i * constantes.TAMANHO_DO_BLOCO + constantes.TAMANHO_DO_BLOCO // 2),
                                        constantes.TAMANHO_DO_BLOCO // 2)
+
 
     def atualizar(self):
         print('numero de bolinhas atuais:',len(self.bolinhas))

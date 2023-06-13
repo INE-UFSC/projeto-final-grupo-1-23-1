@@ -3,9 +3,13 @@ from pygame.locals import *
 import constantes
 from mapa import Mapa
 
-class Ghostman():
+class Ghostman(pygame.sprite.Sprite):
     def __init__(self):
-        self.rect = pygame.Rect(0, 0, 18, 18)
+        pygame.sprite.Sprite.__init__(self)
+        self.image = pygame.image.load('ghostman_imagem.png')
+        self.image = pygame.transform.scale(self.image, (20, 20))
+        self.rect = self.image.get_rect()
+        #self.rect = pygame.Rect(0, 0, 18, 18)
         self.direction = None
         self.x = 378
         self.y = 478
@@ -14,6 +18,8 @@ class Ghostman():
         
     def draw(self, screen):
         ghost = pygame.draw.rect(screen, (5, 255, 0), self.rect)
+        screen.blit(self.image, (self.x - 10, self.y - 10))
+
 
     def move(self):
         if self.direction == "up":
@@ -64,9 +70,9 @@ class Ghostman():
     #(ve esse video https://www.youtube.com/watch?v=1_H7InPMjaY, pode ver a partir do 13:10 se quiser) 
     #bom tem q fazer de alguma forma a verificação das paradas criadas pelo mapa com o personagem, a lógica é tipo essa
     #o problema só esta que não consigo usar a matriz pra verificar
-    def colisao_mapa(self,b):
+    def colisao_mapa(self, lista_de_paredes):
         #b = lista das paredes
-        for c in b:
+        for c in lista_de_paredes:
             if c.colliderect(self.rect):
                 if self.rect.right  >= c.left and self.rect.right <= c.left +5:
                     self.x = c.left - 12
