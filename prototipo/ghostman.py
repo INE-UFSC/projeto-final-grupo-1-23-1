@@ -46,10 +46,7 @@ class Ghostman(pygame.sprite.Sprite):
 
     def ghostman_movimentacao(self):
         for event in pygame.event.get():
-            if event.type == pygame.QUIT:
-                self.jogando = False
-                self.esta_rodando = False
-            elif event.type == pygame.KEYDOWN:
+            if event.type == pygame.KEYDOWN:
                 if event.key == pygame.K_RIGHT:
                     self.move_right()
                 elif event.key == pygame.K_LEFT:
@@ -59,7 +56,7 @@ class Ghostman(pygame.sprite.Sprite):
                 elif event.key == pygame.K_DOWN:
                     self.move_down()
         self.move()
-    #ele ta quicando na tela por causa do -1 ali
+
     def colisao_tela(self):
         if self.x > constantes.LARGURA:
             self.x = 0

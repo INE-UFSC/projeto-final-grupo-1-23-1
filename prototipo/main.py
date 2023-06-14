@@ -5,6 +5,7 @@ from mapa import Mapa
 import mapa_1
 from pacman_right import PacmanRight
 from pacman_left import PacmanLeft
+from pacman import Pacman
 from ghostman import Ghostman
 from pygame.locals import *
 
@@ -22,6 +23,7 @@ class Main:
         self.jogando = True
         #entidades no mais
         self.player = Ghostman()
+        self.pac = Pacman()
         self.mapa = Mapa(mapa_1.mapa_original)
     def novo_jogo(self):
         self.iniciar_jogo()
@@ -87,6 +89,7 @@ class Main:
         self.tela.fill(constantes.PRETO)
         self.tela.blit(self.mapa_surface, (0, 0))
         self.player.draw(self.tela)
+        self.pac.desenhar(self.tela)
         #pacman1.draw(self.tela)
         #pacman2.draw(self.tela)
         pygame.display.flip()
@@ -96,6 +99,7 @@ class Main:
         while self.jogando:
             self.relogio.tick(constantes.FPS)
             self.player.ghostman_movimentacao()
+            self.pac.movimentacao()
             self.draw()
             self.player.colisao_tela()
             self.player.colisao_mapa(self.mapa.lista_rect)
