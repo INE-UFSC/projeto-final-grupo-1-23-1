@@ -1,4 +1,4 @@
-from collision import Collision
+ from collision import Collision
 class CollisionManager:
     #recebe grupo de sprites para detectar colisao
     def __init__(self, mapa= None) -> None:

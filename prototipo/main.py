@@ -22,12 +22,17 @@ class Main:
         self.carregar_arquivos()
         self.jogando = True
         #entidades no mais
-        self.player = Ghostman()
-        self.pac = Pacman()
+
         self.mapa = Mapa(mapa_1.mapa_original)
     def novo_jogo(self):
+        self.definir_entidades()
         self.iniciar_jogo()
 
+    def definir_entidades(self):
+        self.player = Ghostman()
+        self.pac = Pacman()
+        self.grupo_ghostman = pygame.sprite.Group()
+        self.grupo_pacmans = pygame.sprite.Group()
     def atualizar_sprites(self):
         self.todas_as_sprites.update()
 
