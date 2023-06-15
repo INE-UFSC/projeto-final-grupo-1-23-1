@@ -8,6 +8,7 @@ from pacman_left import PacmanLeft
 from pacman import Pacman
 from ghostman import Ghostman
 from pygame.locals import *
+from collision_manager import CollisionManager
 
 class Main:
     def __init__(self):
@@ -31,8 +32,14 @@ class Main:
     def definir_entidades(self):
         self.player = Ghostman()
         self.pac = Pacman()
+
         self.grupo_ghostman = pygame.sprite.Group()
         self.grupo_pacmans = pygame.sprite.Group()
+
+        self.grupo_pacmans.add(self.pac)
+        self.grupo_ghostman.add(self.player)
+        print(self.grupo_pacmans, self.grupo_ghostman)
+        #self.colisoes = CollisionManager(self.mapa, self.grupo_ghostman, self.grupo_pacmans)
     def atualizar_sprites(self):
         self.todas_as_sprites.update()
 
@@ -99,6 +106,10 @@ class Main:
         #pacman2.draw(self.tela)
         pygame.display.flip()
 
+    def conferir_colisoes(self):
+        #self.colisoes.collisions()
+
+        pass
     def iniciar_jogo(self):
         self.abrir_mapa()
         while self.jogando:
@@ -109,6 +120,7 @@ class Main:
             self.player.colisao_tela()
             self.player.colisao_mapa(self.mapa.lista_rect)
             self.player.colisao_bolinhas(self.mapa.bolinhas)
+            self.conferir_colisoes()
             self.mapa.atualizar()
             #pacman1.movimento_pacman(b)#tentando implementar colisao
             #pacman2.movimento_pacman()

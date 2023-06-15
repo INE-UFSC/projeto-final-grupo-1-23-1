@@ -1,9 +1,12 @@
- from collision import Collision
+from collision import Collision
 class CollisionManager:
     #recebe grupo de sprites para detectar colisao
-    def __init__(self, mapa= None) -> None:
+    def __init__(self, mapa, grupo_ghostman, grupo_pacmans) -> None:
         #local onde vai ficar armazenado as listas dos objetos
         self.__mapa = mapa
+        self.__ghostman = grupo_ghostman
+        self.__pacmans = grupo_pacmans
+
 
     #ações realisadas no jogo quando é detectado colisão
     def collisions(self) -> None:
@@ -16,14 +19,17 @@ class CollisionManager:
                 for x2 in g2:
                     x2.hit()
         if(self.collision_pacman_ghostman()):
+
             grupoa, grupob = (Collision(self.ghostmans, self.pacmans).getcolisores())
             for x1 in grupoa:
                 x1.hit()
 
+
+
             for g2 in grupob:
                 for x2 in g2:
                     x2.hit()
-
+        '''
         if (self.collision_caixa_supresa_ghostman()):
             grupoa, grupob = (Collision(self.ghostmans, self.caixas_supresas).getcolisores())
 
@@ -54,7 +60,7 @@ class CollisionManager:
                 for x2 in g2:
                     x2.hit()
 
-
+        '''
         self.ghostman_life_detect()
 
     #verificar se colidiu
@@ -69,7 +75,7 @@ class CollisionManager:
         else:
             return False
 
-    def collision_caixa_supresa_ghostman(self):
+    '''def collision_caixa_supresa_ghostman(self):
         if (Collision(self.ghostmans, self.caixas_supresas).detect_collision()):
             return True
         else:
@@ -85,7 +91,7 @@ class CollisionManager:
         if (Collision(self.pacmans, self.walls).detect_collision()):
             return True
         else:
-            return False
+            return False'''
 
     #nao sei se ultilizaremos essa funçao
     def ghostman_life_detect(self):
@@ -102,15 +108,15 @@ class CollisionManager:
 
     @property
     def ghostmans(self):
-        return self.mapa.ghostmans
+        return self.__ghostman
 
     @property
     def pacmans(self):
-        return self.mapa.pacmans
+        return self.__pacmans
 
-    @property
+    '''@property
     def walls(self):
         return self.mapa.walls
     @property
     def caixas_supresas(self):
-        return self.mapa.caixas_supresas
+        return self.mapa.caixas_supresas'''

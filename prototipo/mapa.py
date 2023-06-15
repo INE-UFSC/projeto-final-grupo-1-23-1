@@ -56,7 +56,8 @@ class Mapa:
 
 
     def atualizar(self):
-        print('numero de bolinhas atuais:',len(self.bolinhas))
+        #print('numero de bolinhas atuais:',len(self.bolinhas))
+        pass
 
     def carregar_mapa(self):
         self.desenhar_mapa()

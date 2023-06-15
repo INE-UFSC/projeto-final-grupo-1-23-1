@@ -7,6 +7,9 @@ class Collision:
     #detecta colisao entre 2 grupos de sprites (pygame.Sprite.Group)
     def detect_collision(self) -> bool:
         collision_dict = pygame.sprite.groupcollide(self.grupo1, self.grupo2, False, False)
+        print(collision_dict)
+        print(self.__grupo1)
+
 
         #grupo1 = quem foi colidido
         #grupo2 = quem colidiu com o grupo 1

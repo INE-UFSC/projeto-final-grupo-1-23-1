@@ -86,4 +86,6 @@ class Ghostman(pygame.sprite.Sprite):
             if bolinha.colliderect(self.rect):
                 bolinhas.remove(bolinha)
 
+    def hit(self):
+        print('colidiu')
 
