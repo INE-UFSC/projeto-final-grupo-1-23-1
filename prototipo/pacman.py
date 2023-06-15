@@ -15,7 +15,7 @@ class Pacman(pygame.sprite.Sprite):
         self.speed = 5
 
 
-    def desenhar(self, screen):
+    def draw(self, screen):
         ghost = pygame.draw.rect(screen, (255, 0, 0), self.rect)
         screen.blit(self.image, (self.x - 10, self.y - 10))
 
@@ -54,3 +54,5 @@ class Pacman(pygame.sprite.Sprite):
         elif direcao_sorteada == 'down' and self.direction != 'up':
             self.move_down()
         self.move()
+    def hit(self):
+        print('colidi com o fastasma!!!')

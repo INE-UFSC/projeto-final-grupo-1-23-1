@@ -49,7 +49,6 @@ class Mapa:
                     bolinha = Bolinha(constantes.AMARELO, j * constantes.TAMANHO_DO_BLOCO + constantes.TAMANHO_DO_BLOCO // 2, i * constantes.TAMANHO_DO_BLOCO + constantes.TAMANHO_DO_BLOCO // 2,
                                        constantes.TAMANHO_DO_BLOCO // 4)
                     bolinha = bolinha.desenhar(self.tela)
-                    self.bolinhas.append(bolinha)
                 elif self.mapa[i][j] == 6:  # Pontinho maior (poder dos pacman)
                     pygame.draw.circle(self.tela, constantes.AMARELO, (j * constantes.TAMANHO_DO_BLOCO + constantes.TAMANHO_DO_BLOCO // 2, i * constantes.TAMANHO_DO_BLOCO + constantes.TAMANHO_DO_BLOCO // 2),
                                        constantes.TAMANHO_DO_BLOCO // 2)

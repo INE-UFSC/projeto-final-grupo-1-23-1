@@ -35,11 +35,11 @@ class Main:
 
         self.grupo_ghostman = pygame.sprite.Group()
         self.grupo_pacmans = pygame.sprite.Group()
-
+        self.todas_as_sprites.add(self.pac)
+        self.todas_as_sprites.add(self.player)
         self.grupo_pacmans.add(self.pac)
         self.grupo_ghostman.add(self.player)
-        print(self.grupo_pacmans, self.grupo_ghostman)
-        #self.colisoes = CollisionManager(self.mapa, self.grupo_ghostman, self.grupo_pacmans)
+        self.colisoes = CollisionManager(self.mapa, self.grupo_ghostman, self.grupo_pacmans)
     def atualizar_sprites(self):
         self.todas_as_sprites.update()
 
@@ -101,15 +101,13 @@ class Main:
         self.tela.fill(constantes.PRETO)
         self.tela.blit(self.mapa_surface, (0, 0))
         self.player.draw(self.tela)
-        self.pac.desenhar(self.tela)
+        self.pac.draw(self.tela)
         #pacman1.draw(self.tela)
         #pacman2.draw(self.tela)
         pygame.display.flip()
 
     def conferir_colisoes(self):
-        #self.colisoes.collisions()
-
-        pass
+        self.colisoes.collisions()
     def iniciar_jogo(self):
         self.abrir_mapa()
         while self.jogando:

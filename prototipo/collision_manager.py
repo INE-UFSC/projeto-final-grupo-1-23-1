@@ -18,13 +18,11 @@ class CollisionManager:
             for g2 in grupob:
                 for x2 in g2:
                     x2.hit()
-        if(self.collision_pacman_ghostman()):
 
+        if(self.collision_pacman_ghostman()):
             grupoa, grupob = (Collision(self.ghostmans, self.pacmans).getcolisores())
             for x1 in grupoa:
                 x1.hit()
-
-
 
             for g2 in grupob:
                 for x2 in g2:
