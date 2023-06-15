@@ -14,7 +14,7 @@ class Mapa:
         self.mapa = mapa_original
         self.tela = pygame.display.set_mode((constantes.LARGURA, constantes.ALTURA))
         self.lista_rect = []
-        self.bolinhas = []
+        self.bolinhas = pygame.sprite.Group()
 
     def desenhar_mapa(self):
         self.tela.fill((0, 0, 0))  # Flushes the screen
@@ -48,7 +48,8 @@ class Mapa:
                 elif self.mapa[i][j] == 2:  # Desenha os pontinhos
                     bolinha = Bolinha(constantes.AMARELO, j * constantes.TAMANHO_DO_BLOCO + constantes.TAMANHO_DO_BLOCO // 2, i * constantes.TAMANHO_DO_BLOCO + constantes.TAMANHO_DO_BLOCO // 2,
                                        constantes.TAMANHO_DO_BLOCO // 4)
-                    bolinha = bolinha.desenhar(self.tela)
+                    self.bolinhas.add(bolinha)
+                    #bolinha = bolinha.desenhar(self.tela)
                 elif self.mapa[i][j] == 6:  # Pontinho maior (poder dos pacman)
                     pygame.draw.circle(self.tela, constantes.AMARELO, (j * constantes.TAMANHO_DO_BLOCO + constantes.TAMANHO_DO_BLOCO // 2, i * constantes.TAMANHO_DO_BLOCO + constantes.TAMANHO_DO_BLOCO // 2),
                                        constantes.TAMANHO_DO_BLOCO // 2)

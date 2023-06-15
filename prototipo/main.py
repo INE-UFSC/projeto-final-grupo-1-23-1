@@ -98,16 +98,28 @@ class Main:
         self.mapa.carregar_mapa()
         self.mapa_surface = self.mapa.tela.copy()
     def draw(self):
+
         self.tela.fill(constantes.PRETO)
         self.tela.blit(self.mapa_surface, (0, 0))
+
+        for bolinha in self.mapa.bolinhas:
+            if bolinha.estavel:
+                bolinha.desenhar(self.tela)
+
         self.player.draw(self.tela)
-        self.pac.draw(self.tela)
-        #pacman1.draw(self.tela)
-        #pacman2.draw(self.tela)
+        for pacman in self.grupo_pacmans:
+            pacman.draw(self.tela)
+        #self.pac.draw(self.tela)
+
+
         pygame.display.flip()
 
     def conferir_colisoes(self):
         self.colisoes.collisions()
+
+    def conferir_personagens_vivos(self):
+        if self.pac.vidas <= 0:
+            self.grupo_pacmans.remove(self.pac)
     def iniciar_jogo(self):
         self.abrir_mapa()
         while self.jogando:
@@ -117,7 +129,8 @@ class Main:
             self.draw()
             self.player.colisao_tela()
             self.player.colisao_mapa(self.mapa.lista_rect)
-            self.player.colisao_bolinhas(self.mapa.bolinhas)
+            #self.player.colisao_bolinhas(self.mapa.bolinhas)
+            self.conferir_personagens_vivos()
             self.conferir_colisoes()
             self.mapa.atualizar()
             #pacman1.movimento_pacman(b)#tentando implementar colisao

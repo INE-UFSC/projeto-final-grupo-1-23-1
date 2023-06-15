@@ -8,16 +8,17 @@ class Pacman(pygame.sprite.Sprite):
         self.image = pygame.image.load('pacman_imagem.png')
         self.image = pygame.transform.scale(self.image, (20, 20)) #tamanho do personagem,
         self.rect = self.image.get_rect()
-        self.x = 378
-        self.y = 478
+        self.x = 348
+        self.y = 448
         self.rect.center = (self.x, self.y)
         self.direction = None
+        self.vidas = 3
         self.speed = 5
 
 
     def draw(self, screen):
-        ghost = pygame.draw.rect(screen, (255, 0, 0), self.rect)
-        screen.blit(self.image, (self.x - 10, self.y - 10))
+            ghost = pygame.draw.rect(screen, (255, 0, 0), self.rect)
+            screen.blit(self.image, (self.x - 10, self.y - 10))
 
     def move_right(self):
         self.direction = "right"
@@ -54,5 +55,11 @@ class Pacman(pygame.sprite.Sprite):
         elif direcao_sorteada == 'down' and self.direction != 'up':
             self.move_down()
         self.move()
-    def hit(self):
+    def colidido_por_ghostman(self):
+        self.vidas -= 1
+        self.x = 200
+        self.y = 200
         print('colidi com o fastasma!!!')
+
+    def colidiu_com_bolinha(self):
+        pass

@@ -14,19 +14,19 @@ class CollisionManager:
             #chama os colisores.Grupoa= list e Grupob = list(list)
             grupoa, grupob = (Collision(self.pacmans, self.bolinhas).getcolisores())
             for x1 in grupoa:
-                x1.hit()
+                x1.colidiu_com_bolinha()
             for g2 in grupob:
                 for x2 in g2:
-                    x2.hit()
+                    x2.colidida_por_pacman()
 
         if(self.collision_pacman_ghostman()):
             grupoa, grupob = (Collision(self.ghostmans, self.pacmans).getcolisores())
             for x1 in grupoa:
-                x1.hit()
+                x1.colidiu_com_pacman()
 
             for g2 in grupob:
                 for x2 in g2:
-                    x2.hit()
+                    x2.colidido_por_ghostman()
         '''
         if (self.collision_caixa_supresa_ghostman()):
             grupoa, grupob = (Collision(self.ghostmans, self.caixas_supresas).getcolisores())
