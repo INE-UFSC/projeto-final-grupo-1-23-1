@@ -1,13 +1,13 @@
 
 from math import pi
-from mapa_1 import mapa_original
+from mapa_1 import mapa1
 
 
 
 TAMANHO_DO_BLOCO = 27
 #dimensoes
-LARGURA = len(mapa_original[0]) * TAMANHO_DO_BLOCO
-ALTURA = len(mapa_original) * TAMANHO_DO_BLOCO
+LARGURA = len(mapa1[0]) * TAMANHO_DO_BLOCO
+ALTURA = len(mapa1) * TAMANHO_DO_BLOCO
 
 
 TITULO_JOGO = 'PacMan'

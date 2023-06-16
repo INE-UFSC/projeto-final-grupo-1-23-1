@@ -1,11 +1,12 @@
 import pygame
 from pygame.locals import *
 from random import randint
+from utils import get_path
 
 class Pacman(pygame.sprite.Sprite):
     def __init__(self):
         pygame.sprite.Sprite.__init__(self)
-        self.image = pygame.image.load('pacman_imagem.png')
+        self.image = pygame.image.load(get_path('pacman_imagem.png'))
         self.image = pygame.transform.scale(self.image, (20, 20)) #tamanho do personagem,
         self.rect = self.image.get_rect()
         self.x = 378

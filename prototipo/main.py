@@ -3,12 +3,11 @@ import constantes
 import os
 from mapa import Mapa
 import mapa_1
-from pacman_right import PacmanRight
-from pacman_left import PacmanLeft
 from pacman import Pacman
 from ghostman import Ghostman
 from pygame.locals import *
 from collision_manager import CollisionManager
+from utils import get_path
 
 class Main:
     def __init__(self):
@@ -24,7 +23,7 @@ class Main:
         self.jogando = True
         #entidades no mais
 
-        self.mapa = Mapa(mapa_1.mapa_original)
+        self.mapa = Mapa(mapa_1.mapa1)
     def novo_jogo(self):
         self.definir_entidades()
         self.iniciar_jogo()
@@ -47,7 +46,7 @@ class Main:
         diretorio_imagens = os.path.join(os.getcwd(), 'imagens')
         self.diretorio_audios = os.path.join(os.getcwd(), 'audios')
         self.pacman_start_logo = os.path.join(diretorio_imagens, constantes.PACMAN_START_LOGO)
-        self.pacman_start_logo = pygame.image.load(self.pacman_start_logo).convert()
+        self.pacman_start_logo = pygame.image.load(get_path('imagens', constantes.PACMAN_START_LOGO)).convert()
 
     def mostrar_texto(self, texto, tamanho_da_fonte, cor_do_texto, posicao_x, posicao_y):
         fonte = pygame.font.Font(self.fonte, tamanho_da_fonte)
@@ -62,7 +61,7 @@ class Main:
         self.tela.blit(self.pacman_start_logo, start_logo_rect)
 
     def mostrar_tela_start(self):
-        pygame.mixer.music.load(os.path.join(self.diretorio_audios, constantes.MUSICA_START))
+        pygame.mixer.music.load(os.path.join(get_path('audios', constantes.MUSICA_START)))
         pygame.mixer.music.play()
         pygame.mixer.music.set_volume(0.1)
         self.mostrar_logo(constantes.LARGURA // 2, 80)
@@ -92,7 +91,7 @@ class Main:
                 if event.type == pygame.KEYUP:
                     esperando = False
                     pygame.mixer.music.stop()
-                    pygame.mixer.Sound(os.path.join(self.diretorio_audios, constantes.TECLA_START)).play()
+                    pygame.mixer.Sound(os.path.join(get_path('audios', constantes.TECLA_START))).play()
 
     def abrir_mapa(self):
         self.mapa.carregar_mapa()
@@ -116,10 +115,10 @@ class Main:
             self.pac.movimentacao()
             self.draw()
             self.player.colisao_tela()
-            self.player.colisao_mapa(self.mapa.lista_rect)
-            self.player.colisao_bolinhas(self.mapa.bolinhas)
-            self.conferir_colisoes()
-            self.mapa.atualizar()
+            #self.player.colisao_mapa(self.mapa.lista_rect)
+            #self.player.colisao_bolinhas(self.mapa.bolinhas)
+            #self.conferir_colisoes()
+            #self.mapa.atualizar()
             #pacman1.movimento_pacman(b)#tentando implementar colisao
             #pacman2.movimento_pacman()
             #pacman1.colisao_ghostman(player)

@@ -1,64 +1,68 @@
-
 import constantes
 import pygame
-from bolinha import Bolinha
-from mapa_1 import mapa_original
+from mapa_1 import mapa1
 from pygame.locals import *
+from utils import get_path
+from componentesMapa.SpriteVazio import SpriteVazio
+from componentesMapa.spriteMapa import SpriteMapa
 
+altura = ((constantes.ALTURA - 50) // 32)
+largura = (constantes.LARGURA // 30)
 
-mapaPath = "imagensMapa/"
+class Bolinha(pygame.sprite.Sprite):
+    def __init__(self, x, y):
+        super().__init__()
+        self.image = pygame.Surface((4, 4))
+        self.image.fill(constantes.AMARELO)
+        self.rect = self.image.get_rect()
+        self.rect.x=x
+        self.rect.y=y
 
-
+class Bolao(pygame.sprite.Sprite):
+    def __init__(self, x, y):
+        super().__init__()
+        self.image = pygame.Surface((20, 20))
+        self.image.fill(constantes.AMARELO)
+        self.rect = self.image.get_rect()
+        self.rect.x=x
+        self.rect.y=y
+        
 class Mapa:
-    def __init__(self,mapa_original):
-        self.mapa = mapa_original
+    def __init__(self, mapa1):
+        self.mapa = mapa1
         self.tela = pygame.display.set_mode((constantes.LARGURA, constantes.ALTURA))
-        self.lista_rect = []
-        self.bolinhas = []
+        self.sprites_vazios = pygame.sprite.Group()
+        self.bolinhas = pygame.sprite.Group()
+        self.boloes = pygame.sprite.Group()
+        self.wallGroup = pygame.sprite.Group()
+        self.portoes = pygame.sprite.Group()
 
     def desenhar_mapa(self):
-        self.tela.fill((0, 0, 0))  # Flushes the screen
-        # Draws game elements
-        tile = 0
+        self.tela.fill((0, 0, 0))
+        for i in range(len(self.mapa)):
+            for j in range(len(self.mapa[i])):
+                if self.mapa[i][j] == 0:
+                    sprite_vazio = SpriteVazio(j * largura, i * altura, largura, altura)
+                    self.sprites_vazios.add(sprite_vazio)
 
-        for i in range(3, len(self.mapa) - 2):
-            for j in range(len(self.mapa[0])):
-                if self.mapa[i][j] == 3:  # Draw wall
-                    nome_do_arquivo = str(tile)
-                    if len(nome_do_arquivo) == 1:
-                        nome_do_arquivo = "00" + nome_do_arquivo
-                    elif len(nome_do_arquivo) == 2:
-                        nome_do_arquivo = "0" + nome_do_arquivo
-                    # Seleciona a imagem desejada
-                    nome_do_arquivo = "tile" + nome_do_arquivo + ".png"
-                    pixel_a_ser_desenhado = pygame.image.load(mapaPath + nome_do_arquivo)
-                    pixel_a_ser_desenhado = pygame.transform.scale(pixel_a_ser_desenhado, (constantes.TAMANHO_DO_BLOCO, constantes.TAMANHO_DO_BLOCO))
-                    # coloca as imagens na tela
-                    #Lista contendo totos os muros azuis
-                    rect = pygame.draw.rect(self.tela,constantes.AZUL, (j * constantes.TAMANHO_DO_BLOCO, i * constantes.TAMANHO_DO_BLOCO, constantes.TAMANHO_DO_BLOCO, constantes.TAMANHO_DO_BLOCO))
-                    #print(rect.x)
-                    self.lista_rect.append(rect)
-                    rect = pygame.draw.rect(self.tela, constantes.AZUL, (
-                    j * constantes.TAMANHO_DO_BLOCO, i * constantes.TAMANHO_DO_BLOCO, constantes.TAMANHO_DO_BLOCO,
-                    constantes.TAMANHO_DO_BLOCO))
+                elif self.mapa[i][j] == 1:
+                    bolinha = Bolinha(j * largura + (0.5 * largura), i * altura + (0.5 * altura))
+                    self.wallGroup.add(bolinha)
 
+                elif self.mapa[i][j] == 2:
+                    bolao = Bolao(j * largura + (0.5 * largura), i * altura + (0.5 * altura))
+                    self.wallGroup.add(bolao)
 
+                else:
+                    sprite_num = self.mapa[i][j]
+                    path = get_path('imagensMapa', 'mapa1', f'sprite{sprite_num}.png')
+                    vertical = SpriteMapa(j * largura, i * altura, largura, altura, path)
+                    self.wallGroup.add(vertical)
 
-
-                elif self.mapa[i][j] == 2:  # Desenha os pontinhos
-                    bolinha = Bolinha(constantes.AMARELO, j * constantes.TAMANHO_DO_BLOCO + constantes.TAMANHO_DO_BLOCO // 2, i * constantes.TAMANHO_DO_BLOCO + constantes.TAMANHO_DO_BLOCO // 2,
-                                       constantes.TAMANHO_DO_BLOCO // 4)
-                    bolinha = bolinha.desenhar(self.tela)
-                elif self.mapa[i][j] == 6:  # Pontinho maior (poder dos pacman)
-                    pygame.draw.circle(self.tela, constantes.AMARELO, (j * constantes.TAMANHO_DO_BLOCO + constantes.TAMANHO_DO_BLOCO // 2, i * constantes.TAMANHO_DO_BLOCO + constantes.TAMANHO_DO_BLOCO // 2),
-                                       constantes.TAMANHO_DO_BLOCO // 2)
-
-
-    def atualizar(self):
-        #print('numero de bolinhas atuais:',len(self.bolinhas))
-        pass
+        self.bolinhas.draw(self.tela)
+        self.boloes.draw(self.tela)
+        self.wallGroup.draw(self.tela)
+        self.portoes.draw(self.tela)
 
     def carregar_mapa(self):
         self.desenhar_mapa()
-
-
