@@ -82,11 +82,11 @@ class Ghostman(pygame.sprite.Sprite):
                 if self.rect.bottom >= c.top and self.rect.bottom <= c.top + 5:
                     self.y = c.top - 12
 
-    def colisao_bolinhas(self,bolinhas):
+    ''' def colisao_bolinhas(self,bolinhas):
         for bolinha in bolinhas:
             if bolinha.colliderect(self.rect):
-                bolinhas.remove(bolinha)
+                bolinhas.remove(bolinha)'''
 
-    def hit(self):
+    def colidiu_com_pacman(self):
         print('colidiu')
 
