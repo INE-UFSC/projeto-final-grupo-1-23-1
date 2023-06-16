@@ -105,9 +105,17 @@ class Main:
             if bolinha.estavel:
                 bolinha.desenhar(self.tela)
 
+        for bolao in self.mapa.boloes:
+            if bolao.estavel:
+                bolao.desenhar(self.tela)
+
+
         self.player.draw(self.tela)
+
         for pacman in self.grupo_pacmans:
             pacman.draw(self.tela)
+
+
         #self.pac.draw(self.tela)
 
 
@@ -125,11 +133,12 @@ class Main:
             self.relogio.tick(constantes.FPS)
             self.player.ghostman_movimentacao()
             self.pac.movimentacao()
+            self.conferir_personagens_vivos()
             self.draw()
             self.player.colisao_tela()
             #self.player.colisao_mapa(self.mapa.lista_rect)
             #self.player.colisao_bolinhas(self.mapa.bolinhas)
-            #self.conferir_colisoes()
+            self.conferir_colisoes()
             #self.mapa.atualizar()
             #pacman1.movimento_pacman(b)#tentando implementar colisao
             #pacman2.movimento_pacman()

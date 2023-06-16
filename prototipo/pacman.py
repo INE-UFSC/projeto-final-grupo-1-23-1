@@ -9,8 +9,8 @@ class Pacman(pygame.sprite.Sprite):
         self.image = pygame.image.load(get_path('pacman_imagem.png'))
         self.image = pygame.transform.scale(self.image, (20, 20)) #tamanho do personagem,
         self.rect = self.image.get_rect()
-        self.x = 348
-        self.y = 448
+        self.x = 110
+        self.y = 150
         self.rect.center = (self.x, self.y)
         self.direction = None
         self.vidas = 3
@@ -63,4 +63,7 @@ class Pacman(pygame.sprite.Sprite):
         print('colidi com o fastasma!!!')
 
     def colidiu_com_bolinha(self):
+        pass
+
+    def colidiu_com_bolao(self):
         pass
