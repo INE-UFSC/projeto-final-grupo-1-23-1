@@ -23,9 +23,6 @@ class Mapa:
 
     def desenhar_mapa(self):
 
-
-
-        #self.boloes.draw(self.tela)
         self.wallGroup.draw(self.tela)
         self.portoes.draw(self.tela)
 
@@ -52,3 +49,9 @@ class Mapa:
                     vertical = SpriteMapa(j * largura, i * altura, largura, altura, path)
                     self.wallGroup.add(vertical)
         self.desenhar_mapa()
+
+    def acabaram_as_bolinhas(self):
+        if len(self.bolinhas) == 0:
+            return True
+        else:
+            False

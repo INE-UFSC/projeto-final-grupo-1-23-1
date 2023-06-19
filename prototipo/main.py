@@ -30,14 +30,28 @@ class Main:
 
     def definir_entidades(self):
         self.player = Ghostman()
-        self.pac = Pacman()
+        self.pac = Pacman(150 , 140)
+        self.pac_2 = Pacman(550, 140)
+        self.pac_3 = Pacman(150, 400)
+        self.pac_4 = Pacman(550, 400)
+
 
         self.grupo_ghostman = pygame.sprite.Group()
         self.grupo_pacmans = pygame.sprite.Group()
+
         self.todas_as_sprites.add(self.pac)
+        self.todas_as_sprites.add(self.pac_2)
+        self.todas_as_sprites.add(self.pac_3)
+        self.todas_as_sprites.add(self.pac_4)
         self.todas_as_sprites.add(self.player)
+
         self.grupo_pacmans.add(self.pac)
+        self.grupo_pacmans.add(self.pac_2)
+        self.grupo_pacmans.add(self.pac_3)
+        self.grupo_pacmans.add(self.pac_4)
         self.grupo_ghostman.add(self.player)
+
+
         self.colisoes = CollisionManager(self.mapa, self.grupo_ghostman, self.grupo_pacmans)
     def atualizar_sprites(self):
         self.todas_as_sprites.update()
@@ -125,20 +139,21 @@ class Main:
         self.colisoes.collisions()
 
     def conferir_personagens_vivos(self):
-        if self.pac.vidas <= 0:
-            self.grupo_pacmans.remove(self.pac)
+        for pacman in self.grupo_pacmans:
+            if pacman.vidas <= 0:
+                self.grupo_pacmans.remove(pacman)
     def iniciar_jogo(self):
         self.abrir_mapa()
         while self.jogando:
             self.relogio.tick(constantes.FPS)
-            self.player.ghostman_movimentacao()
-            self.pac.movimentacao()
+            self.iniciar_movimentacao_dos_personagens()
             self.conferir_personagens_vivos()
             self.draw()
             self.player.colisao_tela()
             #self.player.colisao_mapa(self.mapa.lista_rect)
             #self.player.colisao_bolinhas(self.mapa.bolinhas)
             self.conferir_colisoes()
+            print(self.conferir_condicoes_de_fim())
             #self.mapa.atualizar()
             #pacman1.movimento_pacman(b)#tentando implementar colisao
             #pacman2.movimento_pacman()
@@ -148,6 +163,18 @@ class Main:
 
     def mostrar_tela_game_over(self):
         pass
+
+    def iniciar_movimentacao_dos_personagens(self):
+        self.player.ghostman_movimentacao()
+        for pacman in self.grupo_pacmans:
+            pacman.movimentacao()
+
+    def conferir_condicoes_de_fim(self):
+        if self.mapa.acabaram_as_bolinhas() or len(self.grupo_pacmans):
+            return True
+        else:
+            return False
+
 
 
 #pacman1 = PacmanRight()
