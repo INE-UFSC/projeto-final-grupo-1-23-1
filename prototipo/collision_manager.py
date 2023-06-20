@@ -50,26 +50,20 @@ class CollisionManager:
             for g2 in grupob:
                 for x2 in g2:
                     x2.hit()
-
+        '''
         if (self.collision_walls_pacman()):
             grupoa, grupob = (Collision(self.pacmans, self.walls).getcolisores())
 
             for x1 in grupoa:
-                x1.hit()
-
-            for g2 in grupob:
-                for x2 in g2:
-                    x2.hit()
-
+                x1.coliliu_por_wall()
+        '''
+        '''
         if (self.collision_walls_ghostman()):
             grupoa, grupob = (Collision(self.ghostmans, self.walls).getcolisores())
-
             for x1 in grupoa:
-                x1.hit()
+                x1.coliliu_por_wall()
 
-            for g2 in grupob:
-                for x2 in g2:
-                    x2.hit()
+        '''
 
         '''
         self.ghostman_life_detect()
@@ -94,7 +88,7 @@ class CollisionManager:
             return True
         else:
             return False
-
+    '''
     def collision_walls_ghostman(self):
         if (Collision(self.ghostmans, self.walls).detect_collision()):
             return True
@@ -105,7 +99,7 @@ class CollisionManager:
         if (Collision(self.pacmans, self.walls).detect_collision()):
             return True
         else:
-            return False'''
+            return False
 
     #nao sei se ultilizaremos essa funçao
     def ghostman_life_detect(self):
@@ -132,9 +126,10 @@ class CollisionManager:
     def boloes(self):
         return self.mapa.boloes
 
-    '''@property
+    @property
     def walls(self):
         return self.mapa.walls
+    '''
     @property
     def caixas_supresas(self):
         return self.mapa.caixas_supresas'''

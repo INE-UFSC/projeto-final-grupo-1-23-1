@@ -9,7 +9,7 @@ class Ghostman(pygame.sprite.Sprite):
     def __init__(self):
         pygame.sprite.Sprite.__init__(self)
         self.image = pygame.image.load(get_path('ghostman_imagem.png'))
-        self.image = pygame.transform.scale(self.image, (28, 28))
+        self.image = pygame.transform.scale(self.image, (20, 20))
         self.rect = self.image.get_rect()
         #self.rect = pygame.Rect(0, 0, 18, 18)
         self.direction = None
@@ -92,3 +92,14 @@ class Ghostman(pygame.sprite.Sprite):
     def colidiu_com_pacman(self):
         print('colidiu')
 
+    def coliliu_por_wall(self):
+        if self.direction == "right":
+            self.x -= 5
+        if self.direction == "left":
+            self.x += 5
+        if self.direction == "down":
+            self.y -= 5
+        if self.direction == "up":
+            self.y +=5
+        self.direction = None
+        print('colidiu com parede')

@@ -19,12 +19,12 @@ class Mapa:
         self.sprites_vazios = pygame.sprite.Group()
         self.bolinhas = pygame.sprite.Group()
         self.boloes = pygame.sprite.Group()
-        self.wallGroup = pygame.sprite.Group()
+        self.walls = pygame.sprite.Group()
         self.portoes = pygame.sprite.Group()
 
     def desenhar_mapa(self):
 
-        self.wallGroup.draw(self.tela)
+        self.walls.draw(self.tela)
         self.portoes.draw(self.tela)
 
     def carregar_mapa(self):
@@ -51,8 +51,8 @@ class Mapa:
                 else:
                     sprite_num = self.mapa[i][j]
                     path = get_path('imagensMapa', 'mapa1', f'sprite{sprite_num}.png')
-                    parede = SpriteMapa(j * largura, i * altura, largura, altura, path)
-                    self.wallGroup.add(parede)
+                    parede = SpriteMapa(j * largura, i * altura, largura-5, altura-5, path)
+                    self.walls.add(parede)
         self.desenhar_mapa()
     def acabaram_as_bolinhas(self):
         if len(self.bolinhas) == 0:
