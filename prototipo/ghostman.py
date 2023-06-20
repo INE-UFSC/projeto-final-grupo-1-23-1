@@ -9,8 +9,9 @@ class Ghostman(pygame.sprite.Sprite):
     def __init__(self):
         pygame.sprite.Sprite.__init__(self)
         self.image = pygame.image.load(get_path('ghostman_imagem.png'))
-        self.image = pygame.transform.scale(self.image, (20, 20))
-        self.ghostman = self.image.get_rect()
+        self.image = pygame.transform.scale(self.image, (28, 28))
+        self.rect = self.image.get_rect()
+        #self.rect = pygame.Rect(0, 0, 18, 18)
         self.direction = None
         self.x = 378
         self.y = 478
@@ -20,7 +21,7 @@ class Ghostman(pygame.sprite.Sprite):
         
     def draw(self, screen):
         ghost = pygame.draw.rect(screen, (5, 255, 0), self.rect)
-        screen.blit(self.image, (self.x - 10, self.y - 10))
+        screen.blit(self.image, (self.x - 14, self.y - 14))
 
 
     def move(self):

@@ -4,22 +4,23 @@ from random import randint
 from utils import get_path
 
 class Pacman(pygame.sprite.Sprite):
-    def __init__(self):
+    def __init__(self, pos_x, pos_y):
         pygame.sprite.Sprite.__init__(self)
         self.image = pygame.image.load(get_path('pacman_imagem.png'))
-        self.image = pygame.transform.scale(self.image, (20, 20)) #tamanho do personagem,
+        self.image = pygame.transform.scale(self.image, (28, 28)) #tamanho do personagem,
         self.rect = self.image.get_rect()
-        self.x = 348
-        self.y = 448
+        self.x = pos_x
+        self.y = pos_y
         self.rect.center = (self.x, self.y)
         self.direction = None
         self.vidas = 3
         self.speed = 5
+        self.posicao_inicial = (pos_x, pos_y)
 
 
     def draw(self, screen):
             ghost = pygame.draw.rect(screen, (255, 0, 0), self.rect)
-            screen.blit(self.image, (self.x - 10, self.y - 10))
+            screen.blit(self.image, (self.x - 14, self.y - 14))
 
     def move_right(self):
         self.direction = "right"
@@ -58,9 +59,11 @@ class Pacman(pygame.sprite.Sprite):
         self.move()
     def colidido_por_ghostman(self):
         self.vidas -= 1
-        self.x = 200
-        self.y = 200
+        self.x, self.y = self.posicao_inicial
         print('colidi com o fastasma!!!')
 
     def colidiu_com_bolinha(self):
+        pass
+
+    def colidiu_com_bolao(self):
         pass

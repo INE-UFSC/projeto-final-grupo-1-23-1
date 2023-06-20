@@ -27,6 +27,19 @@ class CollisionManager:
             for g2 in grupob:
                 for x2 in g2:
                     x2.colidido_por_ghostman()
+
+
+        if (self.collision_pacman_bolao()):
+            grupoa, grupob = (Collision(self.pacmans, self.boloes).getcolisores())
+
+            for x1 in grupoa:
+                x1.colidiu_com_bolao()
+
+            for g2 in grupob:
+                for x2 in g2:
+                    x2.colidido_por_pacman()
+
+
         '''
         if (self.collision_caixa_supresa_ghostman()):
             grupoa, grupob = (Collision(self.ghostmans, self.caixas_supresas).getcolisores())
@@ -73,6 +86,9 @@ class CollisionManager:
         else:
             return False
 
+    def collision_pacman_bolao(self):
+        return Collision(self.pacmans, self.boloes).detect_collision()
+
     '''def collision_caixa_supresa_ghostman(self):
         if (Collision(self.ghostmans, self.caixas_supresas).detect_collision()):
             return True
@@ -111,6 +127,10 @@ class CollisionManager:
     @property
     def pacmans(self):
         return self.__pacmans
+
+    @property
+    def boloes(self):
+        return self.mapa.boloes
 
     '''@property
     def walls(self):

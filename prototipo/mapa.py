@@ -23,6 +23,11 @@ class Mapa:
         self.portoes = pygame.sprite.Group()
 
     def desenhar_mapa(self):
+
+        self.wallGroup.draw(self.tela)
+        self.portoes.draw(self.tela)
+
+    def carregar_mapa(self):
         self.tela.fill((0, 0, 0))
         for i in range(len(self.mapa)):
             for j in range(len(self.mapa[i])):
@@ -49,10 +54,8 @@ class Mapa:
                     parede = SpriteMapa(j * largura, i * altura, largura, altura, path)
                     self.wallGroup.add(parede)
 
-        self.bolinhas.draw(self.tela)
-        self.boloes.draw(self.tela)
-        self.wallGroup.draw(self.tela)
-        self.portoes.draw(self.tela)
-
-    def carregar_mapa(self):
-        self.desenhar_mapa()
+    def acabaram_as_bolinhas(self):
+        if len(self.bolinhas) == 0:
+            return True
+        else:
+            False
