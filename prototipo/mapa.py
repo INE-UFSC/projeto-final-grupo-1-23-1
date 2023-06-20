@@ -51,7 +51,7 @@ class Mapa:
                 else:
                     sprite_num = self.mapa[i][j]
                     path = get_path('imagensMapa', 'mapa1', f'sprite{sprite_num}.png')
-                    parede = SpriteMapa(j * largura, i * altura, largura-5, altura-5, path)
+                    parede = SpriteMapa(j * largura, i * altura, largura, altura, path)
                     self.walls.add(parede)
         self.desenhar_mapa()
     def acabaram_as_bolinhas(self):

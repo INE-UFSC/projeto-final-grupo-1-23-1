@@ -7,7 +7,7 @@ class Pacman(pygame.sprite.Sprite):
     def __init__(self, pos_x, pos_y):
         pygame.sprite.Sprite.__init__(self)
         self.image = pygame.image.load(get_path('pacman_imagem.png'))
-        self.image = pygame.transform.scale(self.image, (20, 20)) #tamanho do personagem,
+        self.image = pygame.transform.scale(self.image, (28, 28)) #tamanho do personagem,
         self.rect = self.image.get_rect()
         self.x = pos_x
         self.y = pos_y

@@ -9,7 +9,7 @@ class Ghostman(pygame.sprite.Sprite):
     def __init__(self):
         pygame.sprite.Sprite.__init__(self)
         self.image = pygame.image.load(get_path('ghostman_imagem.png'))
-        self.image = pygame.transform.scale(self.image, (20, 20))
+        self.image = pygame.transform.scale(self.image, (28, 28))
         self.rect = self.image.get_rect()
         #self.rect = pygame.Rect(0, 0, 18, 18)
         self.direction = None
