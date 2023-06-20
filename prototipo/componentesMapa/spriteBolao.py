@@ -4,7 +4,20 @@ import constantes
 
 class SpriteBolao(MapComponent):
     def __init__(self, x, y):
-        self.image = pygame.Surface((20, 20))
+        pygame.sprite.Sprite.__init__(self)
+        self.image = pygame.Surface((10, 10))
         self.image.fill(constantes.AMARELO)
         self.rect = self.image.get_rect()
-        super().__init__(self.image, x, y)
+        self.rect.x = x
+        self.rect.y = y
+        self.estavel = True
+
+
+    def desenhar(self,tela):
+        #bolinha = pygame.draw.circle(tela,self.cor,(self.pos_x,self.pos_y),self.raio)
+        bolao = pygame.draw.rect(tela, constantes.AMARELO, self.rect)
+        return bolao
+
+    def colidido_por_pacman(self):
+        self.estavel = False
+        pass

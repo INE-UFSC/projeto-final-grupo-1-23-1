@@ -150,7 +150,7 @@ class Main:
             self.conferir_personagens_vivos()
             self.draw()
             self.player.colisao_tela()
-            self.player.colisao_mapa(self.Mapa.wallGroup)
+            #self.player.colisao_mapa(self.Mapa.wallGroup)
             #self.player.colisao_bolinhas(self.mapa.bolinhas)
             self.conferir_colisoes()
             print(self.conferir_condicoes_de_fim())
