@@ -3,30 +3,15 @@ import pygame
 from mapa_1 import mapa1
 from pygame.locals import *
 from utils import get_path
-from componentesMapa.SpriteVazio import SpriteVazio
+from componentesMapa.spriteVazio import SpriteVazio
 from componentesMapa.spriteMapa import SpriteMapa
+from componentesMapa.spriteBolinha import SpriteBolinha
+from componentesMapa.spriteBolao import SpriteBolao
+from componentesMapa.spritePortao import SpritePortao
 
 altura = ((constantes.ALTURA - 50) // 32)
 largura = (constantes.LARGURA // 30)
 
-class Bolinha(pygame.sprite.Sprite):
-    def __init__(self, x, y):
-        super().__init__()
-        self.image = pygame.Surface((4, 4))
-        self.image.fill(constantes.AMARELO)
-        self.rect = self.image.get_rect()
-        self.rect.x=x
-        self.rect.y=y
-
-class Bolao(pygame.sprite.Sprite):
-    def __init__(self, x, y):
-        super().__init__()
-        self.image = pygame.Surface((20, 20))
-        self.image.fill(constantes.AMARELO)
-        self.rect = self.image.get_rect()
-        self.rect.x=x
-        self.rect.y=y
-        
 class Mapa:
     def __init__(self, mapa1):
         self.mapa = mapa1
@@ -46,18 +31,23 @@ class Mapa:
                     self.sprites_vazios.add(sprite_vazio)
 
                 elif self.mapa[i][j] == 1:
-                    bolinha = Bolinha(j * largura + (0.5 * largura), i * altura + (0.5 * altura))
-                    self.wallGroup.add(bolinha)
+                    bolinha = SpriteBolinha(j * largura + (0.5 * largura), i * altura + (0.5 * altura))
+                    self.bolinhas.add(bolinha)
 
                 elif self.mapa[i][j] == 2:
-                    bolao = Bolao(j * largura + (0.5 * largura), i * altura + (0.5 * altura))
-                    self.wallGroup.add(bolao)
+                    bolao = SpriteBolao(j * largura + (0.5 * largura), i * altura + (0.5 * altura))
+                    self.boloes.add(bolao)
+                
+                elif self.mapa[i][j] == 9:
+                    path = get_path('imagensMapa', 'mapa1', 'sprite9.png')
+                    portao = SpriteMapa(j * largura, i * altura, largura, altura, path)
+                    self.portoes.add(portao)
 
                 else:
                     sprite_num = self.mapa[i][j]
                     path = get_path('imagensMapa', 'mapa1', f'sprite{sprite_num}.png')
-                    vertical = SpriteMapa(j * largura, i * altura, largura, altura, path)
-                    self.wallGroup.add(vertical)
+                    parede = SpriteMapa(j * largura, i * altura, largura, altura, path)
+                    self.wallGroup.add(parede)
 
         self.bolinhas.draw(self.tela)
         self.boloes.draw(self.tela)

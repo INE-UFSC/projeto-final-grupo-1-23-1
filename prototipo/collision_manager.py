@@ -12,11 +12,11 @@ class CollisionManager:
     def collisions(self) -> None:
         if (self.collision_bolinha_pacman()):#seriaos pacmans
             #chama os colisores.Grupoa= list e Grupob = list(list)
-            grupoa, grupob = (Collision(self.pacmans, self.bolinhas).getcolisores())
-            for x1 in grupoa:
-                x1.colidiu_com_bolinha()
-            for g2 in grupob:
-                for x2 in g2:
+            pacmans, bolinhas = (Collision(self.pacmans, self.bolinhas).getcolisores())
+            for pacman in pacmans:
+                pacman.colidiu_com_bolinha()
+            for bolinha in bolinhas:
+                for x2 in bolinha:
                     x2.colidida_por_pacman()
 
         if(self.collision_pacman_ghostman()):
@@ -102,7 +102,7 @@ class CollisionManager:
 
     @property
     def bolinhas(self):
-        return self.mapa.bolinhas
+        return self.__mapa.bolinhas
 
     @property
     def ghostmans(self):

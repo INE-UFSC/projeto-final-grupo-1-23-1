@@ -127,7 +127,7 @@ class Main:
             self.pac.movimentacao()
             self.draw()
             self.player.colisao_tela()
-            #self.player.colisao_mapa(self.mapa.lista_rect)
+            self.player.colisao_mapa(self.Mapa.wallGroup)
             #self.player.colisao_bolinhas(self.mapa.bolinhas)
             #self.conferir_colisoes()
             #self.mapa.atualizar()

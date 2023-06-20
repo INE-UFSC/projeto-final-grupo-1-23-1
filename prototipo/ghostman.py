@@ -3,19 +3,20 @@ from pygame.locals import *
 import constantes
 from mapa import Mapa
 from utils import get_path
+from mapa import Mapa
 
 class Ghostman(pygame.sprite.Sprite):
     def __init__(self):
         pygame.sprite.Sprite.__init__(self)
         self.image = pygame.image.load(get_path('ghostman_imagem.png'))
         self.image = pygame.transform.scale(self.image, (20, 20))
-        self.rect = self.image.get_rect()
-        #self.rect = pygame.Rect(0, 0, 18, 18)
+        self.ghostman = self.image.get_rect()
         self.direction = None
         self.x = 378
         self.y = 478
-        self.rect.center = (self.x, self.y)
+        self.ghostman.center = (self.x, self.y)
         self.speed = 5
+        self.lista_de_paredes = Mapa.wallGroup
         
     def draw(self, screen):
         ghost = pygame.draw.rect(screen, (5, 255, 0), self.rect)
@@ -31,7 +32,7 @@ class Ghostman(pygame.sprite.Sprite):
             self.x -= self.speed
         elif self.direction == "right":
             self.x += self.speed
-        self.rect.center = (self.x, self.y)
+        self.ghostman.center = (self.x, self.y)
 
     def move_right(self):
         self.direction = "right"
@@ -70,22 +71,22 @@ class Ghostman(pygame.sprite.Sprite):
     #o problema só esta que não consigo usar a matriz pra verificar
     def colisao_mapa(self, lista_de_paredes):
         #b = lista das paredes
-        for c in lista_de_paredes:
-            if c.colliderect(self.rect):
-                if self.rect.right  >= c.left and self.rect.right <= c.left +5:
-                    self.x = c.left - 12
+        for parede in lista_de_paredes:
+            if parede.colliderect(self.ghostman):
+                if self.ghostman.right  >= parede.left and self.ghostman.right <= parede.left +5:
+                    self.x = parede.left - 12
                     #melhorar depois
-                if self.rect.left  <= c.right and self.rect.left>= c.right -5:
-                    self.x = c.right + 12
-                if self.rect.top <= c.bottom and self.rect.top >= c.bottom -5:
-                    self.y = c.bottom + 10
-                if self.rect.bottom >= c.top and self.rect.bottom <= c.top + 5:
-                    self.y = c.top - 12
+                if self.ghostman.left  <= parede.right and self.ghostman.left>= parede.right -5:
+                    self.x = parede.right + 12
+                if self.ghostman.top <= parede.bottom and self.ghostman.top >= parede.bottom -5:
+                    self.y = parede.bottom + 10
+                if self.ghostman.bottom >= parede.top and self.ghostman.bottom <= parede.top + 5:
+                    self.y = parede.top - 12
 
-    ''' def colisao_bolinhas(self,bolinhas):
+    '''def colisao_bolinhas(self,bolinhas):
         for bolinha in bolinhas:
             if bolinha.colliderect(self.rect):
-                bolinhas.remove(bolinha)'''
+                bolinhas.remove(bolinha) '''
 
     def colidiu_com_pacman(self):
         print('colidiu')
