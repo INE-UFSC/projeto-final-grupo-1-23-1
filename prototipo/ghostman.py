@@ -9,7 +9,7 @@ class Ghostman(pygame.sprite.Sprite):
     def __init__(self):
         pygame.sprite.Sprite.__init__(self)
         self.image = pygame.image.load(get_path('ghostman_imagem.png'))
-        self.image = pygame.transform.scale(self.image, (28, 28))
+        self.image = pygame.transform.scale(self.image, (22, 22))
         self.rect = self.image.get_rect()
         #self.rect = pygame.Rect(0, 0, 18, 18)
         self.direction = None
@@ -20,8 +20,8 @@ class Ghostman(pygame.sprite.Sprite):
         #self.lista_de_paredes = Mapa.WallGroup
         
     def draw(self, screen):
-        ghost = pygame.draw.rect(screen, (5, 255, 0), self.rect)
-        screen.blit(self.image, (self.x - 14, self.y - 14))
+        #ghost = pygame.draw.rect(screen, (5, 255, 0), self.rect)
+        screen.blit(self.image, (self.x - 11, self.y - 11))
 
 
     def move(self):
@@ -100,6 +100,6 @@ class Ghostman(pygame.sprite.Sprite):
         if self.direction == "down":
             self.y -= 5
         if self.direction == "up":
-            self.y +=5
+            self.y += 5
         self.direction = None
         print('colidiu com parede')

@@ -30,8 +30,8 @@ class Main:
 
     def definir_entidades(self):
         self.player = Ghostman()
-        self.pac = Pacman(150 , 140)
-        self.pac_2 = Pacman(550, 140)
+        self.pac = Pacman(150 , 163)
+        self.pac_2 = Pacman(550, 163)
         self.pac_3 = Pacman(150, 400)
         self.pac_4 = Pacman(550, 400)
 
@@ -148,11 +148,12 @@ class Main:
             self.relogio.tick(constantes.FPS)
             self.iniciar_movimentacao_dos_personagens()
             self.conferir_personagens_vivos()
-            self.draw()
+
             self.player.colisao_tela()
             #self.player.colisao_mapa(self.Mapa.wallGroup)
             #self.player.colisao_bolinhas(self.mapa.bolinhas)
             self.conferir_colisoes()
+            self.draw()
             print(self.conferir_condicoes_de_fim())
             #self.mapa.atualizar()
             #pacman1.movimento_pacman(b)#tentando implementar colisao
