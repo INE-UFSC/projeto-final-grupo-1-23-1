@@ -16,11 +16,15 @@ class Pacman(pygame.sprite.Sprite):
         self.vidas = 3
         self.speed = 5
         self.posicao_inicial = (pos_x, pos_y)
-
+        self.pode_comer_ghostman = False
 
     def draw(self, screen):
-            ghost = pygame.draw.rect(screen, (255, 0, 0), self.rect)
+        if not self.pode_comer_ghostman:
+            #ghost = pygame.draw.rect(screen, (255, 0, 0), self.rect)
             screen.blit(self.image, (self.x - 11, self.y - 11))
+        else:
+            #ghost = ghost = pygame.draw.rect(screen, (0, 250, 0), self.rect)
+            pass
 
     def move_right(self):
         self.direction = "right"

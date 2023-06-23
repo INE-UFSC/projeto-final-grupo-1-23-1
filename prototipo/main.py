@@ -148,13 +148,17 @@ class Main:
             self.relogio.tick(constantes.FPS)
             self.iniciar_movimentacao_dos_personagens()
             self.conferir_personagens_vivos()
-
             self.player.colisao_tela()
             #self.player.colisao_mapa(self.Mapa.wallGroup)
             #self.player.colisao_bolinhas(self.mapa.bolinhas)
             self.conferir_colisoes()
             self.draw()
             print(self.conferir_condicoes_de_fim())
+            for event in pygame.event.get():
+                if event.type == pygame.QUIT:
+                    self.jogando = False
+        self.esta_rodando = False
+
             #self.mapa.atualizar()
             #pacman1.movimento_pacman(b)#tentando implementar colisao
             #pacman2.movimento_pacman()
