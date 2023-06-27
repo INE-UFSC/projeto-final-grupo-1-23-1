@@ -5,9 +5,10 @@ from utils import get_path
 class Pacman(pygame.sprite.Sprite):
     def __init__(self, pos_x, pos_y):
         pygame.sprite.Sprite.__init__(self)
-        self.image = pygame.image.load(get_path('pacman_imagem.png'))
-        self.image = pygame.transform.scale(self.image, (22, 22)) #tamanho do personagem,
-        self.rect = self.image.get_rect()
+        self.image_standard = pygame.image.load(get_path('pacman_imagem.png'))
+        self.image_standard = pygame.transform.scale(self.image_standard, (22, 22)) #tamanho do personagem,
+        self.image_atual = self.image_standard
+        self.rect = self.image_atual.get_rect()
         self.x = pos_x
         self.y = pos_y
         self.rect.center = (self.x, self.y)
@@ -23,7 +24,7 @@ class Pacman(pygame.sprite.Sprite):
     def draw(self, screen):
         if not self.pode_comer_ghostman:
             #ghost = pygame.draw.rect(screen, (255, 0, 0), self.rect)
-            screen.blit(self.image, (self.x - 11, self.y - 11))
+            screen.blit(self.image_atual, (self.x - 11, self.y - 11))
         else:
             #ghost = ghost = pygame.draw.rect(screen, (0, 250, 0), self.rect)
             pass
