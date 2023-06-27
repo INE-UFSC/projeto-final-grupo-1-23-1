@@ -24,7 +24,6 @@ class Ghostman(pygame.sprite.Sprite):
         #ghost = pygame.draw.rect(screen, (5, 255, 0), self.rect)
         screen.blit(self.image, (self.x - 11, self.y - 11))
 
-
     def move(self):
         if self.direction == "up":
             self.y -= self.speed

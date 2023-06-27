@@ -2,13 +2,12 @@ import pygame
 from componentesMapa.mapComponent import MapComponent
 import constantes
 import random
-
+from utils import get_path
 class Caixa_Supresa(MapComponent):
     def __init__(self, x, y):
         pygame.sprite.Sprite.__init__(self)
-        self.cor = constantes.ROSA
-        self.image = pygame.Surface((18, 18))
-        self.image.fill(constantes.ROSA)
+        self.image = pygame.image.load(get_path('Power ups.png'))
+        self.image = pygame.transform.scale(self.image, (20, 20))
         self.rect = self.image.get_rect()
         self.rect.x = x
         self.rect.y = y
@@ -20,14 +19,14 @@ class Caixa_Supresa(MapComponent):
         self.player = None
         self.current_timer = None
 
-    def desenhar(self,tela):
-        #bolinha = pygame.draw.circle(tela,self.cor,(self.pos_x,self.pos_y),self.raio)
-        caixa = pygame.draw.rect(tela, self.cor, self.rect)
+    def desenhar(self, screen):
+        #ghost = pygame.draw.rect(screen, (5, 255, 0), self.rect)
+        caixa = screen.blit(self.image, (self.rect.x-11, self.rect.y-11))
         return caixa
     def update(self,current_timer):
         self.current_timer = current_timer
         if self.ativo == True:
-            self.cor = constantes.PRETO
+            self.image.fill(constantes.PRETO)
             if self.current_timer - self.set_timer < self.timer_limit:
                 self.set_timer +=1
             else:
