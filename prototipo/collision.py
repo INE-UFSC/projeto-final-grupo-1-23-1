@@ -23,8 +23,5 @@ class Collision:
     def grupo2(self):
         return self.__grupo2
 
-    def getcolisores(self):
-        collision_dict = pygame.sprite.groupcollide(self.grupo1, self.grupo2, False, False)
-        group1 = collision_dict.keys()
-        group2 = collision_dict.values()
-        return group1,group2
+    def dict(self):
+        return pygame.sprite.groupcollide(self.grupo1, self.grupo2, False, False)

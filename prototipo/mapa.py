@@ -7,6 +7,7 @@ from componentesMapa.SpriteVazio import SpriteVazio
 from componentesMapa.spriteMapa import SpriteMapa
 from componentesMapa.spriteBolinha import SpriteBolinha
 from componentesMapa.spriteBolao import SpriteBolao
+from componentesMapa.SpriteCaixa_supresa import Caixa_Supresa
 from componentesMapa.spritePortao import SpritePortao
 
 altura = ((constantes.ALTURA - 50) // 32)
@@ -21,6 +22,7 @@ class Mapa:
         self.boloes = pygame.sprite.Group()
         self.walls = pygame.sprite.Group()
         self.portoes = pygame.sprite.Group()
+        self.caixas_supresas = pygame.sprite.Group()
 
     def desenhar_mapa(self):
 
@@ -47,6 +49,10 @@ class Mapa:
                     path = get_path('imagensMapa', 'mapa1', 'sprite9.png')
                     portao = SpriteMapa(j * largura, i * altura, largura, altura, path)
                     self.portoes.add(portao)
+                #caixa_supresa
+                elif self.mapa[i][j] == 10:
+                    caixa = Caixa_Supresa(j * largura + (0.5 * largura), i * altura + (0.5 * altura))
+                    self.caixas_supresas.add(caixa)
 
                 else:
                     sprite_num = self.mapa[i][j]

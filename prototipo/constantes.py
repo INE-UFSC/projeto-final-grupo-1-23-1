@@ -46,7 +46,7 @@ BRANCO = (255, 255, 255)
 AMARELO =  (244, 233, 51)
 AZUL = (0, 0, 255)
 PI = math.pi
-
+ROSA = (218,112,214)
 
 PACMAN_START_LOGO = 'pacman-logo-1.png'
 GHOSTMAN = 'ghostman.png'

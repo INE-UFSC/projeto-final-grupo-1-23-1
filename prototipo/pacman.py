@@ -2,7 +2,6 @@ import pygame
 from pygame.locals import *
 from random import randint
 from utils import get_path
-
 class Pacman(pygame.sprite.Sprite):
     def __init__(self, pos_x, pos_y):
         pygame.sprite.Sprite.__init__(self)
@@ -17,6 +16,9 @@ class Pacman(pygame.sprite.Sprite):
         self.speed = 5
         self.posicao_inicial = (pos_x, pos_y)
         self.pode_comer_ghostman = False
+
+        self.vuneravel = True
+
 
     def draw(self, screen):
         if not self.pode_comer_ghostman:
@@ -62,9 +64,10 @@ class Pacman(pygame.sprite.Sprite):
             self.move_down()
         self.move()
     def colidido_por_ghostman(self):
-        self.vidas -= 1
-        self.x, self.y = self.posicao_inicial
-        print('colidi com o fastasma!!!')
+        if self.vuneravel == True:
+            self.vidas -= 1
+            self.x, self.y = self.posicao_inicial
+            print('colidi com o fastasma!!!')
 
     def colidiu_com_bolinha(self):
         pass
@@ -82,4 +85,3 @@ class Pacman(pygame.sprite.Sprite):
         if self.direction == "up":
             self.y += self.speed
         self.direction = None
-        print('colidiu com parede')

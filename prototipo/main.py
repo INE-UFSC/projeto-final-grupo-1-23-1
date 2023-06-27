@@ -8,7 +8,6 @@ from ghostman import Ghostman
 from pygame.locals import *
 from collision_manager import CollisionManager
 from utils import get_path
-
 class Main:
     def __init__(self):
         pygame.init()
@@ -24,13 +23,16 @@ class Main:
         #entidades no mais
 
         self.mapa = Mapa(mapa_1.mapa1)
+
+        #current_time:
+        self.current_timer = 0
     def novo_jogo(self):
         self.definir_entidades()
         self.iniciar_jogo()
 
     def definir_entidades(self):
         self.player = Ghostman()
-        self.pac = Pacman(150 , 163)
+        self.pac = Pacman(68 , 100)
         self.pac_2 = Pacman(550, 163)
         self.pac_3 = Pacman(150, 400)
         self.pac_4 = Pacman(550, 400)
@@ -122,8 +124,13 @@ class Main:
         for bolao in self.mapa.boloes:
             if bolao.estavel:
                 bolao.desenhar(self.tela)
+                # onde que eu deixo a funçao set_timer eupdate:
+                bolao.update(self.current_timer)
 
-
+        for caixa in self.mapa.caixas_supresas:
+            caixa.desenhar(self.tela)
+            #onde que eu deixo a funçao set_timer eupdate:
+            caixa.update(self.current_timer)
         self.player.draw(self.tela)
 
         for pacman in self.grupo_pacmans:
@@ -146,6 +153,9 @@ class Main:
         self.abrir_mapa()
         while self.jogando:
             self.relogio.tick(constantes.FPS)
+
+            self.current_timer = pygame.time.get_ticks()
+
             self.iniciar_movimentacao_dos_personagens()
             self.conferir_personagens_vivos()
             self.player.colisao_tela()
@@ -153,7 +163,7 @@ class Main:
             #self.player.colisao_bolinhas(self.mapa.bolinhas)
             self.conferir_colisoes()
             self.draw()
-            print(self.conferir_condicoes_de_fim())
+
             for event in pygame.event.get():
                 if event.type == pygame.QUIT:
                     self.jogando = False

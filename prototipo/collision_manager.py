@@ -11,61 +11,44 @@ class CollisionManager:
     #ações realisadas no jogo quando é detectado colisão
     def collisions(self) -> None:
         if (self.collision_bolinha_pacman()):#seriaos pacmans
-            #chama os colisores.Grupoa= list e Grupob = list(list)
-            pacmans, bolinhas = (Collision(self.pacmans, self.bolinhas).getcolisores())
-            for pacman in pacmans:
-                pacman.colidiu_com_bolinha()
-            for bolinha in bolinhas:
-                for x2 in bolinha:
-                    x2.colidida_por_pacman()
+            dict = (Collision(self.pacmans, self.bolinhas).dict())
+
+            for pacman, bolinhas in dict.items():
+                for bolinha in bolinhas:
+                    pacman.colidiu_com_bolinha()
+                    bolinha.colidida_por_pacman()
 
         if(self.collision_pacman_ghostman()):
-            grupoa, grupob = (Collision(self.ghostmans, self.pacmans).getcolisores())
-            for x1 in grupoa:
-                x1.colidiu_com_pacman()
+            dict = (Collision(self.ghostmans, self.pacmans).dict())
 
-            for g2 in grupob:
-                for x2 in g2:
-                    x2.colidido_por_ghostman()
-
+            for ghost, pacmans in dict.items():
+                for pacman in pacmans:
+                    pacman.colidido_por_ghostman()
+                    ghost.colidiu_com_pacman(pacman)
 
         if (self.collision_pacman_bolao()):
-            grupoa, grupob = (Collision(self.pacmans, self.boloes).getcolisores())
+            dict = (Collision(self.pacmans, self.boloes).dict())
+            for pacman, boloes in dict.items():
+                for bolao in boloes:
+                    bolao.hit(self.pacmans)
 
-            for x1 in grupoa:
-                x1.colidiu_com_bolao()
-
-            for g2 in grupob:
-                for x2 in g2:
-                    x2.colidido_por_pacman()
-
-
-        '''
         if (self.collision_caixa_supresa_ghostman()):
-            grupoa, grupob = (Collision(self.ghostmans, self.caixas_supresas).getcolisores())
+            dict = (Collision(self.ghostmans, self.caixas_supresas).dict())
 
-            for x1 in grupoa:
-                x1.hit()
+            for player, caixas in dict.items():
+                for caixa in caixas:
+                    caixa.hit(player)
 
-            for g2 in grupob:
-                for x2 in g2:
-                    x2.hit()
-        '''
         if (self.collision_walls_pacman()):
-            grupoa, grupob = (Collision(self.pacmans, self.walls).getcolisores())
+            dict = (Collision(self.pacmans, self.walls).dict())
 
-            for x1 in grupoa:
-                x1.coliliu_por_wall()
-        '''
-        '''
+            for pacman, walls in dict.items():
+                pacman.coliliu_por_wall()
+
         if (self.collision_walls_ghostman()):
-            grupoa, grupob = (Collision(self.ghostmans, self.walls).getcolisores())
-            for x1 in grupoa:
-                x1.coliliu_por_wall()
-
-        '''
-
-        '''
+            dict = (Collision(self.ghostmans, self.walls).dict())
+            for ghost, walls in dict.items():
+                ghost.coliliu_por_wall()
         self.ghostman_life_detect()
 
     #verificar se colidiu
@@ -83,12 +66,12 @@ class CollisionManager:
     def collision_pacman_bolao(self):
         return Collision(self.pacmans, self.boloes).detect_collision()
 
-    '''def collision_caixa_supresa_ghostman(self):
+    def collision_caixa_supresa_ghostman(self):
         if (Collision(self.ghostmans, self.caixas_supresas).detect_collision()):
             return True
         else:
             return False
-    '''
+
     def collision_walls_ghostman(self):
         if (Collision(self.ghostmans, self.walls).detect_collision()):
             return True
@@ -129,7 +112,7 @@ class CollisionManager:
     @property
     def walls(self):
         return self.mapa.walls
-    '''
+
     @property
     def caixas_supresas(self):
-        return self.mapa.caixas_supresas'''
+        return self.mapa.caixas_supresas

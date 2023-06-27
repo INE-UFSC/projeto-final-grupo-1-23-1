@@ -1,26 +1,29 @@
 import pygame
 from componentesMapa.mapComponent import MapComponent
 import constantes
+import random
 
-class SpriteBolao(MapComponent):
+class Caixa_Supresa(MapComponent):
     def __init__(self, x, y):
         pygame.sprite.Sprite.__init__(self)
-        self.image = pygame.Surface((10, 10))
-        self.image.fill(constantes.AMARELO)
+        self.cor = constantes.ROSA
+        self.image = pygame.Surface((18, 18))
+        self.image.fill(constantes.ROSA)
         self.rect = self.image.get_rect()
         self.rect.x = x
         self.rect.y = y
-        self.estavel = True
-        self.cor = constantes.AMARELO
         self.ativo = False
-        self.timer_limit = 10000
+
+        self.type = random.choice(['slow','speed'])
+        self.timer_limit = 4000
         self.set_timer = 0
+        self.player = None
         self.current_timer = None
-        self.pacmans = None
+
     def desenhar(self,tela):
         #bolinha = pygame.draw.circle(tela,self.cor,(self.pos_x,self.pos_y),self.raio)
-        bolao = pygame.draw.rect(tela, self.cor, self.rect)
-        return bolao
+        caixa = pygame.draw.rect(tela, self.cor, self.rect)
+        return caixa
     def update(self,current_timer):
         self.current_timer = current_timer
         if self.ativo == True:
@@ -29,16 +32,19 @@ class SpriteBolao(MapComponent):
                 self.set_timer +=1
             else:
                 print("acabou o efeito")
-                for pacman in self.pacmans:
-                    pacman.vuneravel = True
+                self.player.speed = 5#velocidade padrao
                 self.kill()
-
-    def hit(self,pacmans):
-        self.pacmans = pacmans
+    def hit(self,player):
+        self.player = player
         if self.ativo == False:
-            print("invunerabilidade ativada em pacman")
             self.ativo = True
             self.set_timer = pygame.time.get_ticks()
-            for pacman in self.pacmans:
-                pacman.vuneravel = False
+            self.aplicar_efeito(player)
 
+    def aplicar_efeito(self,player):
+        print("aplicando o efeito de :",self.type)
+        if self.ativo == True:
+            if self.type == "speed":
+                player.speed += 3
+            elif self.type == "slow":
+                player.speed -= 3

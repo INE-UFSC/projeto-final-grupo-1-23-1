@@ -18,6 +18,7 @@ class Ghostman(pygame.sprite.Sprite):
         self.rect.center = (self.x, self.y)
         self.speed = 5
         #self.lista_de_paredes = Mapa.WallGroup
+
         
     def draw(self, screen):
         #ghost = pygame.draw.rect(screen, (5, 255, 0), self.rect)
@@ -89,8 +90,13 @@ class Ghostman(pygame.sprite.Sprite):
             if bolinha.colliderect(self.rect):
                 bolinhas.remove(bolinha)
 
-    def colidiu_com_pacman(self):
-        print('colidiu')
+    def colidiu_com_pacman(self,pacman):
+        print(pacman.vuneravel)
+
+        if pacman.vuneravel == False:
+            self.x= 473
+            self.y = 428
+
 
     def coliliu_por_wall(self):
         if self.direction == "right":
@@ -102,4 +108,3 @@ class Ghostman(pygame.sprite.Sprite):
         if self.direction == "up":
             self.y += 5
         self.direction = None
-        print('colidiu com parede')
