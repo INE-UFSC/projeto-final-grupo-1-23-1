@@ -1,6 +1,20 @@
 
 from math import pi
 from mapa_1 import mapa1
+from pygame import *
+
+#eventos personalizados para a gui
+SHOW_MAIN_MENU = USEREVENT +1
+SHOW_MAP_MENU = USEREVENT + 2
+SHOW_HOW_TO_MENU = USEREVENT + 3
+SHOW_CREDITS_MENU = USEREVENT + 4
+QUIT_MENU = USEREVENT + 5
+EXIT = USEREVENT + 6
+START_GAME = USEREVENT + 7
+
+MANSION_MAP = USEREVENT + 8
+FOOTBALL_MAP = USEREVENT + 9
+TRANSIT_MAP = USEREVENT + 10
 
 
 

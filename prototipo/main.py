@@ -8,6 +8,8 @@ from ghostman import Ghostman
 from pygame.locals import *
 from collision_manager import CollisionManager
 from utils import get_path
+from gui import *
+
 class Main:
     def __init__(self):
         pygame.init()
@@ -19,8 +21,11 @@ class Main:
         self.esta_rodando = True
         self.fonte = pygame.font.match_font(constantes.FONTE)
         self.carregar_arquivos()
-        self.jogando = True
+        self.jogando = False
         #entidades no mais
+
+        #interface
+        self.gui = Gui()
 
         self.mapa = Mapa(mapa_1.mapa1)
 
@@ -80,7 +85,7 @@ class Main:
         pygame.mixer.music.load(os.path.join(get_path('audios', constantes.MUSICA_START)))
         pygame.mixer.music.play()
         pygame.mixer.music.set_volume(0.1)
-        self.mostrar_logo(constantes.LARGURA // 2, 80)
+        """ self.mostrar_logo(constantes.LARGURA // 2, 80)
         self.mostrar_texto('- Pressione uma tecla para jogar',
                            32,
                            constantes.AMARELO,
@@ -94,9 +99,31 @@ class Main:
                            780
                            )
         pygame.display.flip()
-        self.esperar_por_jogador()
+        self.esperar_por_jogador() """
 
-    def esperar_por_jogador(self):
+    def game_loop(self):
+        while True:
+            self.relogio.tick(constantes.FPS)
+            events = self.handle_events()
+            if self.jogando == False:
+                self.gui.game_loop(events)
+            else:
+                self.novo_jogo()
+
+    def handle_events(self):
+        events = pygame.event.get()
+        for event in events:
+            if event.type == START_GAME:
+                self.jogando = True
+            if event.type == pygame.QUIT:
+                self.esta_rodando = False
+                pygame.quit()
+            if event.type == KEYDOWN:
+                pygame.mixer.music.stop()
+                pygame.mixer.Sound(os.path.join(get_path('audios', constantes.TECLA_START))).play()
+        return events
+
+    """ def esperar_por_jogador(self):
         esperando = True
         while esperando:
             self.relogio.tick(constantes.FPS)
@@ -104,14 +131,16 @@ class Main:
                 if event.type == pygame.QUIT:
                     esperando = False
                     self.esta_rodando = False
-                if event.type == pygame.KEYUP:
+                    pygame.quit()
+                if event.type == KEYDOWN:
                     esperando = False
                     pygame.mixer.music.stop()
-                    pygame.mixer.Sound(os.path.join(get_path('audios', constantes.TECLA_START))).play()
+                    pygame.mixer.Sound(os.path.join(get_path('audios', constantes.TECLA_START))).play() """
 
     def abrir_mapa(self):
         self.mapa.carregar_mapa()
         self.mapa_surface = self.mapa.tela.copy()
+
     def draw(self):
 
         self.tela.fill(constantes.PRETO)
@@ -149,6 +178,7 @@ class Main:
         for pacman in self.grupo_pacmans:
             if pacman.vidas <= 0:
                 self.grupo_pacmans.remove(pacman)
+
     def iniciar_jogo(self):
         self.abrir_mapa()
         while self.jogando:
@@ -195,8 +225,9 @@ class Main:
 #pacman1 = PacmanRight()
 #pacman2 = PacmanLeft()
 g = Main()
-g.mostrar_tela_start()
+#g.mostrar_tela_start()
+g.game_loop()
 
-while g.esta_rodando:
+""" while g.esta_rodando:
     g.novo_jogo()
-    g.mostrar_tela_game_over()
+    g.mostrar_tela_game_over() """
