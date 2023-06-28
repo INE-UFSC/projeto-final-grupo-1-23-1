@@ -238,7 +238,7 @@ class QuitMenu(Menu):
     def display_menu(self):
         MENU_MOUSE_POS = pygame.mouse.get_pos()
 
-        self.draw_text(["Are you sure you want to quit the game?"], 30, self.largura / 2, self.altura * 0.2)
+        self.draw_text(["Are you sure you want to quit the game?"], 17, self.largura / 2, self.altura * 0.2)
 
         for button in [self.yes_button, self.no_button]:
             button.change_color(MENU_MOUSE_POS)

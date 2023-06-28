@@ -1,11 +1,12 @@
 import pygame, sys
 from menu import *
 from constantes import *
+import constantes
 
 class Gui():
     def __init__(self):
         pygame.init()
-        self.largura, self.altura = 1280, 720
+        self.largura, self.altura = constantes.LARGURA, constantes.ALTURA#constantes.LARGURA_MENU, constantes.ALTURA_MENU
         self.screen = pygame.display.set_mode((self.largura, self.altura))
         self.main_menu = MainMenu(self.screen)
         self.how_to_play = HowToMenu(self.screen)
