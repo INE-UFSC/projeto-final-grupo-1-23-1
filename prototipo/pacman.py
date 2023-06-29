@@ -2,11 +2,13 @@ import pygame
 from pygame.locals import *
 from random import randint
 from utils import get_path
+import constantes
+
 class Pacman(pygame.sprite.Sprite):
     def __init__(self, pos_x, pos_y):
         pygame.sprite.Sprite.__init__(self)
-        self.image_standard = pygame.image.load(get_path('pacman_imagem.png'))
-        self.image_standard = pygame.transform.scale(self.image_standard, (22, 22)) #tamanho do personagem,
+        self.image_standard = pygame.image.load(get_path('imagens', 'pacman_imagem.png'))
+        self.image_standard = pygame.transform.scale(self.image_standard, (24, 24)) #tamanho do personagem,
         self.image_atual = self.image_standard
         self.rect = self.image_atual.get_rect()
         self.x = pos_x
@@ -24,7 +26,7 @@ class Pacman(pygame.sprite.Sprite):
     def draw(self, screen):
         if not self.pode_comer_ghostman:
             #ghost = pygame.draw.rect(screen, (255, 0, 0), self.rect)
-            screen.blit(self.image_atual, (self.x - 11, self.y - 11))
+            screen.blit(self.image_atual, (self.x - 12, self.y - 12))
         else:
             #ghost = ghost = pygame.draw.rect(screen, (0, 250, 0), self.rect)
             pass
@@ -52,6 +54,12 @@ class Pacman(pygame.sprite.Sprite):
             self.x += self.speed
         self.rect.center = (self.x, self.y)
 
+    def colisao_tela(self):
+        if self.x > constantes.LARGURA:
+            self.x = 0
+        elif self.x < 0:
+            self.x = constantes.LARGURA
+
     def movimentacao(self):
         direcoes_possiveis = ['up', 'down', 'left', 'right']
         direcao_sorteada = direcoes_possiveis[randint(0, 3)]
@@ -76,7 +84,7 @@ class Pacman(pygame.sprite.Sprite):
     def colidiu_com_bolao(self):
         pass
 
-    def coliliu_por_wall(self):
+    def colidiu_por_wall(self):
         if self.direction == "right":
             self.x -= self.speed
         if self.direction == "left":

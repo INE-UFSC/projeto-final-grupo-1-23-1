@@ -41,14 +41,18 @@ class CollisionManager:
 
         if (self.collision_walls_pacman()):
             dict = (Collision(self.pacmans, self.walls).dict())
-
             for pacman, walls in dict.items():
-                pacman.coliliu_por_wall()
+                pacman.colidiu_por_wall()
+
+        if (self.collision_gates_pacman()):
+            dict = (Collision(self.pacmans, self.gates).dict())
+            for pacman, gates in dict.items():
+                pacman.colidiu_por_wall()
 
         if (self.collision_walls_ghostman()):
             dict = (Collision(self.ghostmans, self.walls).dict())
             for ghost, walls in dict.items():
-                ghost.coliliu_por_wall()
+                ghost.colidiu_com_wall()        
         self.ghostman_life_detect()
 
     #verificar se colidiu
@@ -83,6 +87,12 @@ class CollisionManager:
             return True
         else:
             return False
+        
+    def collision_gates_pacman(self):
+        if (Collision(self.pacmans, self.walls).detect_collision()):
+            return True
+        else:
+            return False
 
     #nao sei se ultilizaremos essa funçao
     def ghostman_life_detect(self):
@@ -109,6 +119,10 @@ class CollisionManager:
     def boloes(self):
         return self.mapa.boloes
 
+    @property
+    def gates(self):
+        return self.mapa.portoes
+    
     @property
     def walls(self):
         return self.mapa.walls

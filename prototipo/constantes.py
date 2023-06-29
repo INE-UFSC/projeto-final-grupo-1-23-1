@@ -4,7 +4,7 @@ from mapa_1 import mapa1
 
 
 
-TAMANHO_DO_BLOCO = 27
+TAMANHO_DO_BLOCO = 28
 #dimensoes
 LARGURA = len(mapa1[0]) * TAMANHO_DO_BLOCO
 ALTURA = len(mapa1) * TAMANHO_DO_BLOCO

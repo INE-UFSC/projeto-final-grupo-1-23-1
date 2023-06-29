@@ -49,6 +49,7 @@ class Mapa:
                     path = get_path('imagensMapa', 'mapa1', 'sprite9.png')
                     portao = SpriteMapa(j * largura, i * altura, largura, altura, path)
                     self.portoes.add(portao)
+
                 #caixa_supresa
                 elif self.mapa[i][j] == 10:
                     caixa = Caixa_Supresa(j * largura + (0.5 * largura), i * altura + (0.5 * altura))
@@ -59,6 +60,7 @@ class Mapa:
                     path = get_path('imagensMapa', 'mapa1', f'sprite{sprite_num}.png')
                     parede = SpriteMapa(j * largura, i * altura, largura, altura, path)
                     self.walls.add(parede)
+                    
         self.desenhar_mapa()
     def acabaram_as_bolinhas(self):
         if len(self.bolinhas) == 0:

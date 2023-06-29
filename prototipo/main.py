@@ -1,4 +1,5 @@
 import pygame
+import sys
 import constantes
 import os
 from mapa import Mapa
@@ -8,6 +9,7 @@ from ghostman import Ghostman
 from pygame.locals import *
 from collision_manager import CollisionManager
 from utils import get_path
+
 class Main:
     def __init__(self):
         pygame.init()
@@ -19,7 +21,6 @@ class Main:
         self.esta_rodando = True
         self.fonte = pygame.font.match_font(constantes.FONTE)
         self.carregar_arquivos()
-        self.jogando = True
         #entidades no mais
 
         self.mapa = Mapa(mapa_1.mapa1)
@@ -32,10 +33,10 @@ class Main:
 
     def definir_entidades(self):
         self.player = Ghostman()
-        self.pac = Pacman(68 , 100)
-        self.pac_2 = Pacman(550, 163)
-        self.pac_3 = Pacman(150, 400)
-        self.pac_4 = Pacman(550, 400)
+        self.pac = Pacman(120 , 425)
+        self.pac_2 = Pacman(750, 425)
+        self.pac_3 = Pacman(150, 425)
+        self.pac_4 = Pacman(770, 425)
 
 
         self.grupo_ghostman = pygame.sprite.Group()
@@ -47,14 +48,15 @@ class Main:
         self.todas_as_sprites.add(self.pac_4)
         self.todas_as_sprites.add(self.player)
 
+
         self.grupo_pacmans.add(self.pac)
         self.grupo_pacmans.add(self.pac_2)
         self.grupo_pacmans.add(self.pac_3)
         self.grupo_pacmans.add(self.pac_4)
         self.grupo_ghostman.add(self.player)
 
-
         self.colisoes = CollisionManager(self.mapa, self.grupo_ghostman, self.grupo_pacmans)
+        
     def atualizar_sprites(self):
         self.todas_as_sprites.update()
 
@@ -112,6 +114,7 @@ class Main:
     def abrir_mapa(self):
         self.mapa.carregar_mapa()
         self.mapa_surface = self.mapa.tela.copy()
+
     def draw(self):
 
         self.tela.fill(constantes.PRETO)
@@ -149,25 +152,27 @@ class Main:
         for pacman in self.grupo_pacmans:
             if pacman.vidas <= 0:
                 self.grupo_pacmans.remove(pacman)
+
     def iniciar_jogo(self):
         self.abrir_mapa()
-        while self.jogando:
+        jogando = True
+        while jogando:
             self.relogio.tick(constantes.FPS)
-
             self.current_timer = pygame.time.get_ticks()
 
             self.iniciar_movimentacao_dos_personagens()
+
             self.conferir_personagens_vivos()
-            self.player.colisao_tela()
             #self.player.colisao_mapa(self.Mapa.wallGroup)
             #self.player.colisao_bolinhas(self.mapa.bolinhas)
-            self.conferir_colisoes()
+            #self.conferir_colisoes()
             self.draw()
 
             for event in pygame.event.get():
                 if event.type == pygame.QUIT:
                     self.jogando = False
-        self.esta_rodando = False
+                    self.esta_rodando = False
+                    pygame.quit()
 
             #self.mapa.atualizar()
             #pacman1.movimento_pacman(b)#tentando implementar colisao
@@ -180,9 +185,20 @@ class Main:
         pass
 
     def iniciar_movimentacao_dos_personagens(self):
-        self.player.ghostman_movimentacao()
+        self.player.input_movimentacao()
+
+        self.player.ghostman_movimentacao('x')
+        self.player.handle_current_direction()
+        self.conferir_colisoes()
+
+        self.player.ghostman_movimentacao('y')
+        self.player.handle_current_direction()
+        self.conferir_colisoes()
+
+        self.player.colisao_tela()
         for pacman in self.grupo_pacmans:
             pacman.movimentacao()
+            pacman.colisao_tela()
 
     def conferir_condicoes_de_fim(self):
         if self.mapa.acabaram_as_bolinhas() or len(self.grupo_pacmans):
@@ -190,13 +206,10 @@ class Main:
         else:
             return False
 
-
-
-#pacman1 = PacmanRight()
-#pacman2 = PacmanLeft()
 g = Main()
 g.mostrar_tela_start()
 
-while g.esta_rodando:
+while g.esta_rodando == True:
     g.novo_jogo()
-    g.mostrar_tela_game_over()
+    #g.mostrar_tela_game_over()
+    pygame.quit()
