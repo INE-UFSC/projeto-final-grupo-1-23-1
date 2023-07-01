@@ -27,9 +27,7 @@ class Caixa_Supresa(MapComponent):
         self.current_timer = current_timer
         if self.ativo == True:
             self.image.fill(constantes.PRETO)
-            if self.current_timer - self.set_timer < self.timer_limit:
-                self.set_timer +=1
-            else:
+            if self.current_timer - self.set_timer > self.timer_limit:
                 print("acabou o efeito")
                 self.player.speed = 5#velocidade padrao
                 self.kill()

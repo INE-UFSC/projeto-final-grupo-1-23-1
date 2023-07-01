@@ -25,9 +25,7 @@ class SpriteBolao(MapComponent):
         self.current_timer = current_timer
         if self.ativo == True:
             self.cor = constantes.PRETO
-            if self.current_timer - self.set_timer < self.timer_limit:
-                self.set_timer +=1
-            else:
+            if self.current_timer - self.set_timer > self.timer_limit:
                 print("acabou o efeito")
                 for pacman in self.pacmans:
                     pacman.vuneravel = True

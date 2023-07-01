@@ -10,7 +10,7 @@ class Ghostman(pygame.sprite.Sprite):
     def __init__(self):
         pygame.sprite.Sprite.__init__(self)
         self.image = pygame.image.load(get_path('imagens','ghostman_imagem.png'))
-        self.image = pygame.transform.scale(self.image, (24, 24))
+        self.image = pygame.transform.scale(self.image, (22, 22))
         self.rect = self.image.get_rect()
         #self.rect = pygame.Rect(0, 0, 18, 18)
         self.direction_x = None
@@ -90,16 +90,12 @@ class Ghostman(pygame.sprite.Sprite):
                 bolinhas.remove(bolinha)
 
     def colidiu_com_pacman(self,pacman):
-        print(pacman.vuneravel)
 
         if pacman.vuneravel == False:
             self.rect.centerx= 473
             self.rect.centery = 428
 
     def colidiu_com_wall(self):
-        print("colidiu")
-        print(self.current_direction)
-        print(self.future_direction)
         if self.last_collision_direction == 'x':
             if self.direction_x == "right":
                 self.direction_x = self.future_direction

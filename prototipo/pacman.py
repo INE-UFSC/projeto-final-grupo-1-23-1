@@ -21,8 +21,18 @@ class Pacman(pygame.sprite.Sprite):
         self.pode_comer_ghostman = False
 
         self.vuneravel = True
-
-
+        self.ativar_invunerabilidade = False
+        self.invunerabilibidade_timer = 3000
+        self.set_timer = 0
+        self.current_timer = None
+    def update(self,current_timer):
+        self.current_timer = current_timer
+        if self.ativar_invunerabilidade:
+            self.vuneravel = False
+        if not self.vuneravel:
+            if self.current_timer - self.set_timer > self.invunerabilibidade_timer:
+                self.vuneravel = True
+                self.ativar_invunerabilidade = False
     def draw(self, screen):
         if not self.pode_comer_ghostman:
             #ghost = pygame.draw.rect(screen, (255, 0, 0), self.rect)
@@ -76,6 +86,8 @@ class Pacman(pygame.sprite.Sprite):
         if self.vuneravel == True:
             self.vidas -= 1
             self.x, self.y = self.posicao_inicial
+            self.set_timer = pygame.time.get_ticks()
+            self.ativar_invunerabilidade = True
             print('colidi com o fastasma!!!')
 
     def colidiu_com_bolinha(self):

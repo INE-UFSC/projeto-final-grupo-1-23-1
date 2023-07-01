@@ -137,6 +137,7 @@ class Match:
 
         for pacman in self.grupo_pacmans:
             pacman.draw(self.tela)
+            pacman.update(self.current_timer)
 
         pygame.display.flip()
 
