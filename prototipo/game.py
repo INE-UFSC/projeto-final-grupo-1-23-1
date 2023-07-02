@@ -11,16 +11,15 @@ class Game:
         pygame.init()
         pygame.mixer.init()
         self.instancia_partida()
-        self.cria_tela()
         self.gui = Gui()
 
 
-    def cria_tela(self):
-        self.tela = pygame.display.set_mode((constantes.LARGURA_MENU, constantes.ALTURA_MENU))
-        pygame.display.set_caption(constantes.TITULO_JOGO)
+
 
     def instancia_partida(self):
         self.partida = Match()
+        self.partida.cria_tela()
+        self.tela = self.partida.tela
         self.relogio = self.partida.relogio
         self.programa_esta_aberto = self.partida.programa_esta_aberto
 
