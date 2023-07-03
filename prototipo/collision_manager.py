@@ -45,7 +45,7 @@ class CollisionManager:
                 pacman.colidiu_com_wall()
 
         if (self.collision_gates_pacman()):
-            dict = (Collision(self.pacmans, self.gates).dict())
+            dict = (Collision(self.pacmans, self.portoes).dict())
             for pacman, gates in dict.items():
                 pacman.colidiu_com_wall()
 
@@ -120,7 +120,7 @@ class CollisionManager:
         return self.mapa.boloes
 
     @property
-    def gates(self):
+    def portoes(self):
         return self.mapa.portoes
     
     @property

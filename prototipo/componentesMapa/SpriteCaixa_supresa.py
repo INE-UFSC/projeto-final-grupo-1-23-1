@@ -3,7 +3,7 @@ from componentesMapa.mapComponent import MapComponent
 import constantes
 import random
 from utils import get_path
-class Caixa_Supresa(MapComponent):
+class CaixaSupresa(MapComponent):
     def __init__(self, x, y):
         pygame.sprite.Sprite.__init__(self)
         self.image = pygame.image.load(get_path('Power ups.png'))

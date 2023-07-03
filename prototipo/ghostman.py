@@ -21,6 +21,7 @@ class Ghostman(pygame.sprite.Sprite):
         self.direcao_da_ultima_colisao = None
         self.direcao_futura = None
         self.direcao_atual = None
+        self.vidas = 3
         
     def draw(self, tela):
 
@@ -78,6 +79,7 @@ class Ghostman(pygame.sprite.Sprite):
         if pacman.vuneravel == False:
             self.rect.centerx= 473
             self.rect.centery = 428
+            self.vidas -= 1
 
     def colidiu_com_wall(self):
         if self.direcao_da_ultima_colisao == 'x':

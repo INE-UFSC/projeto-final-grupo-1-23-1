@@ -117,7 +117,7 @@ class Match:
 
 
     def conferir_condicoes_de_fim(self):
-        if self.mapa.acabaram_as_bolinhas() or len(self.grupo_pacmans):
+        if self.mapa.acabaram_as_bolinhas() or len(self.grupo_pacmans) == 0 or self.player.vidas == 0:
             return True
         else:
             return False
