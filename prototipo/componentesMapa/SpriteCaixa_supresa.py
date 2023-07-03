@@ -30,11 +30,7 @@ class CaixaSupresa(MapComponent):
             self.image.fill(constantes.PRETO)
             if self.current_timer - self.set_timer > self.timer_limit:
                 print("acabou o efeito")
-<<<<<<< HEAD
                 self.player.speed = 4#velocidade padrao
-=======
-                self.player.velocidade = 5#velocidade padrao
->>>>>>> 641f8cff2021bf0f1ec10f555650efb5a8fb76a7
                 self.kill()
 
     def hit(self,player):
@@ -48,6 +44,6 @@ class CaixaSupresa(MapComponent):
         print("aplicando o efeito de :",self.type)
         if self.ativo == True:
             if self.type == "speed":
-                player.velocidade += 3
+                player.speed += 2
             elif self.type == "slow":
-                player.velocidade -= 3
+                player.speed -= 2

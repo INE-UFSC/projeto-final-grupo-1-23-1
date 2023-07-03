@@ -25,6 +25,7 @@ class Pacman(pygame.sprite.Sprite):
         self.invunerabilibidade_timer = 3000
         self.set_timer = 0
         self.current_timer = None
+        self.speed = 5
 
         #self.movimentacao_inicial()
 

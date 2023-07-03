@@ -17,8 +17,8 @@ class CollisionManager:
                 pacman.colidiu_por_wall(walls)
 
         if (self.collision_gates_pacman()):
-            dict = (Collision(self.pacmans, self.gates).dict())
-            for pacman, gates in dict.items():
+            dict = (Collision(self.pacmans, self.portoes).dict())
+            for pacman, portoes in dict.items():
                 pacman.colidiu_por_wall()
 
         if (self.collision_bolinha_pacman()):#seriaos pacmans
