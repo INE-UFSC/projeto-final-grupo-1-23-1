@@ -16,6 +16,8 @@ class Game:
         self.jogo = Match(self.tela)
         self.rodando = True
         self.atual = self.gui
+        self.relogio = self.jogo.relogio
+        self.programa_esta_aberto = self.jogo.programa_esta_aberto
 
     def cria_tela(self):
         self.tela = pygame.display.set_mode((constantes.LARGURA, constantes.ALTURA))
@@ -27,9 +29,7 @@ class Game:
         self.tela = self.partida.tela
         self.cria_tela()
         self.partida = Match(self.tela)
-        self.gui = Gui(self.tela)
-        self.relogio = self.partida.relogio
-        self.programa_esta_aberto = self.partida.programa_esta_aberto """
+        self.gui = Gui(self.tela) """
 
 
 
@@ -43,16 +43,37 @@ class Game:
             else:
                 self.partida.nova_partida() """
         while self.rodando:
-            events = pygame.event.get()
-            self.atual.game_loop(events)
-            self.handle_events(events)
+            self.relogio.tick(constantes.FPS)
+            self.events = pygame.event.get()
+            self.atual.game_loop(self.events)
+            self.handle_events(self.events)
+            self.fim_de_jogo(self.events)
 
-    def handle_events(self, events):
+    def fim_de_jogo(self, events):
+        fim = self.jogo.conferir_condicoes_de_fim()
+        end = not fim
+        for event in events:
+            if event.type == fim:
+                pygame.event.post(VICTORY)
+            if event.type == end:
+                pygame.event.post(DEFEAT)
+        self.handle_events(self.events)
+
+    def handle_events(self, events: list[pygame.event.Event]):
         for event in events:
             if event.type == START_GAME:
                 self.atual = self.jogo
                 self.atual.game_loop()
-                self.jogo.conferir_condicoes_de_fim()
+            if event.type == VICTORY:
+                self.atual = self.gui
+                self.atual.game_loop()
+                self.atual.check_events(events)
+                pygame.event.post(VICTORY_MENU)
+            if event.type == DEFEAT:
+                self.atual = self.gui
+                self.atual.game_loop()
+                self.atual.check_events(events)
+                pygame.event.post(DEFEAT_MENU)
             if event.type == pygame.KEYDOWN:
                 if event.key == pygame.K_ESCAPE:
                     QUIT_MENU

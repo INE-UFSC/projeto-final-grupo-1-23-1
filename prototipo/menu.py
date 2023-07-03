@@ -263,14 +263,14 @@ class QuitMenu(Menu):
 class VictoryMenu(Menu):
     def __init__(self, screen):
         Menu.__init__(self, screen)
-        self.back_to_menu_button = Button(pos=(self.largura * 0.4, self.altura / 2), 
+        self.back_to_menu_button = Button(pos=(self.largura / 2, self.altura * 0.55), 
                     text_input="Back to menu", 
-                    font=self.get_font(25), 
+                    font=self.get_font(30), 
                     base_color="Yellow", 
                     hovering_color="White")
-        self.quit_game_button = Button(pos=(self.largura * 0.6, self.altura / 2), 
+        self.quit_game_button = Button(pos=(self.largura / 2, self.altura * 0.65), 
                     text_input="Quit game", 
-                    font=self.get_font(25), 
+                    font=self.get_font(30), 
                     base_color="Yellow", 
                     hovering_color="White")
 
@@ -278,7 +278,7 @@ class VictoryMenu(Menu):
         self.set_caption("You won")
         MENU_MOUSE_POS = pygame.mouse.get_pos()
 
-        self.draw_text(["You won"], 17, self.largura / 2, self.altura * 0.2)
+        self.draw_text(["You won"], 30, self.largura / 2, self.altura * 0.12)
 
         for button in [self.back_to_menu_button, self.quit_game_button]:
             button.change_color(MENU_MOUSE_POS)
@@ -298,14 +298,14 @@ class VictoryMenu(Menu):
 class DefeatMenu(Menu):
     def __init__(self, screen):
         Menu.__init__(self, screen)
-        self.back_to_menu_button = Button(pos=(self.largura * 0.4, self.altura / 2), 
+        self.back_to_menu_button = Button(pos=(self.largura / 2, self.altura * 0.55), 
                     text_input="Back to menu", 
-                    font=self.get_font(25), 
+                    font=self.get_font(30), 
                     base_color="Yellow", 
                     hovering_color="White")
-        self.quit_game_button = Button(pos=(self.largura * 0.6, self.altura / 2), 
+        self.quit_game_button = Button(pos=(self.largura / 2, self.altura * 0.65), 
                     text_input="Quit game", 
-                    font=self.get_font(25), 
+                    font=self.get_font(30), 
                     base_color="Yellow", 
                     hovering_color="White")
 
@@ -313,7 +313,7 @@ class DefeatMenu(Menu):
         self.set_caption("You lose")
         MENU_MOUSE_POS = pygame.mouse.get_pos()
 
-        self.draw_text(["You lose"], 17, self.largura / 2, self.altura * 0.2)
+        self.draw_text(["You lose"], 30, self.largura / 2, self.altura * 0.12)
 
         for button in [self.back_to_menu_button, self.quit_game_button]:
             button.change_color(MENU_MOUSE_POS)

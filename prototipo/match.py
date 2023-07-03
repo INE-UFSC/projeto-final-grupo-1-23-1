@@ -167,6 +167,11 @@ class Match:
 
         pygame.display.flip()
 
+    def instancia_sistema_de_colisoes(self):
+        self.colisoes = CollisionManager(self.mapa, self.grupo_ghostman, self.grupo_pacmans)
+
+    def instancia_mapa(self):
+        self.mapa = Mapa(mapa_1.mapa1)
 
     def conferir_condicoes_de_fim(self):
         if self.mapa.acabaram_as_bolinhas() or len(self.grupo_pacmans) == 0:
@@ -175,13 +180,7 @@ class Match:
         if self.player.vidas == 0:
             print("Derrota")
             return False
-
-    def instancia_sistema_de_colisoes(self):
-        self.colisoes = CollisionManager(self.mapa, self.grupo_ghostman, self.grupo_pacmans)
-
-    def instancia_mapa(self):
-        self.mapa = Mapa(mapa_1.mapa1)
-
+        
     def instancia_personagens(self):
         self.player = Ghostman()
         self.pacman_1 = Pacman(120, 425)
