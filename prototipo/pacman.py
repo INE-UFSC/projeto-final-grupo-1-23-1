@@ -25,9 +25,7 @@ class Pacman(pygame.sprite.Sprite):
         self.invunerabilibidade_timer = 3000
         self.set_timer = 0
         self.current_timer = None
-        self.speed = 5
-
-        #self.movimentacao_inicial()
+        self.speed = 6
 
     def update(self,current_timer):
         self.current_timer = current_timer
@@ -40,10 +38,8 @@ class Pacman(pygame.sprite.Sprite):
 
     def draw(self, screen):
         if not self.pode_comer_ghostman:
-            #ghost = pygame.draw.rect(screen, (255, 0, 0), self.rect)
             screen.blit(self.image_atual, (self.x - 11, self.y - 11))
         else:
-            #ghost = ghost = pygame.draw.rect(screen, (0, 250, 0), self.rect)
             pass
 
             
@@ -53,7 +49,6 @@ class Pacman(pygame.sprite.Sprite):
             self.x, self.y = self.posicao_inicial
             self.set_timer = pygame.time.get_ticks()
             self.ativar_invunerabilidade = True
-            print('colidi com o fastasma!!!')
 
     def colidiu_com_bolinha(self):
         pass
@@ -91,13 +86,13 @@ class Pacman(pygame.sprite.Sprite):
         self.direcao_colidida = self.direction
         if self.direction == "right":
             self.x -= self.speed
-            self.direction = self.escolha_de_direcao(['up', 'down', 'left'])
+            self.direction = self.escolha_de_direcao(['up', 'down'])
         elif self.direction == "left":
             self.x += self.speed
-            self.direction = self.escolha_de_direcao(['up', 'down', 'right'])
+            self.direction = self.escolha_de_direcao(['up', 'down'])
         elif self.direction == "down":
             self.y -= self.speed
-            self.direction = self.escolha_de_direcao(['left', 'right', 'up'])
+            self.direction = self.escolha_de_direcao(['left', 'right'])
         elif self.direction == "up":
             self.y += self.speed
-            self.direction = self.escolha_de_direcao(['left', 'right', 'down'])
+            self.direction = self.escolha_de_direcao(['left', 'right'])

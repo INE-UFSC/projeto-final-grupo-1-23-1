@@ -17,16 +17,16 @@ class SpriteBolao(MapComponent):
         self.set_timer = 0
         self.current_timer = None
         self.pacmans = None
+
     def desenhar(self,tela):
-        #bolinha = pygame.draw.circle(tela,self.cor,(self.pos_x,self.pos_y),self.raio)
         bolao = pygame.draw.rect(tela, self.cor, self.rect)
         return bolao
+    
     def update(self,current_timer):
         self.current_timer = current_timer
         if self.ativo == True:
             self.cor = constantes.PRETO
             if self.current_timer - self.set_timer > self.timer_limit:
-                print("acabou o efeito")
                 for pacman in self.pacmans:
                     pacman.vuneravel = True
                     pacman.image_atual = pacman.image_standard
@@ -35,7 +35,6 @@ class SpriteBolao(MapComponent):
     def hit(self,pacmans):
         self.pacmans = pacmans
         if self.ativo == False:
-            print("invunerabilidade ativada em pacman")
             self.ativo = True
             self.set_timer = pygame.time.get_ticks()
             for pacman in self.pacmans:

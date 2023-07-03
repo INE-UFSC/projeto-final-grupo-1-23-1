@@ -9,7 +9,7 @@ class CollisionManager:
         self.__pacmans = grupo_pacmans
 
 
-    #ações realisadas no jogo quando é detectado colisão
+    #ações realizadas no jogo quando é detectado colisão
     def colisoes_pacman(self, pacman):
         if (self.collision_walls_pacman()):
             collison_list = pygame.sprite.spritecollide(pacman, self.walls, False)
@@ -21,7 +21,7 @@ class CollisionManager:
             for pacman, portoes in dict.items():
                 pacman.colidiu_por_wall()
 
-        if (self.collision_bolinha_pacman()):#seriaos pacmans
+        if (self.collision_bolinha_pacman()):
             dict = (Collision(self.pacmans, self.bolinhas).dict())
 
             for pacman, bolinhas in dict.items():
@@ -29,12 +29,18 @@ class CollisionManager:
                     pacman.colidiu_com_bolinha()
                     bolinha.colidida_por_pacman()
 
-
         if (self.collision_pacman_bolao()):
             dict = (Collision(self.pacmans, self.boloes).dict())
             for pacman, boloes in dict.items():
                 for bolao in boloes:
                     bolao.hit(self.pacmans)
+
+        if(self.collision_pacman_ghostman()):
+            dict = (Collision(self.ghostmans, self.pacmans).dict())
+            for ghost, pacmans in dict.items():
+                for pacman in pacmans:
+                    pacman.colidido_por_ghostman()
+                    ghost.colidiu_com_pacman(pacman)
 
     def colisoes_ghostman(self):
         if (self.collision_walls_ghostman()):
@@ -48,14 +54,6 @@ class CollisionManager:
             for player, caixas in dict.items():
                 for caixa in caixas:
                     caixa.hit(player)    
-
-        if(self.collision_pacman_ghostman()):
-            dict = (Collision(self.ghostmans, self.pacmans).dict())
-
-            for ghost, pacmans in dict.items():
-                for pacman in pacmans:
-                    pacman.colidido_por_ghostman()
-                    ghost.colidiu_com_pacman(pacman)
 
     #verificar se colidiu
     def collision_bolinha_pacman(self) -> bool:

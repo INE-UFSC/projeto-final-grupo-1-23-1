@@ -15,14 +15,14 @@ class Ghostman(pygame.sprite.Sprite):
         self.direction_x = None
         self.direction_y = None
         self.rect.centerx = 420
-        self.rect.centery = 420
+        self.rect.centery = 380
         self.speed = 4
         self.last_collision_direction = None
         self.future_direction = None
         self.current_direction = None
         
     def draw(self, screen):
-        screen.blit(self.image, (self.rect.centerx - 12, self.rect.centery - 12))
+        screen.blit(self.image, (self.rect.centerx - 11, self.rect.centery - 11))
 
     def colisao_tela(self):
         if self.rect.centerx > constantes.LARGURA:
@@ -38,7 +38,7 @@ class Ghostman(pygame.sprite.Sprite):
     def colidiu_com_pacman(self,pacman):
         if pacman.vuneravel == False:
             self.rect.centerx = 420
-            self.rect.centery = 420
+            self.rect.centery = 380
 
     def input_movimentacao(self):
         for event in pygame.event.get():

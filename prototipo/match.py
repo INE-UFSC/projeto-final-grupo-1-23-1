@@ -69,8 +69,8 @@ class Match:
         self.player = Ghostman()
         self.pacman_1 = Pacman(100, 65)
         self.pacman_2 = Pacman(700, 65)
-        self.pacman_3 = Pacman(100, 825)
-        self.pacman_4 = Pacman(700, 825)
+        self.pacman_3 = Pacman(100, 765)
+        self.pacman_4 = Pacman(700, 765)
 
         self.grupo_ghostman = pygame.sprite.Group()
         self.grupo_pacmans = pygame.sprite.Group()
