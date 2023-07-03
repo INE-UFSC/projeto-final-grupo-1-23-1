@@ -55,6 +55,11 @@ class Mapa:
                     caixa = Caixa_Supresa(j * largura + (0.5 * largura), i * altura + (0.5 * altura))
                     self.caixas_supresas.add(caixa)
 
+                elif self.mapa[i][j] == 11:
+                    path = get_path('imagensMapa', 'mapa1', 'sprite11.png')
+                    parede_invisivel = SpriteMapa(j * largura, i * altura, largura, altura, path)
+                    self.walls.add(parede_invisivel)
+
                 else:
                     sprite_num = self.mapa[i][j]
                     path = get_path('imagensMapa', 'mapa1', f'sprite{sprite_num}.png')

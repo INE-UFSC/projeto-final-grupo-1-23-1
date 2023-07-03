@@ -22,12 +22,12 @@ class Match:
 
     def iniciar_jogo(self):
         self.abrir_mapa()
+        self.iniciar_movimentacao_dos_personagens()
+
         while self.jogando:
             self.relogio.tick(constantes.FPS)
             self.current_timer = pygame.time.get_ticks()
-
-            self.iniciar_movimentacao_dos_personagens()
-
+            self.movimentar_personagens()
             self.conferir_personagens_vivos()
             self.draw()
 
@@ -67,10 +67,10 @@ class Match:
 
 
         self.player = Ghostman()
-        self.pacman_1 = Pacman(120, 425)
-        self.pacman_2 = Pacman(750, 425)
-        self.pacman_3 = Pacman(150, 425)
-        self.pacman_4 = Pacman(770, 425)
+        self.pacman_1 = Pacman(100, 65)
+        self.pacman_2 = Pacman(700, 65)
+        self.pacman_3 = Pacman(100, 825)
+        self.pacman_4 = Pacman(700, 825)
 
         self.grupo_ghostman = pygame.sprite.Group()
         self.grupo_pacmans = pygame.sprite.Group()
@@ -90,24 +90,25 @@ class Match:
 
         self.colisoes = CollisionManager(self.mapa, self.grupo_ghostman, self.grupo_pacmans)
 
-    def iniciar_movimentacao_dos_personagens(self):
+    def movimentar_personagens(self):
         self.player.input_movimentacao()
-
         self.player.ghostman_movimentacao('x')
         self.player.handle_current_direction()
-        self.conferir_colisoes()
+        self.colisoes.colisoes_ghostman()
 
         self.player.ghostman_movimentacao('y')
         self.player.handle_current_direction()
-        self.conferir_colisoes()
+        self.colisoes.colisoes_ghostman()
 
         self.player.colisao_tela()
         for pacman in self.grupo_pacmans:
-            pacman.movimentacao()
+            pacman.movimentacao_continua()
+            self.colisoes.colisoes_pacman(pacman)
             pacman.colisao_tela()
 
-    def conferir_colisoes(self):
-        self.colisoes.collisions()
+    def iniciar_movimentacao_dos_personagens(self):
+        for pacman in self.grupo_pacmans:
+            pacman.movimentacao_inicial()
 
     def conferir_personagens_vivos(self):
         for pacman in self.grupo_pacmans:

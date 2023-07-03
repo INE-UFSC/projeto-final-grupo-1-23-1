@@ -23,14 +23,16 @@ class Caixa_Supresa(MapComponent):
         #ghost = pygame.draw.rect(screen, (5, 255, 0), self.rect)
         caixa = screen.blit(self.image, (self.rect.x-11, self.rect.y-11))
         return caixa
+    
     def update(self,current_timer):
         self.current_timer = current_timer
         if self.ativo == True:
             self.image.fill(constantes.PRETO)
             if self.current_timer - self.set_timer > self.timer_limit:
                 print("acabou o efeito")
-                self.player.speed = 5#velocidade padrao
+                self.player.speed = 4#velocidade padrao
                 self.kill()
+
     def hit(self,player):
         self.player = player
         if self.ativo == False:

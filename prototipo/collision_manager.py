@@ -1,4 +1,5 @@
 from collision import Collision
+import pygame
 class CollisionManager:
     #recebe grupo de sprites para detectar colisao
     def __init__(self, mapa, grupo_ghostman, grupo_pacmans) -> None:
@@ -9,7 +10,17 @@ class CollisionManager:
 
 
     #ações realisadas no jogo quando é detectado colisão
-    def collisions(self) -> None:
+    def colisoes_pacman(self, pacman):
+        if (self.collision_walls_pacman()):
+            collison_list = pygame.sprite.spritecollide(pacman, self.walls, False)
+            for walls in collison_list:
+                pacman.colidiu_por_wall(walls)
+
+        if (self.collision_gates_pacman()):
+            dict = (Collision(self.pacmans, self.gates).dict())
+            for pacman, gates in dict.items():
+                pacman.colidiu_por_wall()
+
         if (self.collision_bolinha_pacman()):#seriaos pacmans
             dict = (Collision(self.pacmans, self.bolinhas).dict())
 
@@ -18,13 +29,6 @@ class CollisionManager:
                     pacman.colidiu_com_bolinha()
                     bolinha.colidida_por_pacman()
 
-        if(self.collision_pacman_ghostman()):
-            dict = (Collision(self.ghostmans, self.pacmans).dict())
-
-            for ghost, pacmans in dict.items():
-                for pacman in pacmans:
-                    pacman.colidido_por_ghostman()
-                    ghost.colidiu_com_pacman(pacman)
 
         if (self.collision_pacman_bolao()):
             dict = (Collision(self.pacmans, self.boloes).dict())
@@ -32,28 +36,26 @@ class CollisionManager:
                 for bolao in boloes:
                     bolao.hit(self.pacmans)
 
+    def colisoes_ghostman(self):
+        if (self.collision_walls_ghostman()):
+            dict = (Collision(self.ghostmans, self.walls).dict())
+            for ghost, walls in dict.items():
+                ghost.colidiu_com_wall()    
+
         if (self.collision_caixa_supresa_ghostman()):
             dict = (Collision(self.ghostmans, self.caixas_supresas).dict())
 
             for player, caixas in dict.items():
                 for caixa in caixas:
-                    caixa.hit(player)
+                    caixa.hit(player)    
 
-        if (self.collision_walls_pacman()):
-            dict = (Collision(self.pacmans, self.walls).dict())
-            for pacman, walls in dict.items():
-                pacman.colidiu_por_wall()
+        if(self.collision_pacman_ghostman()):
+            dict = (Collision(self.ghostmans, self.pacmans).dict())
 
-        if (self.collision_gates_pacman()):
-            dict = (Collision(self.pacmans, self.gates).dict())
-            for pacman, gates in dict.items():
-                pacman.colidiu_por_wall()
-
-        if (self.collision_walls_ghostman()):
-            dict = (Collision(self.ghostmans, self.walls).dict())
-            for ghost, walls in dict.items():
-                ghost.colidiu_com_wall()        
-        self.ghostman_life_detect()
+            for ghost, pacmans in dict.items():
+                for pacman in pacmans:
+                    pacman.colidido_por_ghostman()
+                    ghost.colidiu_com_pacman(pacman)
 
     #verificar se colidiu
     def collision_bolinha_pacman(self) -> bool:
