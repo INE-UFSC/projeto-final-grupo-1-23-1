@@ -16,8 +16,8 @@ class Pacman(pygame.sprite.Sprite):
         self.rect.center = (self.x, self.y)
         self.direction = None
         self.direcao_colidida = None
-        self.vidas = 3
-        self.velocidade = 5
+        self.vidas = 2
+        self.velocidade = 4
         self.posicao_inicial = (pos_x, pos_y)
         self.pode_comer_ghostman = False
         self.vuneravel = True

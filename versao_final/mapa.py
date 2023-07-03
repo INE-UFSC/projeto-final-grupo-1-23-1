@@ -67,8 +67,3 @@ class Mapa:
                     self.walls.add(parede)
                     
         self.desenhar_mapa()
-    def acabaram_as_bolinhas(self):
-        if len(self.bolinhas) == 0:
-            return True
-        else:
-            False

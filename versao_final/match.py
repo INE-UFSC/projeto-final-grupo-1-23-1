@@ -17,30 +17,19 @@ class Match:
         self.relogio = pygame.time.Clock()
         self.tela = screen
 
-
-    """ def cria_tela(self):
-        self.tela = pygame.display.set_mode((constantes.LARGURA, constantes.ALTURA))
-        pygame.display.set_caption(constantes.TITULO_JOGO) """
-
     def iniciar_partida(self):
         self.abrir_mapa()
         self.iniciar_movimentacao_dos_personagens()
 
-        while self.jogando:
-            self.relogio.tick(constantes.FPS)
-            self.current_timer = pygame.time.get_ticks()
-            self.movimentar_personagens()
-            self.conferir_personagens_vivos()
-            self.draw()
+    def update(self):
+        self.relogio.tick(constantes.FPS)
+        self.current_timer = pygame.time.get_ticks()
+        self.movimentar_personagens()
+        self.conferir_personagens_vivos()
+        self.acabaram_as_bolinhas()
+        self.conferir_condicoes_de_fim
 
-            for event in pygame.event.get():
-                if event.type == pygame.QUIT:
-                    self.jogando = False
-                    self.programa_esta_aberto = False
-                    pygame.quit()
-
-
-    def nova_partida(self):
+    def game_loop(self):
         self.jogando = True
         self.organizar_diretorios()
         #self.cria_tela()
@@ -48,6 +37,18 @@ class Match:
         self.instancia_entidades_da_partida()
         self.reproduzir_musica_start()
         self.iniciar_partida()
+        pygame.display.set_caption('Ghostman')
+        self.relogio.tick(constantes.FPS)
+        while self.jogando:
+            for event in pygame.event.get():
+                if event.type == pygame.QUIT:
+                    self.jogando = False
+                    self.programa_esta_aberto = False
+                    pygame.quit()
+                    sys.exit()
+
+            self.update()
+            self.draw()
 
     def reproduzir_musica_start(self):
         pygame.mixer.music.load(os.path.join(get_path('audios', constantes.MUSICA_START)))
@@ -64,8 +65,6 @@ class Match:
 
     def instancia_entidades_da_partida(self):
         self.mapa = Mapa(mapa_1.mapa1)
-
-
         self.player = Ghostman()
         self.pacman_1 = Pacman(100, 65)
         self.pacman_2 = Pacman(700, 65)
@@ -112,7 +111,7 @@ class Match:
 
     def conferir_personagens_vivos(self):
         for pacman in self.grupo_pacmans:
-            if pacman.vidas <= 0:
+            if pacman.vidas == 0:
                 self.grupo_pacmans.remove(pacman)
 
     def draw(self):
@@ -142,11 +141,29 @@ class Match:
 
         pygame.display.flip()
 
+    def conferir_personagens_vivos(self):
+        for pacman in self.grupo_pacmans:
+            if pacman.vidas == 0:
+                self.grupo_pacmans.remove(pacman)
 
-    def conferir_condicoes_de_fim(self):
-        if self.mapa.acabaram_as_bolinhas() or len(self.grupo_pacmans) == 0 or self.player.vidas == 0:
+    def acabaram_as_bolinhas(self):
+        if CollisionManager.bolinhas == 0:
             return True
         else:
+            False
+
+    def conferir_condicoes_de_fim(self):
+        if self.grupo_pacmans == []:
+            print("Vitória")
+            fonte = pygame.font.SysFont("Monospace", 15, True, True)
+            formatacao_texto = fonte.render('VITÓRIA', False, (255, 255, 255))
+            self.tela.blit(formatacao_texto, (450, 40))
+            return True
+        if self.acabaram_as_bolinhas():
+            print("Derrota")
+            fonte = pygame.font.SysFont("Monospace", 15, True, True)
+            formatacao_texto = fonte.render('DERROTA', False, (255, 255, 255))
+            self.tela.blit(formatacao_texto, (450, 40))
             return False
 
     def instancia_sistema_de_colisoes(self):

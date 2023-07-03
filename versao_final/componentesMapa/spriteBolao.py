@@ -39,6 +39,6 @@ class SpriteBolao(MapComponent):
             self.set_timer = pygame.time.get_ticks()
             for pacman in self.pacmans:
                 pacman.vuneravel = False
-                pacman.image_atual = pygame.image.load(get_path('pacman_vermelho.png'))
+                pacman.image_atual = pygame.image.load(get_path('pacman_imagem.png'))
                 pacman.image_atual = pygame.transform.scale(pacman.image_atual, (22, 22))
 
