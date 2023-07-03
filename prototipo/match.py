@@ -174,11 +174,12 @@ class Match:
         self.mapa = Mapa(mapa_1.mapa1)
 
     def conferir_condicoes_de_fim(self):
+        self.instancia_mapa()
         if self.mapa.acabaram_as_bolinhas() or len(self.grupo_pacmans) == 0:
-            print("Vitória")
+            #print("Vitória")
             return True
         if self.player.vidas == 0:
-            print("Derrota")
+            #print("Derrota")
             return False
         
     def instancia_personagens(self):
