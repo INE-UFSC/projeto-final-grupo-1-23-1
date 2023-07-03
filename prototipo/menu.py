@@ -60,7 +60,6 @@ class Menu(ABC):
 class MainMenu(Menu):
     def __init__(self, screen):
         Menu.__init__(self, screen)
-        self.set_caption("Main menu")
         
         self.start_button = Button(pos=(self.largura / 2, self.altura * 0.45), 
                             text_input="START GAME", 
@@ -84,6 +83,7 @@ class MainMenu(Menu):
                                 hovering_color="White")
 
     def display_menu(self):
+        self.set_caption("Main menu")
         MENU_MOUSE_POS = pygame.mouse.get_pos()
         self.set_image(self.largura / 2, self.altura * 0.18, get_path('imagens', 'logo.PNG'))
         
@@ -112,7 +112,6 @@ class MainMenu(Menu):
 class MapMenu(Menu):
     def __init__(self, screen):
         Menu.__init__(self, screen)
-        self.set_caption("Choose the map")
         self.back = self.back_button()
         self.mansion_button = ImageButton(self.screen, 
                                    get_path('imagens', 'test.png'), 
@@ -137,6 +136,7 @@ class MapMenu(Menu):
                                    1)
 
     def display_menu(self):
+        self.set_caption("Choose the map")
         MENU_MOUSE_POS = pygame.mouse.get_pos()
         self.draw_text(["Choose the map"], 40, self.largura / 2, self.altura * 0.12)
         self.draw_text(["Mansion"], 25, self.largura * 0.25, self.altura * 0.22)
@@ -168,10 +168,10 @@ class MapMenu(Menu):
 class HowToMenu(Menu):
     def __init__(self, screen):
         Menu.__init__(self, screen)
-        self.set_caption("How to Play")
         self.back = self.back_button()
 
     def display_menu(self):
+        self.set_caption("How to Play")
         MENU_MOUSE_POS = pygame.mouse.get_pos()
 
         self.draw_text(["How to play"], 30, self.largura / 2, self.altura * 0.12)
@@ -196,7 +196,6 @@ class HowToMenu(Menu):
 class CreditsMenu(Menu):
     def __init__(self, screen):
         Menu.__init__(self, screen)
-        self.set_caption("Credits")
         self.back = self.back_button()
 
     def display_menu(self):
@@ -211,6 +210,7 @@ class CreditsMenu(Menu):
         pygame.display.update()
 
     def handle_events(self, events: list[pygame.event.Event]):
+        self.set_caption("Credits")
         MENU_MOUSE_POS = pygame.mouse.get_pos()
         for event in events:
             if event.type == pygame.KEYDOWN:
@@ -223,7 +223,6 @@ class CreditsMenu(Menu):
 class QuitMenu(Menu):
     def __init__(self, screen):
         Menu.__init__(self, screen)
-        self.set_caption("Ghostman Main Menu")
         self.yes_button = Button(pos=(self.largura * 0.4, self.altura / 2), 
                     text_input="Yes", 
                     font=self.get_font(25), 
@@ -236,6 +235,7 @@ class QuitMenu(Menu):
                     hovering_color="White")
 
     def display_menu(self):
+        self.set_caption("Quit game")
         MENU_MOUSE_POS = pygame.mouse.get_pos()
 
         self.draw_text(["Are you sure you want to quit the game?"], 17, self.largura / 2, self.altura * 0.2)
@@ -259,3 +259,73 @@ class QuitMenu(Menu):
                     pygame.event.post(pygame.event.Event(EXIT))
                 if self.no_button.check_for_input(MENU_MOUSE_POS):
                     pygame.event.post(pygame.event.Event(SHOW_MAIN_MENU))
+
+class VictoryMenu(Menu):
+    def __init__(self, screen):
+        Menu.__init__(self, screen)
+        self.back_to_menu_button = Button(pos=(self.largura * 0.4, self.altura / 2), 
+                    text_input="Back to menu", 
+                    font=self.get_font(25), 
+                    base_color="Yellow", 
+                    hovering_color="White")
+        self.quit_game_button = Button(pos=(self.largura * 0.6, self.altura / 2), 
+                    text_input="Quit game", 
+                    font=self.get_font(25), 
+                    base_color="Yellow", 
+                    hovering_color="White")
+
+    def display_menu(self):
+        self.set_caption("You won")
+        MENU_MOUSE_POS = pygame.mouse.get_pos()
+
+        self.draw_text(["You won"], 17, self.largura / 2, self.altura * 0.2)
+
+        for button in [self.back_to_menu_button, self.quit_game_button]:
+            button.change_color(MENU_MOUSE_POS)
+            button.update(self.screen)
+
+        pygame.display.update()
+
+    def handle_events(self, events: list[pygame.event.Event]):
+        MENU_MOUSE_POS = pygame.mouse.get_pos()
+        for event in events:
+            if event.type == pygame.MOUSEBUTTONDOWN:
+                if self.back_to_menu_button.check_for_input(MENU_MOUSE_POS):
+                    pygame.event.post(pygame.event.Event(SHOW_MAIN_MENU))
+                if self.quit_game_button.check_for_input(MENU_MOUSE_POS):
+                    pygame.event.post(pygame.event.Event(QUIT_MENU))
+
+class DefeatMenu(Menu):
+    def __init__(self, screen):
+        Menu.__init__(self, screen)
+        self.back_to_menu_button = Button(pos=(self.largura * 0.4, self.altura / 2), 
+                    text_input="Back to menu", 
+                    font=self.get_font(25), 
+                    base_color="Yellow", 
+                    hovering_color="White")
+        self.quit_game_button = Button(pos=(self.largura * 0.6, self.altura / 2), 
+                    text_input="Quit game", 
+                    font=self.get_font(25), 
+                    base_color="Yellow", 
+                    hovering_color="White")
+
+    def display_menu(self):
+        self.set_caption("You lose")
+        MENU_MOUSE_POS = pygame.mouse.get_pos()
+
+        self.draw_text(["You lose"], 17, self.largura / 2, self.altura * 0.2)
+
+        for button in [self.back_to_menu_button, self.quit_game_button]:
+            button.change_color(MENU_MOUSE_POS)
+            button.update(self.screen)
+
+        pygame.display.update()
+
+    def handle_events(self, events: list[pygame.event.Event]):
+        MENU_MOUSE_POS = pygame.mouse.get_pos()
+        for event in events:
+            if event.type == pygame.MOUSEBUTTONDOWN:
+                if self.back_to_menu_button.check_for_input(MENU_MOUSE_POS):
+                    pygame.event.post(pygame.event.Event(SHOW_MAIN_MENU))
+                if self.quit_game_button.check_for_input(MENU_MOUSE_POS):
+                    pygame.event.post(pygame.event.Event(QUIT_MENU))

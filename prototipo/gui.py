@@ -14,6 +14,8 @@ class Gui():
         self.credits = CreditsMenu(self.screen)
         self.map = MapMenu(self.screen)
         self.quit_menu = QuitMenu(self.screen)
+        self.victory_menu = VictoryMenu(self.screen)
+        self.defeat_menu = DefeatMenu(self.screen)
         self.menu_atual = self.main_menu
 
     def game_loop(self, events: list[pygame.event.Event]):
@@ -35,6 +37,12 @@ class Gui():
                 self.menu_atual.display_menu()
             if event.type == SHOW_CREDITS_MENU:
                 self.menu_atual = self.credits
+                self.menu_atual.display_menu()
+            if event.type == VICTORY:
+                self.menu_atual = self.victory_menu
+                self.menu_atual.display_menu()
+            if event.type == DEFEAT:
+                self.menu_atual = self.defeat_menu
                 self.menu_atual.display_menu()
             if event.type == QUIT_MENU or event.type == pygame.QUIT:
                 self.menu_atual = self.quit_menu

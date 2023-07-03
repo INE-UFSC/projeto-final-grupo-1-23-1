@@ -26,7 +26,7 @@ class Match:
         self.abrir_mapa()
         self.iniciar_movimentacao_dos_personagens()
 
-        while self.jogando:
+        """ while self.jogando:
             self.relogio.tick(constantes.FPS)
             self.current_timer = pygame.time.get_ticks()
             self.movimentar_personagens()
@@ -37,10 +37,14 @@ class Match:
                 if event.type == pygame.QUIT:
                     self.jogando = False
                     self.programa_esta_aberto = False
-                    pygame.quit()
+                    pygame.quit() """
+    def update(self):
+        self.relogio.tick(constantes.FPS)
+        self.current_timer = pygame.time.get_ticks()
+        self.movimentar_personagens()
+        self.conferir_personagens_vivos()
 
-
-    def nova_partida(self):
+    def game_loop(self):
         self.jogando = True
         self.organizar_diretorios()
         #self.cria_tela()
@@ -48,6 +52,27 @@ class Match:
         self.instancia_entidades_da_partida()
         self.reproduzir_musica_start()
         self.iniciar_partida()
+        pygame.display.set_caption('Ghostman')
+        self.relogio.tick(constantes.FPS)
+        while self.jogando:
+            for event in pygame.event.get():
+                if event.type == pygame.QUIT:
+                    self.jogando = False
+                    self.programa_esta_aberto = False
+                    pygame.quit()
+
+            self.update()
+            self.draw()
+
+
+    """ def nova_partida(self):
+        self.jogando = True
+        self.organizar_diretorios()
+        #self.cria_tela()
+        self.todas_as_sprites = pygame.sprite.Group()
+        self.instancia_entidades_da_partida()
+        self.reproduzir_musica_start()
+        self.iniciar_partida() """
 
     def reproduzir_musica_start(self):
         pygame.mixer.music.load(os.path.join(get_path('audios', constantes.MUSICA_START)))
@@ -144,9 +169,11 @@ class Match:
 
 
     def conferir_condicoes_de_fim(self):
-        if self.mapa.acabaram_as_bolinhas() or len(self.grupo_pacmans) == 0 or self.player.vidas == 0:
+        if self.mapa.acabaram_as_bolinhas() or len(self.grupo_pacmans) == 0:
+            print("Vitória")
             return True
-        else:
+        if self.player.vidas == 0:
+            print("Derrota")
             return False
 
     def instancia_sistema_de_colisoes(self):
