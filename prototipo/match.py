@@ -18,15 +18,15 @@ class Match:
         self.tela = screen
 
 
-    """ def cria_tela(self):
+    def cria_tela(self):
         self.tela = pygame.display.set_mode((constantes.LARGURA, constantes.ALTURA))
-        pygame.display.set_caption(constantes.TITULO_JOGO) """
+        pygame.display.set_caption(constantes.TITULO_JOGO)
 
     def iniciar_partida(self):
         self.abrir_mapa()
         self.iniciar_movimentacao_dos_personagens()
 
-        """ while self.jogando:
+        while self.jogando:
             self.relogio.tick(constantes.FPS)
             self.current_timer = pygame.time.get_ticks()
             self.movimentar_personagens()
@@ -37,7 +37,13 @@ class Match:
                 if event.type == pygame.QUIT:
                     self.jogando = False
                     self.programa_esta_aberto = False
-                    pygame.quit() """
+                    pygame.quit()
+
+            if self.conferir_condicoes_de_fim():
+                self.jogando = False
+                break
+
+
     def update(self):
         self.relogio.tick(constantes.FPS)
         self.current_timer = pygame.time.get_ticks()
@@ -47,7 +53,7 @@ class Match:
     def game_loop(self):
         self.jogando = True
         self.organizar_diretorios()
-        #self.cria_tela()
+        self.cria_tela()
         self.todas_as_sprites = pygame.sprite.Group()
         self.instancia_entidades_da_partida()
         self.reproduzir_musica_start()
@@ -65,14 +71,14 @@ class Match:
             self.draw()
 
 
-    """ def nova_partida(self):
+    def nova_partida(self):
         self.jogando = True
         self.organizar_diretorios()
         #self.cria_tela()
         self.todas_as_sprites = pygame.sprite.Group()
         self.instancia_entidades_da_partida()
         self.reproduzir_musica_start()
-        self.iniciar_partida() """
+        self.game_loop()
 
     def reproduzir_musica_start(self):
         pygame.mixer.music.load(os.path.join(get_path('audios', constantes.MUSICA_START)))
@@ -174,7 +180,7 @@ class Match:
         self.mapa = Mapa(mapa_1.mapa1)
 
     def conferir_condicoes_de_fim(self):
-        self.instancia_mapa()
+
         if self.mapa.acabaram_as_bolinhas() or len(self.grupo_pacmans) == 0:
             #print("Vitória")
             return True

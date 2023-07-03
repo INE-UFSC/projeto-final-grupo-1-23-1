@@ -20,6 +20,7 @@ class Ghostman(pygame.sprite.Sprite):
         self.last_collision_direction = None
         self.future_direction = None
         self.current_direction = None
+        self.vidas = 3
         
     def draw(self, screen):
         screen.blit(self.image, (self.rect.centerx - 11, self.rect.centery - 11))

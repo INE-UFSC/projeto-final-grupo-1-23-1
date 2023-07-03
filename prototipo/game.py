@@ -34,30 +34,36 @@ class Game:
 
 
     def interface_loop(self):
-        """ while True:
+         while True:
             events = pygame.event.get()
             self.relogio.tick(constantes.FPS)
             self.handle_events(events)
-            if self.partida.jogando == False:
-                self.gui.game_loop(events)
-            else:
-                self.partida.nova_partida() """
-        while self.rodando:
-            self.relogio.tick(constantes.FPS)
-            self.events = pygame.event.get()
-            self.atual.game_loop(self.events)
+            if self.jogo.jogando == False:
+                self.atual.game_loop(events)
+                break
+
+         self.jogo.nova_partida()
+         self.fim_de_jogo(events)
+
+    '''   while self.rodando:
+        self.relogio.tick(constantes.FPS)
+        self.events = pygame.event.get()
+        if self.jogo.jogando == False:
             self.handle_events(self.events)
-            self.fim_de_jogo(self.events)
+            self.atual.game_loop(self.events)'''
+
+            #self.fim_de_jogo(self.events)
 
     def fim_de_jogo(self, events):
         fim = self.jogo.conferir_condicoes_de_fim()
         end = not fim
+        events = events
         for event in events:
             if event.type == fim:
                 pygame.event.post(VICTORY)
             if event.type == end:
                 pygame.event.post(DEFEAT)
-        self.handle_events(self.events)
+        self.handle_events(events)
 
     def handle_events(self, events: list[pygame.event.Event]):
         for event in events:
