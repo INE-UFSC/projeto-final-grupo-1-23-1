@@ -29,7 +29,7 @@ class SpriteBolao(MapComponent):
                 print("acabou o efeito")
                 for pacman in self.pacmans:
                     pacman.vuneravel = True
-                    pacman.image_atual = pacman.image_standard
+                    pacman.image_atual = pacman.imagem_padrao
                 self.kill()
 
     def hit(self,pacmans):

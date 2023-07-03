@@ -35,13 +35,15 @@ class Game:
                 self.partida.nova_partida()
 
 
+
+
     def handle_events(self):
         events = pygame.event.get()
         for event in events:
             if event.type == START_GAME:
                 self.partida.jogando = True
             if event.type == pygame.QUIT:
-                self.programa_esta_aberto = False
+                #self.programa_esta_aberto = False
                 pygame.quit()
             if event.type == KEYDOWN:
                 pygame.mixer.music.stop()

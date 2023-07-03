@@ -42,12 +42,12 @@ class CollisionManager:
         if (self.collision_walls_pacman()):
             dict = (Collision(self.pacmans, self.walls).dict())
             for pacman, walls in dict.items():
-                pacman.colidiu_por_wall()
+                pacman.colidiu_com_wall()
 
         if (self.collision_gates_pacman()):
             dict = (Collision(self.pacmans, self.gates).dict())
             for pacman, gates in dict.items():
-                pacman.colidiu_por_wall()
+                pacman.colidiu_com_wall()
 
         if (self.collision_walls_ghostman()):
             dict = (Collision(self.ghostmans, self.walls).dict())
