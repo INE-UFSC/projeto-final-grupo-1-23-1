@@ -11,15 +11,16 @@ from ghostman import Ghostman
 from collision_manager import CollisionManager
 
 class Match:
-    def __init__(self):
+    def __init__(self, screen):
         self.programa_esta_aberto = True
         self.jogando = False
         self.relogio = pygame.time.Clock()
+        self.tela = screen
 
 
-    def cria_tela(self):
+    """ def cria_tela(self):
         self.tela = pygame.display.set_mode((constantes.LARGURA, constantes.ALTURA))
-        pygame.display.set_caption(constantes.TITULO_JOGO)
+        pygame.display.set_caption(constantes.TITULO_JOGO) """
 
     def iniciar_partida(self):
         self.abrir_mapa()
@@ -40,7 +41,7 @@ class Match:
     def nova_partida(self):
         self.jogando = True
         self.organizar_diretorios()
-        self.cria_tela()
+        #self.cria_tela()
         self.todas_as_sprites = pygame.sprite.Group()
         self.instancia_entidades_da_partida()
         self.reproduzir_musica_start()

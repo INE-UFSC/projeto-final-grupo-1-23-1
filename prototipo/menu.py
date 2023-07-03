@@ -223,7 +223,7 @@ class CreditsMenu(Menu):
 class QuitMenu(Menu):
     def __init__(self, screen):
         Menu.__init__(self, screen)
-        self.set_caption("Quit game")
+        self.set_caption("Ghostman Main Menu")
         self.yes_button = Button(pos=(self.largura * 0.4, self.altura / 2), 
                     text_input="Yes", 
                     font=self.get_font(25), 

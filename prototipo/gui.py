@@ -4,10 +4,11 @@ from constantes import *
 import constantes
 
 class Gui():
-    def __init__(self):
-        pygame.init()
+    def __init__(self, screen):
+        """ pygame.init()
         self.largura, self.altura = constantes.LARGURA, constantes.ALTURA#constantes.LARGURA_MENU, constantes.ALTURA_MENU
-        self.screen = pygame.display.set_mode((self.largura, self.altura))
+        self.screen = pygame.display.set_mode((self.largura, self.altura)) """
+        self.screen = screen
         self.main_menu = MainMenu(self.screen)
         self.how_to_play = HowToMenu(self.screen)
         self.credits = CreditsMenu(self.screen)
