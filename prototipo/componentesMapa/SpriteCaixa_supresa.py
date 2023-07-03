@@ -3,7 +3,7 @@ from componentesMapa.mapComponent import MapComponent
 import constantes
 import random
 from utils import get_path
-class Caixa_Supresa(MapComponent):
+class CaixaSupresa(MapComponent):
     def __init__(self, x, y):
         pygame.sprite.Sprite.__init__(self)
         self.image = pygame.image.load(get_path('Power ups.png'))
@@ -30,7 +30,11 @@ class Caixa_Supresa(MapComponent):
             self.image.fill(constantes.PRETO)
             if self.current_timer - self.set_timer > self.timer_limit:
                 print("acabou o efeito")
+<<<<<<< HEAD
                 self.player.speed = 4#velocidade padrao
+=======
+                self.player.velocidade = 5#velocidade padrao
+>>>>>>> 641f8cff2021bf0f1ec10f555650efb5a8fb76a7
                 self.kill()
 
     def hit(self,player):
@@ -44,6 +48,6 @@ class Caixa_Supresa(MapComponent):
         print("aplicando o efeito de :",self.type)
         if self.ativo == True:
             if self.type == "speed":
-                player.speed += 3
+                player.velocidade += 3
             elif self.type == "slow":
-                player.speed -= 3
+                player.velocidade -= 3

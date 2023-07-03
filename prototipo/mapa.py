@@ -7,7 +7,7 @@ from componentesMapa.SpriteVazio import SpriteVazio
 from componentesMapa.spriteMapa import SpriteMapa
 from componentesMapa.spriteBolinha import SpriteBolinha
 from componentesMapa.spriteBolao import SpriteBolao
-from componentesMapa.SpriteCaixa_supresa import Caixa_Supresa
+from componentesMapa.SpriteCaixa_supresa import CaixaSupresa
 from componentesMapa.spritePortao import SpritePortao
 
 altura = ((constantes.ALTURA - 50) // 32)
@@ -52,7 +52,7 @@ class Mapa:
 
                 #caixa_supresa
                 elif self.mapa[i][j] == 10:
-                    caixa = Caixa_Supresa(j * largura + (0.5 * largura), i * altura + (0.5 * altura))
+                    caixa = CaixaSupresa(j * largura + (0.5 * largura), i * altura + (0.5 * altura))
                     self.caixas_supresas.add(caixa)
 
                 elif self.mapa[i][j] == 11:

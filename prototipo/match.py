@@ -3,6 +3,7 @@ from pygame import *
 import os
 from utils import get_path
 import constantes
+import sys
 from mapa import Mapa
 import mapa_1
 from pacman import Pacman
@@ -10,17 +11,18 @@ from ghostman import Ghostman
 from collision_manager import CollisionManager
 
 class Match:
-    def __init__(self):
+    def __init__(self, screen):
         self.programa_esta_aberto = True
         self.jogando = False
         self.relogio = pygame.time.Clock()
+        self.tela = screen
 
 
-    def cria_tela(self):
+    """ def cria_tela(self):
         self.tela = pygame.display.set_mode((constantes.LARGURA, constantes.ALTURA))
-        pygame.display.set_caption(constantes.TITULO_JOGO)
+        pygame.display.set_caption(constantes.TITULO_JOGO) """
 
-    def iniciar_jogo(self):
+    def iniciar_partida(self):
         self.abrir_mapa()
         self.iniciar_movimentacao_dos_personagens()
 
@@ -37,17 +39,15 @@ class Match:
                     self.programa_esta_aberto = False
                     pygame.quit()
 
-    def atualizar_sprites(self):
-        self.todas_as_sprites.update()
 
     def nova_partida(self):
         self.jogando = True
         self.organizar_diretorios()
-        self.cria_tela()
+        #self.cria_tela()
         self.todas_as_sprites = pygame.sprite.Group()
         self.instancia_entidades_da_partida()
         self.reproduzir_musica_start()
-        self.iniciar_jogo()
+        self.iniciar_partida()
 
     def reproduzir_musica_start(self):
         pygame.mixer.music.load(os.path.join(get_path('audios', constantes.MUSICA_START)))
@@ -144,7 +144,36 @@ class Match:
 
 
     def conferir_condicoes_de_fim(self):
-        if self.mapa.acabaram_as_bolinhas() or len(self.grupo_pacmans):
+        if self.mapa.acabaram_as_bolinhas() or len(self.grupo_pacmans) == 0 or self.player.vidas == 0:
             return True
         else:
             return False
+
+    def instancia_sistema_de_colisoes(self):
+        self.colisoes = CollisionManager(self.mapa, self.grupo_ghostman, self.grupo_pacmans)
+
+    def instancia_mapa(self):
+        self.mapa = Mapa(mapa_1.mapa1)
+
+    def instancia_personagens(self):
+        self.player = Ghostman()
+        self.pacman_1 = Pacman(120, 425)
+        self.pacman_2 = Pacman(750, 425)
+        self.pacman_3 = Pacman(150, 425)
+        self.pacman_4 = Pacman(770, 425)
+
+        self.grupo_ghostman = pygame.sprite.Group()
+        self.grupo_pacmans = pygame.sprite.Group()
+
+        self.todas_as_sprites.add(self.pacman_1)
+        self.todas_as_sprites.add(self.pacman_2)
+        self.todas_as_sprites.add(self.pacman_3)
+        self.todas_as_sprites.add(self.pacman_4)
+        self.todas_as_sprites.add(self.player)
+
+        self.grupo_pacmans.add(self.pacman_1)
+        self.grupo_pacmans.add(self.pacman_2)
+        self.grupo_pacmans.add(self.pacman_3)
+        self.grupo_pacmans.add(self.pacman_4)
+
+        self.grupo_ghostman.add(self.player)
